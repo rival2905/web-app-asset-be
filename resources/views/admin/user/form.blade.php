@@ -181,6 +181,20 @@
                             placeholder="Masukkan Konfirmasi Password" class="form-control" @if ($action == 'store') required @endif>
                     </div>
                     <div class="col-md-6" id="jabatan_choices">
+                        <label class="form-label" for="jabatan">Unit</label>
+                        <select id="jabatan" name="jabatan" class="form-select jabatan_choices" required onchange="changeOptionJabatan()" required>
+                            <option value="">Select</option>
+                            @foreach ($positions as $position)
+                            <option value="{{ $position }}" @if($position == @$data->jabatan) selected @endif>{{ $position }}</option>
+                            @endforeach
+                        </select>
+                        @error('jabatan')
+                            <div class="invalid-feedback" style="display: block">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="col-md-6" id="jabatan_choices">
                         <label class="form-label" for="jabatan">Jabatan</label>
                         <select id="jabatan" name="jabatan" class="form-select jabatan_choices" required onchange="changeOptionJabatan()" required>
                             <option value="">Select</option>
@@ -195,57 +209,6 @@
                         @enderror
                     </div>
                     
-                    <div class="col-md-6">
-                        <label class="form-label" for="bidang">Bidang</label>
-                        <input class="form-control" list="datalistOptions" value="{{ old('bidang', @$data->bidang) }}" id="bidang" name="bidang" placeholder="Bidang ..." required>
-                        <datalist id="datalistOptions">
-                            @foreach ($fields as $field)
-                                <option value="{{ $field->bidang }}" >
-                            @endforeach
-                        </datalist>
-                        @error('bidang')
-                            <div class="invalid-feedback" style="display: block">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                    @if (Auth::user()->id == 0 || Auth::user()->id == 3422)
-                    <div class="col-md-12">
-                        <label class="form-label">Role</label>
-                        <select id="role" name="role" class=" form-select">
-                            <option value="">Select</option>
-                            @foreach ($roles as $role)
-                                <option value="{{ $role }}" @if($role == @$data->role) selected @endif>{{ $role }}</option>
-                            @endforeach
-                        </select>
-                        @error('role')
-                            <div class="invalid-feedback" style="display: block">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>    
-                    @endif
-                    <div class="col-md-12" id="uptd_choices">
-                        <label class="form-label" for="uptd">UPTD</label>
-                        <select id="uptd" name="uptd_id" class=" form-select uptd_choices" required onchange="changeOptionUPTD()">
-                            <option value="">Select</option>
-                            @foreach ($uptds as $uptd)
-                                <option value="{{ $uptd }}" @if($uptd == @$data->uptd_id) selected @endif>UPTD Pengelolaan Jalan dan Jembatan Wilayah Pelayanan {{ $uptd }}</option>
-                                
-                            @endforeach
-                            {{-- <option value="1" @if(1 == @$data->uptd_id) selected @endif>UPTD Pengelolaan Jalan dan Jembatan Wilayah Pelayanan I</option>
-                            <option value="2" @if(2 == @$data->uptd_id) selected @endif>UPTD Pengelolaan Jalan dan Jembatan Wilayah Pelayanan II</option>
-                            <option value="3" @if(3 == @$data->uptd_id) selected @endif>UPTD Pengelolaan Jalan dan Jembatan Wilayah Pelayanan III</option>
-                            <option value="4" @if(4 == @$data->uptd_id) selected @endif>UPTD Pengelolaan Jalan dan Jembatan Wilayah Pelayanan IV</option>
-                            <option value="5" @if(5 == @$data->uptd_id) selected @endif>UPTD Pengelolaan Jalan dan Jembatan Wilayah Pelayanan V</option>
-                            <option value="6" @if(6 == @$data->uptd_id) selected @endif>UPTD Pengelolaan Jalan dan Jembatan Wilayah Pelayanan VI</option> --}}
-                        </select>
-                        @error('uptd_id')
-                            <div class="invalid-feedback" style="display: block">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
                     @if (Auth::user()->id == 0 || Auth::user()->id == 3422)
                     
                     <div class="col-md-12">
@@ -280,35 +243,6 @@
                                         @endforeach
                                     </select>
                                     @error('data-ksppj')
-                                        <div class="invalid-feedback" style="display: block">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-
-                                <div id="form-pengamat" class="col-md-12">
-                                    <label class="form-label" for="data_pengamat">Pengamat</label>
-                                    <select id="data_pengamat" name="data_pengamat" class="form-select">
-                                        <option value="">Select</option>
-                                        @foreach ($data_pengamat as $pengamat)
-                                        <option value="{{ $pengamat->id }}" @if($pengamat->id == @$data->pengamat_id) selected @endif>{{ $pengamat->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('data-pengamat')
-                                        <div class="invalid-feedback" style="display: block">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                                <div id="form-mandor" class="col-md-12">
-                                    <label class="form-label" for="data_mandor">Mandor</label>
-                                    <select id="data_mandor" name="data_mandor" class="form-select">
-                                        <option value="">Select</option>
-                                        @foreach ($data_mandor as $mandor)
-                                        <option value="{{ $mandor->id }}" @if($mandor->id == @$data->mandor_id) selected @endif>{{ $mandor->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('data_mandor')
                                         <div class="invalid-feedback" style="display: block">
                                             {{ $message }}
                                         </div>
@@ -419,39 +353,7 @@
 {{-- <script src="{{ asset('assets/theme1/js/ui-modals.js')}}"></script> --}}
 
 <script>
-    val_jabatan = $("#jabatan_choices").find('.jabatan_choices').val()
-     
-    if (val_jabatan == 'Pekerja') {
-        $("#form-atasan").show();
-        $("#form-ksppj").show();
-        $("#form-pengamat").show();
-        $("#form-mandor").show();
-    } else if (val_jabatan == 'Pengamat'){
-        $("#form-atasan").show();
-        $("#form-ksppj").show();
-        $("#form-pengamat").hide();
-        $("#form-mandor").hide();
-    } else if (val_jabatan == 'Mandor'){
-        $("#form-atasan").show();
-        $("#form-ksppj").show();
-        $("#form-pengamat").show();
-        $("#form-mandor").hide();
-    } else if (val_jabatan == 'Operator/Supir'){
-        $("#form-atasan").show();
-        $("#form-ksppj").show();
-        $("#form-pengamat").show();
-        $("#form-mandor").hide();
-    } else if (val_jabatan == 'Mekanik'){
-        $("#form-atasan").show();
-        $("#form-ksppj").show();
-        $("#form-pengamat").show();
-        $("#form-mandor").hide();
-    }else {
-        $("#form-atasan").hide();
-        $("#form-ksppj").hide();
-        $("#form-pengamat").hide();
-        $("#form-mandor").hide();
-    }
+    
 
 
    
@@ -491,51 +393,6 @@
         option = 'name'
         value = 'id'
         setDataSelect(id, url, id_select, text, value, option)
-
-    }
-
-    function changeOptionJabatan() {
-        val = $("#jabatan_choices").find('.jabatan_choices').val()
-
-        // alert(val);
-        if (val == 'Pekerja') {
-            $("#form-atasan").show();
-            $("#form-ksppj").show();
-            $("#form-pengamat").show();
-            $("#form-mandor").show();
-        } else if (val == 'Pengamat'){
-            $("#form-atasan").show();
-            $("#form-ksppj").show();
-            $("#form-pengamat").hide();
-            $("#form-mandor").hide();
-        } else if (val == 'Mandor'){
-            $("#form-atasan").show();
-            $("#form-ksppj").show();
-            $("#form-pengamat").show();
-            $("#form-mandor").hide();
-        } else if (val == 'Operator/Supir'){
-            $("#form-atasan").show();
-            $("#form-ksppj").show();
-            $("#form-pengamat").show();
-            $("#form-mandor").hide();
-        } else if (val == 'Mekanik'){
-            $("#form-atasan").show();
-            $("#form-ksppj").show();
-            $("#form-pengamat").show();
-            $("#form-mandor").hide();
-        }else if (val == ''){
-            $("#form-atasan").hide();
-            $("#form-ksppj").hide();
-            $("#form-pengamat").hide();
-            $("#form-mandor").hide();
-        } else{
-            $("#form-atasan").hide();
-            $("#form-ksppj").hide();
-            $("#form-pengamat").hide();
-            $("#form-mandor").hide();
-        }
-
-        
     }
 </script>
 @endpush
