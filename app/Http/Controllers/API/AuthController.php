@@ -50,7 +50,7 @@ class AuthController extends Controller
 
         $allowLogin = [0, 1, 2, 3, 4, 5];
         if (!in_array($user->id, $allowLogin)) {
-            if ($request->version != "1.0.7" || $request->version != "1.0.7") {
+            if ($request->version != "1.0.1") {
                 return response()->json([
                     'status' => 'error',
                     'message' => 'Versi aplikasi tidak sesuai, silahkan update aplikasi'
