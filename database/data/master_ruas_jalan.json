@@ -1,0 +1,1502 @@
+[
+  {
+    "id_ruas_jalan": "345000",
+    "nama_ruas_jalan": "Garut - Bts. Garut/Tasikmalaya",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "285000",
+    "nama_ruas_jalan": "Wado (Sp. Kirisik) - Bts. Sumedang/Majalengka (Kirisik)",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "28811K",
+    "nama_ruas_jalan": "Jl. Cipeucang (Talaga)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "09713K",
+    "nama_ruas_jalan": "Jl. Siliwangi (Bekasi)",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "25913K",
+    "nama_ruas_jalan": "Jl. Kapten Tendean (Subang)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "37800K",
+    "nama_ruas_jalan": "Jl. Ahmad Yani (Sp. Laswi - Sp. Supratman) Kota Bandung",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "401000",
+    "nama_ruas_jalan": "Sp.3 Panenjoan - Sawahbera (Sp.3 Cijapati)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "19115K",
+    "nama_ruas_jalan": "Jl. Raya Sagaranten (Sagaranten)",
+    "uptd_id": 2
+  },
+  {
+    "id_ruas_jalan": "37700K",
+    "nama_ruas_jalan": "Jl. Laswi (Bandung)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "17011K",
+    "nama_ruas_jalan": "Jl. Gatot Subroto (Cimahi)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "288000",
+    "nama_ruas_jalan": "Talaga - Cikijing",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "352000",
+    "nama_ruas_jalan": "Cikajang - Pameungpeuk",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "258000",
+    "nama_ruas_jalan": "Sadang - Bts. Purwakarta/Subang",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "163000",
+    "nama_ruas_jalan": "Pangalengan - Cukul (Bts. Bandung/Garut)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "257000",
+    "nama_ruas_jalan": "Jl. Cagak - Bts. Subang/Sumedang (Cikaramas)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "162000",
+    "nama_ruas_jalan": "Banjaran - Pangalengan",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "19211K",
+    "nama_ruas_jalan": "Jl. Gudang (Sagaranten)",
+    "uptd_id": 2
+  },
+  {
+    "id_ruas_jalan": "250010",
+    "nama_ruas_jalan": "Lembang - Maribaya",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "171000",
+    "nama_ruas_jalan": "Nanjung - Patrol",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "20412K",
+    "nama_ruas_jalan": "Jl. Lawang Gintung (Bogor)",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "26112K",
+    "nama_ruas_jalan": "Jl. Mesjid Agung (Subang)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "347000",
+    "nama_ruas_jalan": "Singaparna - Bts. Kota/Kab. Tasikmalaya (Cikunir) Tasikmalaya",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "31012K",
+    "nama_ruas_jalan": "Jl. Merdeka Barat (Ciledug) (Jl. Jend. Suprapto)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "21014K",
+    "nama_ruas_jalan": "Jl. Kebon Pedes (Bogor)",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "37100K",
+    "nama_ruas_jalan": "Jl. Pajajaran (Sp. Pasirkaliki - Sp. Cicendo) Kota Bandung",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "192000",
+    "nama_ruas_jalan": "Sagaranten - Tegalbuleud",
+    "uptd_id": 2
+  },
+  {
+    "id_ruas_jalan": "164010",
+    "nama_ruas_jalan": "Cukul (Bts. Bandung/Garut) - Sp. Genteng",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "281000",
+    "nama_ruas_jalan": "Sumedang - Situraja",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "34513K",
+    "nama_ruas_jalan": "Jl. Jend. Sudirman (Garut)",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "25311K",
+    "nama_ruas_jalan": "Jl. Basuki Rahmat (Purwakarta)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "25312K",
+    "nama_ruas_jalan": "Jl. Kapten Halim (Purwakarta)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "10611K",
+    "nama_ruas_jalan": "Jl. Kopo (Sp. Jl. Peta - Bts. Kota/Kab. Bandung)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "311000",
+    "nama_ruas_jalan": "Ciledug - Losari (Jl. Let. Jen. D.I Panjaitan)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "19117K",
+    "nama_ruas_jalan": "Jl. Sarasa (Sukabumi)",
+    "uptd_id": 2
+  },
+  {
+    "id_ruas_jalan": "26511K",
+    "nama_ruas_jalan": "Jl. Kapten Hanafiah (Subang)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "251000",
+    "nama_ruas_jalan": "Lembang - Bts. Kab. Bandung/ Kab. Subang",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "37300K",
+    "nama_ruas_jalan": "Jl. Terusan Pasir Koja (Sp. Jamika - Sp. Soekarno-Hatta) Kota Bandung",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "31013K",
+    "nama_ruas_jalan": "Jl. Merdeka Utara (Ciledug) (Jl. Ki Bledug Jaya)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "31011K",
+    "nama_ruas_jalan": "Jl. Siliwangi (Ciledug) (Jl. P. Walang Sungsang)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "398010",
+    "nama_ruas_jalan": "Cikadu - Kebon Muncang - Bts. Kab. Bandung/Cianjur",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "19114K",
+    "nama_ruas_jalan": "Jl. Raya Baros (Sukabumi)",
+    "uptd_id": 2
+  },
+  {
+    "id_ruas_jalan": "404020",
+    "nama_ruas_jalan": "Warudoyong (Bts.Kab. Tasikmalaya/Ciamis) - Sp.3 Winduraja (Kawali)",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "17013K",
+    "nama_ruas_jalan": "Simpang Leuwigajah - Nanjung",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "34512K",
+    "nama_ruas_jalan": "Jl. Merdeka (Garut)",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "38600K",
+    "nama_ruas_jalan": "Jl. Aria Jipang (Bandung)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "283000",
+    "nama_ruas_jalan": "Sp. Kirisik (Wado) - Bts. Sumedang/Garut",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "234000",
+    "nama_ruas_jalan": "Selajambe - Cibogo - Cibeet",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "33111K",
+    "nama_ruas_jalan": "Jl. Garuda (Tasikmalaya)",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "233000",
+    "nama_ruas_jalan": "Cileungsi - Cibeet",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "301000",
+    "nama_ruas_jalan": "Parapatan - Leuwimunding",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "16111K",
+    "nama_ruas_jalan": "Jl. Moh. Toha (Sp. Jl. BKR - Bts. Kota/Kab. Bandung)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "29411K",
+    "nama_ruas_jalan": "Jl. Siliwangi (Jatibarang)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "341000",
+    "nama_ruas_jalan": "Jl. Gubernur Swaka (Tasikmalaya)",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "28912K",
+    "nama_ruas_jalan": "Jl. Raya Majalengka (Kadipaten )",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "34311K",
+    "nama_ruas_jalan": "Jl. Perintis Kemerdekaan (Tasikmalaya)",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "164030",
+    "nama_ruas_jalan": "Sp. Talegong (Sukamulya) - Cisewu - Sukarame - Rancabuaya (Palembuhan)",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "20414K",
+    "nama_ruas_jalan": "Jl. Empang - R. Saleh Sarief Bustaman (Bogor)",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "314000",
+    "nama_ruas_jalan": "Luragung - Cibingbin",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "28711K",
+    "nama_ruas_jalan": "Jl. Kh. Abdul Halim (Majalengka)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "240000",
+    "nama_ruas_jalan": "Rajamandala - Jbt. Citarum Lama",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "346010",
+    "nama_ruas_jalan": "Jl. Alternatif Kmp. Tenjowaringin (Salawu)",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "161000",
+    "nama_ruas_jalan": "Dayeuhkolot - Banjaran",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "343000",
+    "nama_ruas_jalan": "Tasikmalaya - Karangnunggal",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "26111K",
+    "nama_ruas_jalan": "Jl. S. Parman (Subang)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "28611K",
+    "nama_ruas_jalan": "Jl. Jend. Sudirman (Talaga)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "37600K",
+    "nama_ruas_jalan": "Jl. Pelajar Pejuang 45 (Bandung)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "36412K",
+    "nama_ruas_jalan": "Jl. Buah Batu (Sp.4 Pelajar Pejuang 45 - Sp.4 Soekarno Hatta)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "404010",
+    "nama_ruas_jalan": "Sp.3 Pamoyanan - Suryalaya - Warudoyong (Bts, Kab. Tasikmalaya/Ciamis)",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "296000",
+    "nama_ruas_jalan": "Bts. Majalengka/Cirebon - Cigasong",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "297000",
+    "nama_ruas_jalan": "Weru - Sumber/Jl. Fatahillah (Sumber)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "19116K",
+    "nama_ruas_jalan": "Jl. Pembangunan (Sukabumi)",
+    "uptd_id": 2
+  },
+  {
+    "id_ruas_jalan": "37500K",
+    "nama_ruas_jalan": "Jl. BKR (Bandung)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "38711K",
+    "nama_ruas_jalan": "Jl. Gasibu Barat (Bandung) / Jl. Majapahit (Bandung)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "299010",
+    "nama_ruas_jalan": "Mandirancan - Pakembangan",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "34612K",
+    "nama_ruas_jalan": "Jl. Pasar (Singaparna)",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "19311K",
+    "nama_ruas_jalan": "JL. LETKOL EDDIE SOEKARDI (BTS. KOTA/KAB. SUKABUMI - CIBOLANG )",
+    "uptd_id": 2
+  },
+  {
+    "id_ruas_jalan": "346000",
+    "nama_ruas_jalan": "Bts. Garut/Tasikmalaya - Singaparna",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "286000",
+    "nama_ruas_jalan": "Talaga - Bts. Majalengka/Sumedang (Kirisik)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "29211K",
+    "nama_ruas_jalan": "Jl. Jend. A. Yani (Jatibarang)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "28111K",
+    "nama_ruas_jalan": "Jl. Prabu Taji Malela (Sumedang)",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "16113K",
+    "nama_ruas_jalan": "Jl. Raya Banjaran (Banjaran)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "395000",
+    "nama_ruas_jalan": "Rajamandala - Cipeundeuy - Cikalongwetan",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "26114K",
+    "nama_ruas_jalan": "Jl. Raya Sukamelang (Subang)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "16311K",
+    "nama_ruas_jalan": "Jl. Raya Cisewu (Pangalengan)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "164020",
+    "nama_ruas_jalan": "Sp. Genteng - Sp. Talegong (Sukamulya)",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "331000",
+    "nama_ruas_jalan": "Tasikmalaya - Manonjaya Bts. Tasikmalaya/ Ciamis (Panaekan)",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "34515K",
+    "nama_ruas_jalan": "Jl. Ciledug (Garut)",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "193000",
+    "nama_ruas_jalan": "Sukabumi - Cikembar",
+    "uptd_id": 2
+  },
+  {
+    "id_ruas_jalan": "25313K",
+    "nama_ruas_jalan": "Jl. Wanayasa (Wanayasa)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "28112K",
+    "nama_ruas_jalan": "Jl. Raya Situraja (Situraja)",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "242000",
+    "nama_ruas_jalan": "Sp. Purwakarta - Jatiluhur",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "36411K",
+    "nama_ruas_jalan": "Jl. Terusan Buah Batu (Sp.4 Soekarno Hatta - Bts. Kota/Kab. Bandung)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "292000",
+    "nama_ruas_jalan": "Pekandangan - Jatibarang",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "230120",
+    "nama_ruas_jalan": "Jl. Raya Lemah Abang",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "291000",
+    "nama_ruas_jalan": "Bts. Majalengka/Indramayu - Jatibarang",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "274000",
+    "nama_ruas_jalan": "Cijelag - Bts. Sumedang/Indramayu",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "38200K",
+    "nama_ruas_jalan": "Jl. Cilamaya (Bandung)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "312000",
+    "nama_ruas_jalan": "Ciledug - Bts. Jateng (Bantarsari) (Jl. Kapten P. Tendean)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "394000",
+    "nama_ruas_jalan": "Patrol - Haurgeulis - Bantarwaru",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "398020",
+    "nama_ruas_jalan": "Bts. Kab. Bandung/Cianjur - Pondok Datar",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "39000K",
+    "nama_ruas_jalan": "Jl. Sultan Agung (Sumber)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "29213K",
+    "nama_ruas_jalan": "Jl. Ir. Sutami",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "22411K",
+    "nama_ruas_jalan": "Jl. Ir. H. Juanda (Bekasi)",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "28712K",
+    "nama_ruas_jalan": "Jl. Jend A. Yani (Talaga)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "298000",
+    "nama_ruas_jalan": "Sumber - Mandirancan (Jl. P. Kejaksan, Sumber)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "16112K",
+    "nama_ruas_jalan": "Jl. Raya Dayeuh Kolot (Dayeuhkolot)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "230000",
+    "nama_ruas_jalan": "Jl. Akses Cikarang Dryport",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "26113K",
+    "nama_ruas_jalan": "Jl. Oto Iskandardinata (Subang)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "34514K",
+    "nama_ruas_jalan": "Jl. Bratayuda (Garut)",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "19313K",
+    "nama_ruas_jalan": "Jl. Sejahtera (Sukabumi)",
+    "uptd_id": 2
+  },
+  {
+    "id_ruas_jalan": "34312K",
+    "nama_ruas_jalan": "Jl. Raya Karangnunggal (Karangnunggal)",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "19118K",
+    "nama_ruas_jalan": "Jl. Garuda (Sukabumi)",
+    "uptd_id": 2
+  },
+  {
+    "id_ruas_jalan": "230110",
+    "nama_ruas_jalan": "KH. R. Ma'mun Nawawi",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "34411K",
+    "nama_ruas_jalan": "Jl. Raya Cipatujah (Cipatujah)",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "19312",
+    "nama_ruas_jalan": "JL. LETKOL EDDIE SOEKARDI (AKSES PEMBANGUNAN - PELABUHAN II - BTS KOTA/KAB. SUKABUMI)",
+    "uptd_id": 2
+  },
+  {
+    "id_ruas_jalan": "342000",
+    "nama_ruas_jalan": "Cisumur - Garuda (Let Jen Mashudi)",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "30600K",
+    "nama_ruas_jalan": "Jl. Nyi Mas Ganda Sari (Kota Cirebon)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "294000",
+    "nama_ruas_jalan": "Karangampel - Jatibarang",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "348000",
+    "nama_ruas_jalan": "Kadungora (Leles) - Cibatu - Sasakbeusi",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "397000",
+    "nama_ruas_jalan": "Sp. Pancuh Tilu - Cikadu",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "18311K",
+    "nama_ruas_jalan": "Jl. Raya Sukanagara (Sukanagara)",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "38400K",
+    "nama_ruas_jalan": "Jl. Depan LAN (Bandung)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "391000",
+    "nama_ruas_jalan": "Waluran - Mareleng - Palangpang",
+    "uptd_id": 2
+  },
+  {
+    "id_ruas_jalan": "33212K",
+    "nama_ruas_jalan": "Bts. Ciamis/Banjar (Cimaragas) - Kota. Kota Banjar",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "19811K",
+    "nama_ruas_jalan": "Jl. Bhayangkara (Pelabuhan Ratu)",
+    "uptd_id": 2
+  },
+  {
+    "id_ruas_jalan": "30812K",
+    "nama_ruas_jalan": "Jl. Raya Ciawigebang (Ciawigebang)",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "35012K",
+    "nama_ruas_jalan": "Jl. Cimanuk (Garut)",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "392010",
+    "nama_ruas_jalan": "Sp.3 Loji (Tegalnyampai - Cibutun)",
+    "uptd_id": 2
+  },
+  {
+    "id_ruas_jalan": "396000",
+    "nama_ruas_jalan": "Simpang Muara Cikadu - Sp. Pancuh Tilu",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "241000",
+    "nama_ruas_jalan": "Jbt. Citarum Lama - Cihaur Wangi/Cipeuyeum",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "19312K",
+    "nama_ruas_jalan": "Jl. Raya Pelabuhan II (Sukabumi)",
+    "uptd_id": 2
+  },
+  {
+    "id_ruas_jalan": "344000",
+    "nama_ruas_jalan": "Karangnunggal - Cipatujah",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "28812K",
+    "nama_ruas_jalan": "Jl. Kasturi ( Cikijing )",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "29011K",
+    "nama_ruas_jalan": "Jl. Pasar Balong (Kadipaten)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "273000",
+    "nama_ruas_jalan": "Lebakjati - Rancakalong - Selaawi",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "302000",
+    "nama_ruas_jalan": "Parapatan - Budur",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "287000",
+    "nama_ruas_jalan": "Majalengka - Talaga",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "28911K",
+    "nama_ruas_jalan": "Jl. Kh. Abdul Halim (Majalengka)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "29212K",
+    "nama_ruas_jalan": "Jl. Mayor Dasuki (Jatibarang)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "244000",
+    "nama_ruas_jalan": "Bts. Karawang/Purwakarta (Curug) - Purwakarta",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "33211K",
+    "nama_ruas_jalan": "Jl. Perintis Kemerdekaan (Banjar)",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "199000",
+    "nama_ruas_jalan": "Sp.Karanghawu - Bts. Prop. Banten (Cikotok)",
+    "uptd_id": 2
+  },
+  {
+    "id_ruas_jalan": "198000",
+    "nama_ruas_jalan": "Cibadak - Cikidang - Pelabuhan Ratu",
+    "uptd_id": 2
+  },
+  {
+    "id_ruas_jalan": "393000",
+    "nama_ruas_jalan": "Kalijati - Sukamandi",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "351000",
+    "nama_ruas_jalan": "Garut - Cikajang",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "289000",
+    "nama_ruas_jalan": "Majalengka - Kadipaten",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "350000",
+    "nama_ruas_jalan": "Bts. Bandung/Garut - Garut",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "247000",
+    "nama_ruas_jalan": "Bts. Cimahi - Cisarua - Lembang",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "315000",
+    "nama_ruas_jalan": "Cibingbin - Batas Jateng (Penanggapan)",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "203000",
+    "nama_ruas_jalan": "Bts. Tangerang/Bogor - Parung",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "097010",
+    "nama_ruas_jalan": "Cileungsi - Cibinong (Citeureup)",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "30811K",
+    "nama_ruas_jalan": "Jl. RE. Martadinata (Kuningan)",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "35011K",
+    "nama_ruas_jalan": "Jl. Otista (Garut)",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "34012K",
+    "nama_ruas_jalan": "Jl. Brigjen Wasita Kusumah",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "332000",
+    "nama_ruas_jalan": "Bts. Ciamis/Tasikmalaya Panaekan - Bts. Ciamis/Banjar (Cimaragas)",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "38000K",
+    "nama_ruas_jalan": "Jl. W. R. Supratman (Bandung)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "36511K",
+    "nama_ruas_jalan": "Jl. Raya Laswi (Ciparay)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "309000",
+    "nama_ruas_jalan": "Ciawigebang - Bts. Cirebon/Kuningan (Waled)",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "308000",
+    "nama_ruas_jalan": "Kuningan - Ciawigebang",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "392000",
+    "nama_ruas_jalan": "Palangpang - Puncak Darma",
+    "uptd_id": 2
+  },
+  {
+    "id_ruas_jalan": "243000",
+    "nama_ruas_jalan": "Kesambi - Bts. Karawang/Purwakarta (Curug)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "38900K",
+    "nama_ruas_jalan": "Jl. Pangeran Cakrabuana (Sumber)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "365000",
+    "nama_ruas_jalan": "Sp. Munjul - Ciparay (Jl. Sp. Munjul - Jl. Raya Laswi Ciparay)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "339000",
+    "nama_ruas_jalan": "Kalipucang - Majingklak",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "195000",
+    "nama_ruas_jalan": "Cikembar - Jampang Tengah",
+    "uptd_id": 2
+  },
+  {
+    "id_ruas_jalan": "24912K",
+    "nama_ruas_jalan": "Jl. Sukajadi (Bandung)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "400000",
+    "nama_ruas_jalan": "Cipamokolan (Bts. Kota Bandung/Jbt. Tol) - Sp. Manirancan - Jl. Lingkar Luar Majalaya",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "194000",
+    "nama_ruas_jalan": "Cikembar - Cikembang",
+    "uptd_id": 2
+  },
+  {
+    "id_ruas_jalan": "391020",
+    "nama_ruas_jalan": "Tegalloa (Loji) - Baged/Jagatamu (Bts. Kab. Karawang/Bogor)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "405000",
+    "nama_ruas_jalan": "Jl. Bandara Nusawiru",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "232000",
+    "nama_ruas_jalan": "Tanjungpura - Batujaya (Bts. Bekasi/Karawang)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "293000",
+    "nama_ruas_jalan": "Jl. Letnan Joni (Jatibarang)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "24711K",
+    "nama_ruas_jalan": "Jl. Kolonel Masturi (Cimahi)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "19314K",
+    "nama_ruas_jalan": "Jl. Cemerlang (Sukabumi)",
+    "uptd_id": 2
+  },
+  {
+    "id_ruas_jalan": "29511K",
+    "nama_ruas_jalan": "Jl. Dewi Sartika (Sumber)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "402000",
+    "nama_ruas_jalan": "Parakan Muncang - Sp.3 Panenjoan",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "299020",
+    "nama_ruas_jalan": "Pakembangan - Bojong (Jl. Linggarjati)",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "25211K",
+    "nama_ruas_jalan": "Jl. Jend. A. Yani (Subang)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "365020",
+    "nama_ruas_jalan": "Bojong Soang - Sp. Munjul (Jl. Siliwangi)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "18211K",
+    "nama_ruas_jalan": "Jl. Raya Cibeber (Cibeber)",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "38500K",
+    "nama_ruas_jalan": "Jl. Cilaki (Bandung)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "197000",
+    "nama_ruas_jalan": "Sp. Surade - Ujunggenteng",
+    "uptd_id": 2
+  },
+  {
+    "id_ruas_jalan": "355000",
+    "nama_ruas_jalan": "Sumadra - Bungbulang",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "300000",
+    "nama_ruas_jalan": "Leuwimunding - Rajagaluh",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "34611K",
+    "nama_ruas_jalan": "Jl. Raya Singaparna (Singaparna)",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "22412K",
+    "nama_ruas_jalan": "Jl. Perjuangan (Kota Bekasi)",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "275000",
+    "nama_ruas_jalan": "Bts. Sumedang/Indramayu - Cikamurang",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "34011K",
+    "nama_ruas_jalan": "Jl. Ir. H. Juanda (Tasikmalaya)",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "216000",
+    "nama_ruas_jalan": "Pondok Rajeg - Jl. Harapan Jaya (Cibinong)",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "38300K",
+    "nama_ruas_jalan": "Jl. Cimandiri (Bandung)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "29512K",
+    "nama_ruas_jalan": "Jl. Nyi. Ageng Serang (Sumber)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "215000",
+    "nama_ruas_jalan": "Sp. Jl. Tole Iskandar - Pondok Rajeg (Bts. Depok/Bogor)",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "246000",
+    "nama_ruas_jalan": "Padalarang (Sp.3 Stasion) - Sp. Cisarua",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "245000",
+    "nama_ruas_jalan": "Sp. Orion - Cihaliwung",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "183000",
+    "nama_ruas_jalan": "Cibeber - Sukanagara",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "182000",
+    "nama_ruas_jalan": "Sp3. Perintis Kemerdekaan (Pasir Hayam) - Cibeber",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "231000",
+    "nama_ruas_jalan": "Cibarusah - Cibucil",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "353000",
+    "nama_ruas_jalan": "Kiarakohok (Sp. Cilauteureun) - Cilauteureun",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "305000",
+    "nama_ruas_jalan": "Tegalgubug - Arjawinangun - Jagapura (Bts. Cirebon/Indramayu (Gopala))",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "391010",
+    "nama_ruas_jalan": "Palumbonsari - Johar - Tegalloa (Loji)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "304000",
+    "nama_ruas_jalan": "Mundu - Gopala (Mundu - Bts. Indramayu/Cirebon)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "392030",
+    "nama_ruas_jalan": "Balewer - Puncak Darma",
+    "uptd_id": 2
+  },
+  {
+    "id_ruas_jalan": "18411K",
+    "nama_ruas_jalan": "Jl. Raya Sukanagara (Sindangbarang)",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "367000",
+    "nama_ruas_jalan": "Majalaya (Sp.3 Jl. Cikareo/Jl. Tengah) - Sawahbera (Sp.3 Cijapati) - Bts. Bdg/Garut (Cijapati)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "21312K",
+    "nama_ruas_jalan": "Jl. Dewi Sartika (Depok)",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "30711K",
+    "nama_ruas_jalan": "Jl. Ariodinoto (Kota Cirebon)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "196000",
+    "nama_ruas_jalan": "Jampang Tengah - Kiaradua",
+    "uptd_id": 2
+  },
+  {
+    "id_ruas_jalan": "097000",
+    "nama_ruas_jalan": "Narogong - Cileungsi",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "184000",
+    "nama_ruas_jalan": "Sukanagara - Sindangbarang",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "392020",
+    "nama_ruas_jalan": "Cibutun - Balewer",
+    "uptd_id": 2
+  },
+  {
+    "id_ruas_jalan": "295000",
+    "nama_ruas_jalan": "Sumber - Bts. Majalengka/Cirebon (Jl. Imam Bonjol)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "24911K",
+    "nama_ruas_jalan": "Jl. Pasir Kaliki (Sp. Pasteur - Sp. Sukajadi/Eykman) Kota Bandung",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "38712K",
+    "nama_ruas_jalan": "Jl. Sentot Alibasyah (Bandung)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "38800K",
+    "nama_ruas_jalan": "Jl. Kalitanjung (Kota Cirebon)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "290000",
+    "nama_ruas_jalan": "Kadipaten (Jl. Pasar Balong) - Bts. Majalengka/Indramayu",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "34013K",
+    "nama_ruas_jalan": "Jl. Letnan Harun",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "36512K",
+    "nama_ruas_jalan": "Jl. Raya Laswi (sd. Sp.3 Jl. Cikareo/Jl. Tengah), Majalaya",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "266000",
+    "nama_ruas_jalan": "Cikamurang - Bantarwaru (Bts. Kab. Subang/Indramayu)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "36900K",
+    "nama_ruas_jalan": "Jl. Cicendo (Sp. Pajajaran - Sp. Kebon Kawung) Kota Bandung",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "26011K",
+    "nama_ruas_jalan": "Jl. H. Ikhsan (Pamanukan)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "252000",
+    "nama_ruas_jalan": "Subang - Bts. Kab. Bandung/ Kab. Subang",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "365010",
+    "nama_ruas_jalan": "Jl. Terusan Buahbatu (Bts. Kota/Kab. Bandung - Bojongsoang",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "21411K",
+    "nama_ruas_jalan": "Jl. Siliwangi (Depok)",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "260000",
+    "nama_ruas_jalan": "Pamanukan - Pagaden",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "24411K",
+    "nama_ruas_jalan": "Jl. Pahlawan (Purwakarta)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "391030",
+    "nama_ruas_jalan": "Cariu - Jagatamu/Baged (Bts. Kab. Bogor/Karawang)",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "20211K",
+    "nama_ruas_jalan": "Jl. Moch. Toha (Parung Panjang)",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "24914K",
+    "nama_ruas_jalan": "Jl. Sukawangi (Bandung)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "216010",
+    "nama_ruas_jalan": "Jl. Harapan Jaya (Cibinong) -Bts. Kota Bogor (Kedunghalang)",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "202000",
+    "nama_ruas_jalan": "Parungpanjang - Bunar",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "30911K",
+    "nama_ruas_jalan": "Ciawigebang - Jalaksana",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "37400K",
+    "nama_ruas_jalan": "Jl. Peta (Bandung)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "35111K",
+    "nama_ruas_jalan": "Jl. Cimanuk (Garut)",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "23211K",
+    "nama_ruas_jalan": "Jl. Proklamasi (Karawang)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "106010",
+    "nama_ruas_jalan": "Bandung (Kopo) - Soreang",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "38100K",
+    "nama_ruas_jalan": "Jl. P. Diponegoro (Bandung)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "21011K",
+    "nama_ruas_jalan": "Jl. Ir. H. Juanda (Bogor)",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "303000",
+    "nama_ruas_jalan": "Budur - Susukan - Tegalgubug",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "40011K",
+    "nama_ruas_jalan": "Jl. Gedebage Selatan (Rel KA - Sp. Derwati - Bts Kota Bandung/Jbt.Tol)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "30713K",
+    "nama_ruas_jalan": "Jl. Pulasaren (Kota Cirebon)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "191000",
+    "nama_ruas_jalan": "Sukabumi (Baros) - Sagaranten",
+    "uptd_id": 2
+  },
+  {
+    "id_ruas_jalan": "254000",
+    "nama_ruas_jalan": "Wanayasa - Bts. Purwakarta/Subang",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "24800K",
+    "nama_ruas_jalan": "Jl. Pajajaran (Akses Bandara Husein Satranegara) Kota Bandung",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "24913K",
+    "nama_ruas_jalan": "Jl. Setiabudi (Bandung)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "284000",
+    "nama_ruas_jalan": "Malangbong - Bts. Garut/Sumedang",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "354000",
+    "nama_ruas_jalan": "Cikajang - Sumadra",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "26013K",
+    "nama_ruas_jalan": "Jl. Jend. A. Yani (Pagaden)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "25912K",
+    "nama_ruas_jalan": "Jl. Arief Rahman Hakim (Subang)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "09712K",
+    "nama_ruas_jalan": "Jl. Mayor Oking (Citeureup)",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "19111K",
+    "nama_ruas_jalan": "Jl. Jend. A. Yani (Sukabumi)",
+    "uptd_id": 2
+  },
+  {
+    "id_ruas_jalan": "25011K",
+    "nama_ruas_jalan": "Jl. Raya Lembang (Lembang)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "21611K",
+    "nama_ruas_jalan": "Bts. Kota Bogor (Kedunghalang) - Sp.3.Kedunghalang; Jl. Raya Pemda",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "21313K",
+    "nama_ruas_jalan": "Jl. Margonda Raya (Depok)",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "355010",
+    "nama_ruas_jalan": "Bungbulang - Sukarame",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "30712K",
+    "nama_ruas_jalan": "Jl. Kasepuhan (Kota Cirebon)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "368000",
+    "nama_ruas_jalan": "Kadungora (Leles) - Bts. Bandung/Garut (Cijapati)",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "403000",
+    "nama_ruas_jalan": "Parakan Muncang - Warung Simpang",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "37000K",
+    "nama_ruas_jalan": "Jl. Kebon Kawung (Sp. Cicendo - Sp. Pasirkaliki) Kota Bandung",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "259000",
+    "nama_ruas_jalan": "Bts. Purwakarta/Subang - Subang",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "30700K",
+    "nama_ruas_jalan": "Jl. Kesambi (Kota Cirebon)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "20411K",
+    "nama_ruas_jalan": "Jl. Siliwangi (Bogor)",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "26012K",
+    "nama_ruas_jalan": "Jl. Ion Martasasmita (Pamanukan)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "09711K",
+    "nama_ruas_jalan": "Jl. Kartini (Bekasi)",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "25911K",
+    "nama_ruas_jalan": "Jl. Mayjen. Sutoyo (Subang)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "310000",
+    "nama_ruas_jalan": "Bts. Cirebon/Kuningan (Waled) - Ciledug (Jl. Dewi Sartika)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "250000",
+    "nama_ruas_jalan": "Bts. Kota Bandung - Lembang",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "09112K",
+    "nama_ruas_jalan": "Jl. Siliwangi (Kuningan)",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "21013K",
+    "nama_ruas_jalan": "Jl. Pemuda (Bogor)",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "265000",
+    "nama_ruas_jalan": "Subang - Bantarwaru (Bts. Kab. Subang/Indramayu)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "267000",
+    "nama_ruas_jalan": "Jangga - Cikamurang",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "21412K",
+    "nama_ruas_jalan": "Jl. Tole Iskandar (Depok)",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "37200K",
+    "nama_ruas_jalan": "Jl. Pasir Kaliki (Sp. Kebonkawung - Sp. Pajajaran) Kota Bandung",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "35212K",
+    "nama_ruas_jalan": "Jl. Raya Pameungpeuk (Pameungpeuk)",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "30714K",
+    "nama_ruas_jalan": "Jl. Lawanggada (Kota Cirebon)",
+    "uptd_id": 6
+  },
+  {
+    "id_ruas_jalan": "253000",
+    "nama_ruas_jalan": "Purwakarta - Wanayasa",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "282000",
+    "nama_ruas_jalan": "Situraja - Darmaraja",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "19113K",
+    "nama_ruas_jalan": "Jl. Rh. Didi Sukardi (Sukabumi)",
+    "uptd_id": 2
+  },
+  {
+    "id_ruas_jalan": "25013K",
+    "nama_ruas_jalan": "Jl. Grand Hotel (Lembang)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "21012K",
+    "nama_ruas_jalan": "Jl. Jend. Sudirman (Bogor)",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "313000",
+    "nama_ruas_jalan": "Oleced - Luragung",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "256000",
+    "nama_ruas_jalan": "Sumedang - Bts. Sumedang/Subang (Cikaramas)",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "31311K",
+    "nama_ruas_jalan": "Jl. Raya Luragung (Luragung)",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "349000",
+    "nama_ruas_jalan": "Nagreg - Bts. Bandung/Garut",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "255000",
+    "nama_ruas_jalan": "Jl. Cagak - Bts. Purwakarta/Subang",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "09714K",
+    "nama_ruas_jalan": "Jl. Mayor Oking (Cibinong)",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "25914K",
+    "nama_ruas_jalan": "Jl. Dangdeur (Subang)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "261000",
+    "nama_ruas_jalan": "Pagaden - Subang",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "17012K",
+    "nama_ruas_jalan": "Jl. Baros (Cimahi)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "34511K",
+    "nama_ruas_jalan": "Jl. Suherman (Garut)",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "35211K",
+    "nama_ruas_jalan": "Jl. Raya Cikajang (Cikajang)",
+    "uptd_id": 4
+  },
+  {
+    "id_ruas_jalan": "20413K",
+    "nama_ruas_jalan": "Jl. Pahlawan (Bogor)",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "26014K",
+    "nama_ruas_jalan": "Jl. Raya Kamarung (Pagaden)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "19112K",
+    "nama_ruas_jalan": "Jl. Oto Iskandardinata (Sukabumi)",
+    "uptd_id": 2
+  },
+  {
+    "id_ruas_jalan": "25012K",
+    "nama_ruas_jalan": "Jl. Panorama (Lembang)",
+    "uptd_id": 3
+  },
+  {
+    "id_ruas_jalan": "000",
+    "nama_ruas_jalan": "Jl. Batu Tulis (Bogor)",
+    "uptd_id": 1
+  },
+  {
+    "id_ruas_jalan": "34701K",
+    "nama_ruas_jalan": "Bts. Kota/Kab. Tasikmalaya (Cikunir) - Tasikmalaya",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "347020",
+    "nama_ruas_jalan": "Singaparna - Bts. Kota/Kab. Tasikmalaya (Cikunir)",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "34301K",
+    "nama_ruas_jalan": "Tasikmalaya - Bts. Kota/Kab. Tasikmalaya (Sukaraja)",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "343020",
+    "nama_ruas_jalan": "Bts. Kota/Kab. Tasikmalaya (Sukaraja) - Karangnunggal",
+    "uptd_id": 5
+  },
+  {
+    "id_ruas_jalan": "290100",
+    "nama_ruas_jalan": "Jalan Akses Bandara Kertajati",
+    "uptd_id": 6
+  }
+]

@@ -1,0 +1,435 @@
+
+@extends('admin.layouts.app')
+@section('title')
+    Users  
+@parent
+@stop
+
+@push('links')
+
+<link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap5.css">
+
+{{-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"> --}}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/3.2.2/css/buttons.bootstrap5.css">
+@endpush
+
+@section('content')
+<!-- Content -->
+            
+<div class="container-xxl flex-grow-1 container-p-y">
+  <!-- Contextual Classes -->
+  <div class="row">
+    <div class="col-sm-12 col-md-12 col-xl-12">
+      <div class="card text-center">
+          <div class="card-body">
+              <h5 class="card-title">User</h5>
+              <div class="card-text mt-3">
+                <form class="needs-validation" enctype="multipart/form-data">  
+                  <div class="row">
+                      <div class="col-md-12" id="uptd_choices">
+                          <select id="uptd" name="uptd_id" class=" form-select uptd_choices" required>
+                              @foreach ($uptds as $uptd)
+                                  <option value="{{ $uptd }}" @if($uptd == @$filter['uptd_id']) selected @endif>UPTD Pengelolaan Jalan dan Jembatan Wilayah Pelayanan {{ $uptd }}</option>
+                              @endforeach
+                          </select>
+                          @error('uptd_id')
+                              <div class="invalid-feedback" style="display: block">
+                                  {{ $message }}
+                              </div>
+                          @enderror
+                      </div>
+                  </div>
+                 
+                  <div class="mt-6">
+                    <div class="row">
+                      <div class="d-grid col gap-2 mx-auto">
+                        <button class="btn btn-primary btn-sm" type="submit" formmethod="get" formaction="{{ route('admin.user.index') }}">Filter</button>
+                      </div>
+                      <div class="d-grid col gap-2 mx-auto">
+                        <button class="btn btn-secondary btn-sm" type="submit" formmethod="get" formaction="{{ route('admin.user.export') }}">Export</button>
+                      </div>
+                      <div class="d-grid col gap-2 mx-auto">
+                        <button class="btn btn-warning btn-sm" type="submit" formmethod="get" formaction="{{ route('admin.user.restore') }}">Restore</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </form>
+              </div>
+  
+          </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-12 col-xl-12">
+      <div class="card text-center">
+        <h5 class="card-title">Mandor/Pekerja/Mekanik/Operator/Supir</h5>
+        <div class="row">
+          <div class="col">
+            <h4>
+              <span class="badge bg-success">
+                <i class="menu-icon tf-icons bx bx-check-shield"></i> {{ $temp_pekerja['verified'] }} Verified
+              </span>
+            </h4>
+          </div>
+          <div class="col">
+            <h4>
+              <span class="badge bg-danger">
+                <i class="menu-icon tf-icons bx bx-shield-x"></i> {{ $temp_pekerja['unverified'] }} Unverified
+              </span>
+            </h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h5 class="card-header">Data User UPTD Pengelolaan Jalan dan Jembatan Wilayah Pelayanan {{ @$filter['uptd_id'] }}</h5>
+    <div class="table-responsive text-wrap">
+      <table id="example" class="table">
+        <thead>
+          <tr>
+            <th>Nama</th>
+            <th>Identitas</th>
+            <th>Jabatan</th>
+            @if (Auth::user()->id == 0)
+              
+            <th>Atasan</th>
+            @endif
+            <th>Verified</th>
+            @if (Auth::user()->role == 'pengamat' || Auth::user()->role == 'admin' || Auth::user()->role == 'admin-pusat' || Auth::user()->id == 0 || Auth::user()->id == 3422)
+            <th>Actions</th>
+            @endif
+          </tr>
+        </thead>
+        <tbody class="table-border-bottom-0">
+          @foreach ($users as $data)
+          <tr class="table-default">
+            <td>
+              {{-- <i class="bx bxl-sketch bx-md text-warning me-4"></i>  --}}
+              {{-- @if ($data->avatar)
+              <img src="{{ asset('/storage/foto_absensi/masuk/'.$data->avatar) }}" alt="Avatar" class="rounded-circle avatar avatar-xs pull-up" />
+              @else
+              <img src="{{ asset('assets/theme1/img/avatars/def.png')}}" alt="Avatar" class="rounded-circle avatar avatar-xs pull-up" />
+              @endif --}}
+              @if ($data->account_verified_at)
+              <img src="{{ asset('assets/theme1/img/avatars/verified.png')}}" alt="Avatar" class="rounded-circle avatar avatar-xs pull-up" />
+              @else
+              <img src="{{ asset('assets/theme1/img/avatars/unverified.png')}}" alt="Avatar" class="rounded-circle avatar avatar-xs pull-up" />
+
+              @endif
+              <span>
+                {{ $data->name }}
+              </span>
+            </td>
+            <td>
+              @if ($data->nik){{ $data->nik }}<br>@endif
+              @if ($data->nip){{ $data->nip }}<br>@endif
+              @if ($data->email){{ $data->email }}<br>@endif
+
+            </td>
+            <td>
+              {{ @$data->jabatan }}
+            </td>
+            @if (Auth::user()->id == 0)
+              
+              <td>
+                @if (@$data->mandor_id)
+                Mandor : {{ @$data->mandor->name }}
+                @endif
+                {{-- 
+                @if ($data->mandor_id && $data->pengamat_id)
+                  <br>
+                @endif
+                @if (@$data->pengamat_id)
+                Pengamat : {{ @$data->pengamat->name }}
+                @endif --}}
+              </td>
+            @endif
+            <td>
+              {{ @$data->account_verified_at }}
+            </td>
+            @if (Auth::user()->role == 'pengamat' || Auth::user()->role == 'admin' || Auth::user()->role == 'admin-pusat' || Auth::user()->id == 0 || Auth::user()->id == 3422)
+            <td>
+              <div class="dropdown">
+                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                  <i class="bx bx-dots-vertical-rounded"></i>
+                </button>
+                <div class="dropdown-menu">
+                  @if (Auth::user()->id == 0 || Auth::user()->id == 3422)
+
+                  <a class="dropdown-item" href="{{ route('admin.user.edit', Crypt::encryptString($data->id)) }}">
+                  {{-- <a class="dropdown-item" href="{{ route('admin.user.edit', $data->id) }}"> --}}
+
+                    <i class="bx bx-edit-alt me-1"></i> Edit/Verifikasi
+                  </a>
+                  @endif
+                  {{-- @if (Auth::user()->id == 0) --}}
+                  @if (Auth::user()->role == 'admin' || Auth::user()->role == 'admin-pusat')
+
+                    <button onClick="Delete(this.id)" id="{{ $data->id }}" class="dropdown-item">
+                      <i class="bx bx-trash me-1"></i> 
+                      Delete
+                    </button>
+                      
+                    @endif
+                    @if (Auth::user()->role == 'pengamat' || Auth::user()->role == 'admin' || Auth::user()->role == 'admin-pusat')
+                    @if ($data->device_id)
+                    <button onClick="Reset(this.id)" id="{{ $data->id }}" class="dropdown-item">
+                      <i class="bx bx-phone-off me-1"></i> 
+                      Reset Device
+                    </button>
+                    @endif
+                  @endif
+
+                </div>
+              </div>
+            </td>
+            @endif
+          </tr>
+          @endforeach
+          
+          {{-- <tr class="table-dark">
+            <td class="rounded-start-bottom">
+              <i class="bx bxl-bootstrap bx-md text-primary me-4"></i> <span>Bootstrap UI</span>
+            </td>
+            <td>Jerry Milton</td>
+            <td>
+              <ul class="list-unstyled m-0 avatar-group d-flex align-items-center">
+                <li
+                  data-bs-toggle="tooltip"
+                  data-popup="tooltip-custom"
+                  data-bs-placement="top"
+                  class="avatar avatar-xs pull-up"
+                  title="Lilian Fuller">
+                  <img src="{{ asset('assets/theme1/img/avatars/5.png')}}" alt="Avatar" class="rounded-circle" />
+                </li>
+                <li
+                  data-bs-toggle="tooltip"
+                  data-popup="tooltip-custom"
+                  data-bs-placement="top"
+                  class="avatar avatar-xs pull-up"
+                  title="Sophia Wilkerson">
+                  <img src="{{ asset('assets/theme1/img/avatars/6.png')}}" alt="Avatar" class="rounded-circle" />
+                </li>
+                <li
+                  data-bs-toggle="tooltip"
+                  data-popup="tooltip-custom"
+                  data-bs-placement="top"
+                  class="avatar avatar-xs pull-up"
+                  title="Christina Parker">
+                  <img src="{{ asset('assets/theme1/img/avatars/7.png')}}" alt="Avatar" class="rounded-circle" />
+                </li>
+              </ul>
+            </td>
+            <td><span class="badge bg-label-success me-1">Completed</span></td>
+            <td class="rounded-end-bottom">
+              <div class="dropdown">
+                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                  <i class="bx bx-dots-vertical-rounded"></i>
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="javascript:void(0);"
+                    ><i class="bx bx-edit-alt me-1"></i> Edit</a
+                  >
+                  <a class="dropdown-item" href="javascript:void(0);"
+                    ><i class="bx bx-trash me-1"></i> Delete</a
+                  >
+                </div>
+              </div>
+            </td>
+          </tr> --}}
+        </tbody>
+        <tfoot>
+          <tr>
+            <th>Nama</th>
+            <th>Identitas</th>
+            <th>Jabatan</th>
+            @if (Auth::user()->id == 0)
+            <th>Atasan</th>
+            @endif
+            <th>Verified</th>
+            @if (Auth::user()->role == 'pengamat' || Auth::user()->role == 'admin' || Auth::user()->role == 'admin-pusat' || Auth::user()->id == 0 || Auth::user()->id == 3422)
+
+            <th>Actions</th>
+            @endif
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+
+
+  
+
+  </div>
+  <!--/ Contextual Classes -->
+
+  <hr class="my-12" />
+</div>
+<!-- / Content -->
+@stop
+
+@push('scripts')
+
+  @if (Auth::user()->role == 'admin' || Auth::user()->role == 'admin-pusat')
+  <div class="buy-now">
+    <a
+      href="{{ route('admin.user.create') }}"
+        {{-- target="_blank" --}}
+        class="btn btn-danger btn-buy-now"
+      >
+      <i class="menu-icon tf-icons bx bx-plus"></i>
+
+      Create User
+    </a>
+  </div>
+  @endif
+
+  {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script> --}}
+  <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+  <script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap5.js"></script>
+
+<script src="https://cdn.datatables.net/buttons/3.2.2/js/dataTables.buttons.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.bootstrap5.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.print.min.js"></script>
+
+  <script>
+  // $('#example').DataTable({
+  //   layout: {
+  //       topStart: {
+  //           buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
+  //       }
+  //   }
+  // });
+  new DataTable('#example');
+  </script>
+  <script>
+    
+    //ajax delete
+    function Delete(id)
+    {
+            var id = id;
+            var token = $("meta[name='csrf-token']").attr("content");
+
+            swal({
+                title: "APAKAH KAMU YAKIN ?",
+                text: "INGIN MENGHAPUS DATA INI!",
+                icon: "warning",
+                buttons: [
+                    'TIDAK',
+                    'YA'
+                ],
+                dangerMode: true,
+            }).then(function(isConfirm) {
+                if (isConfirm) {
+
+                    //ajax delete
+                    jQuery.ajax({
+                        url: "/admin/user/destroy/"+id,
+                        data:   {
+                            "id": id,
+                            "_token": token
+                        },
+                        type: 'DELETE',
+                        success: function (response) {
+                            if (response.status == "success") {
+                                swal({
+                                    title: 'BERHASIL!',
+                                    text: 'DATA BERHASIL DIHAPUS!',
+                                    icon: 'success',
+                                    timer: 1000,
+                                    showConfirmButton: false,
+                                    showCancelButton: false,
+                                    buttons: false,
+                                }).then(function() {
+                                    location.reload();
+                                });
+                            }else{
+                                swal({
+                                    title: 'GAGAL!',
+                                    text: 'DATA GAGAL DIHAPUS!',
+                                    icon: 'error',
+                                    timer: 1000,
+                                    showConfirmButton: false,
+                                    showCancelButton: false,
+                                    buttons: false,
+                                }).then(function() {
+                                    location.reload();
+                                });
+                            }
+                        }
+                    });
+
+                } else {
+                    return true;
+                }
+            })
+    }
+
+    function Reset(id)
+    {
+            var id = id;
+            var token = $("meta[name='csrf-token']").attr("content");
+
+            swal({
+                title: "APAKAH KAMU YAKIN ?",
+                text: "INGIN RESET DEVICE DATA INI!",
+                icon: "warning",
+                buttons: [
+                    'TIDAK',
+                    'YA'
+                ],
+                dangerMode: true,
+            }).then(function(isConfirm) {
+                if (isConfirm) {
+
+                    //ajax delete
+                    jQuery.ajax({
+                        url: "/admin/user/reset/"+id,
+                        data:   {
+                            "id": id,
+                            "_token": token
+                        },
+                        type: 'DELETE',
+                        success: function (response) {
+                            if (response.status == "success") {
+                                swal({
+                                    title: 'BERHASIL!',
+                                    text: 'DATA BERHASIL DIRESET!',
+                                    icon: 'success',
+                                    timer: 1000,
+                                    showConfirmButton: false,
+                                    showCancelButton: false,
+                                    buttons: false,
+                                }).then(function() {
+                                    location.reload();
+                                });
+                            }else{
+                                swal({
+                                    title: 'GAGAL!',
+                                    text: 'DATA GAGAL DIRESET!',
+                                    icon: 'error',
+                                    timer: 1000,
+                                    showConfirmButton: false,
+                                    showCancelButton: false,
+                                    buttons: false,
+                                }).then(function() {
+                                    location.reload();
+                                });
+                            }
+                        }
+                    });
+
+                } else {
+                    return true;
+                }
+            })
+    }
+  </script>
+@endpush
+
