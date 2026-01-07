@@ -43,7 +43,7 @@ class DinasLuarController extends Controller
             'kegiatan' => $request->kegiatan,
         ]);
 
-        $fcm_token = User::where('id', Auth::user()->pengamat_id)->first()->fcm_token;
+        $fcm_token = User::where('id', Auth::user()->ksppj_id)->first()->fcm_token ?? null;
         $title = 'Pengajuan Dinas Luar';
         $message = Auth::user()->name . ' Mengajukan Dinas Luar dengan tujuan ' . $request->tujuan;
         if ($fcm_token != null) {
