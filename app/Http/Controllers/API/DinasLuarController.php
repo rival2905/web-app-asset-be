@@ -39,7 +39,7 @@ class DinasLuarController extends Controller
             'type_dl' => $request->type_dl,
             'jam_mulai' => $request->jam_mulai,
             'jam_selesai' => $request->jam_selesai,
-            'tujuan' => $request->tujuan,
+            'tujuan' => $request->tujuan ?? 'WFA',
             'kegiatan' => $request->kegiatan,
         ]);
 
