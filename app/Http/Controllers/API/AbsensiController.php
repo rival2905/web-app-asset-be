@@ -25,11 +25,11 @@ class AbsensiController extends Controller
 
         if ($request->type == "Masuk" && !$absensi) {
 
-            if (Carbon::now()->greaterThanOrEqualTo(Carbon::parse(date("Y/m/d") . " 09:00:00"))) {
-                return response()->json([
-                    'message' => 'Absen hanya bisa dilakukan sebelum jam 9 pagi'
-                ], 403);
-            }
+            // if (Carbon::now()->greaterThanOrEqualTo(Carbon::parse(date("Y/m/d") . " 09:00:00"))) {
+            //     return response()->json([
+            //         'message' => 'Absen hanya bisa dilakukan sebelum jam 9 pagi'
+            //     ], 403);
+            // }
 
             Absensi::create([
                 'user_id' => Auth::user()->id,
