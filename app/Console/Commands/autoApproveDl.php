@@ -29,14 +29,16 @@ class autoApproveDl extends Command
         $data =  DinasLuar::where('status', 'Menunggu')->with('user')->get();
         $fcmService = new \App\Services\FcmService();
         foreach ($data as $dl) {
-            $dl->update([
-                'status' => 'Disetujui'
-            ]);
-            $fcm_token = $dl->user->fcm_token ?? null;
-            $title = 'Selamat Bertugas !';
-            $message = $dl->type_dl . ' Anda pada tanggal ' . $dl->tanggal_mulai . ' sampai ' . $dl->tanggal_selesai . ' telah disetujui';
-            if ($fcm_token != null) {
-                $fcmService->sendNotification($fcm_token, $title, $message);
+            if ($dl->created_at->addMinutes(5)->lessThanOrEqualTo(now())) {
+                $dl->update([
+                    'status' => 'Disetujui'
+                ]);
+                $fcm_token = $dl->user->fcm_token ?? null;
+                $title = 'Selamat Bertugas !';
+                $message = $dl->type_dl . ' Anda pada tanggal ' . $dl->tanggal_mulai . ' sampai ' . $dl->tanggal_selesai . ' telah disetujui';
+                if ($fcm_token != null) {
+                    $fcmService->sendNotification($fcm_token, $title, $message);
+                }
             }
         }
     }
