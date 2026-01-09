@@ -47,11 +47,11 @@ class AbsensiController extends Controller
                 'message' => 'Absen masuk berhasil'
             ]);
         } else if ($absensi->dinas_luar_id != null && $absensi->jam_masuk == null) {
-            if (Carbon::now()->greaterThanOrEqualTo(Carbon::parse(date("Y/m/d") . " 09:00:00"))) {
-                return response()->json([
-                    'message' => 'Absen hanya bisa dilakukan sebelum jam 9 pagi'
-                ], 403);
-            }
+            // if (Carbon::now()->greaterThanOrEqualTo(Carbon::parse(date("Y/m/d") . " 09:00:00"))) {
+            //     return response()->json([
+            //         'message' => 'Absen hanya bisa dilakukan sebelum jam 9 pagi'
+            //     ], 403);
+            // }
             $absensi->update([
                 'jam_masuk' => date("H:i:s"),
                 'lokasi_masuk' => $request->lokasi,

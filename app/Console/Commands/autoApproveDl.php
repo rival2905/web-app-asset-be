@@ -69,9 +69,8 @@ class autoApproveDl extends Command
                                 'tanggal'  => $tgl,
                             ],
                             [
-                                'keterangan'     => trim($dl->type_dl . ' - ' . ($dl->tujuan ?? 'WFA') . ' - ' . $dl->kegiatan),
+                                'keterangan'     => $dl->type_dl == "Work From Anywhere (WFA)" ? $dl->kegiatan : trim($dl->type_dl . ' - ' . ($dl->tujuan ?? 'WFA') . ' - ' . $dl->kegiatan),
                                 'dinas_luar_id'  => $dl->id,
-
                             ]
                         );
                     }
