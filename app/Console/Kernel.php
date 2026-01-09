@@ -12,7 +12,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('app:auto-approve-dl')->everyMinute();
+        $schedule->command('app:auto-approve-dl')->everyMinute()->appendOutputTo(storage_path('logs/auto_approve_dl.log'));
     }
 
     /**
