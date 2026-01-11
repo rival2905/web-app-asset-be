@@ -92,10 +92,6 @@
             <th>Nama</th>
             <th>Identitas</th>
             <th>Jabatan</th>
-            @if (Auth::user()->id == 0)
-              
-            <th>Atasan</th>
-            @endif
             <th>Verified</th>
             @if (Auth::user()->role == 'pengamat' || Auth::user()->role == 'admin' || Auth::user()->role == 'admin-pusat' || Auth::user()->id == 0 || Auth::user()->id == 3422)
             <th>Actions</th>
@@ -106,12 +102,6 @@
           @foreach ($users as $data)
           <tr class="table-default">
             <td>
-              {{-- <i class="bx bxl-sketch bx-md text-warning me-4"></i>  --}}
-              {{-- @if ($data->avatar)
-              <img src="{{ asset('/storage/foto_absensi/masuk/'.$data->avatar) }}" alt="Avatar" class="rounded-circle avatar avatar-xs pull-up" />
-              @else
-              <img src="{{ asset('assets/theme1/img/avatars/def.png')}}" alt="Avatar" class="rounded-circle avatar avatar-xs pull-up" />
-              @endif --}}
               @if ($data->account_verified_at)
               <img src="{{ asset('assets/theme1/img/avatars/verified.png')}}" alt="Avatar" class="rounded-circle avatar avatar-xs pull-up" />
               @else
@@ -131,21 +121,7 @@
             <td>
               {{ @$data->jabatan }}
             </td>
-            @if (Auth::user()->id == 0)
-              
-              <td>
-                @if (@$data->mandor_id)
-                Mandor : {{ @$data->mandor->name }}
-                @endif
-                {{-- 
-                @if ($data->mandor_id && $data->pengamat_id)
-                  <br>
-                @endif
-                @if (@$data->pengamat_id)
-                Pengamat : {{ @$data->pengamat->name }}
-                @endif --}}
-              </td>
-            @endif
+           
             <td>
               {{ @$data->account_verified_at }}
             </td>
@@ -188,66 +164,13 @@
             @endif
           </tr>
           @endforeach
-          
-          {{-- <tr class="table-dark">
-            <td class="rounded-start-bottom">
-              <i class="bx bxl-bootstrap bx-md text-primary me-4"></i> <span>Bootstrap UI</span>
-            </td>
-            <td>Jerry Milton</td>
-            <td>
-              <ul class="list-unstyled m-0 avatar-group d-flex align-items-center">
-                <li
-                  data-bs-toggle="tooltip"
-                  data-popup="tooltip-custom"
-                  data-bs-placement="top"
-                  class="avatar avatar-xs pull-up"
-                  title="Lilian Fuller">
-                  <img src="{{ asset('assets/theme1/img/avatars/5.png')}}" alt="Avatar" class="rounded-circle" />
-                </li>
-                <li
-                  data-bs-toggle="tooltip"
-                  data-popup="tooltip-custom"
-                  data-bs-placement="top"
-                  class="avatar avatar-xs pull-up"
-                  title="Sophia Wilkerson">
-                  <img src="{{ asset('assets/theme1/img/avatars/6.png')}}" alt="Avatar" class="rounded-circle" />
-                </li>
-                <li
-                  data-bs-toggle="tooltip"
-                  data-popup="tooltip-custom"
-                  data-bs-placement="top"
-                  class="avatar avatar-xs pull-up"
-                  title="Christina Parker">
-                  <img src="{{ asset('assets/theme1/img/avatars/7.png')}}" alt="Avatar" class="rounded-circle" />
-                </li>
-              </ul>
-            </td>
-            <td><span class="badge bg-label-success me-1">Completed</span></td>
-            <td class="rounded-end-bottom">
-              <div class="dropdown">
-                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                  <i class="bx bx-dots-vertical-rounded"></i>
-                </button>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="javascript:void(0);"
-                    ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                  >
-                  <a class="dropdown-item" href="javascript:void(0);"
-                    ><i class="bx bx-trash me-1"></i> Delete</a
-                  >
-                </div>
-              </div>
-            </td>
-          </tr> --}}
+        
         </tbody>
         <tfoot>
           <tr>
             <th>Nama</th>
             <th>Identitas</th>
             <th>Jabatan</th>
-            @if (Auth::user()->id == 0)
-            <th>Atasan</th>
-            @endif
             <th>Verified</th>
             @if (Auth::user()->role == 'pengamat' || Auth::user()->role == 'admin' || Auth::user()->role == 'admin-pusat' || Auth::user()->id == 0 || Auth::user()->id == 3422)
 
@@ -257,11 +180,6 @@
         </tfoot>
       </table>
     </div>
-
-
-
-  
-
   </div>
   <!--/ Contextual Classes -->
 

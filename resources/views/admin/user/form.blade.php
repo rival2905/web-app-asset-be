@@ -198,8 +198,8 @@
                         <label class="form-label" for="jabatan">Jabatan</label>
                         <select id="jabatan" name="jabatan" class="form-select jabatan_choices" required onchange="changeOptionJabatan()" required>
                             <option value="">Select</option>
-                            @foreach ($positions as $position)
-                            <option value="{{ $position }}" @if($position == @$data->jabatan) selected @endif>{{ $position }}</option>
+                            @foreach ($jabatans as $jabatan)
+                            <option value="{{ $jabatan }}" @if($jabatan == @$data->jabatan) selected @endif>{{ $jabatan }}</option>
                             @endforeach
                         </select>
                         @error('jabatan')
@@ -228,28 +228,19 @@
                         @enderror
                     </div>
 
-                    <div id="form-atasan" class="col-md-12 ">
-                        <div class="card ">
-                            <div class="card-header text-center">
-                              Pilih Atasan
+                    <div id="form-pengamat" class="col-md-12">
+                        <label class="form-label" for="data_pengamat">Pilih Atasan</label>
+                        <select id="data_pengamat" name="data_pengamat" class="form-select">
+                            <option value="">Select</option>
+                            @foreach ($data_pengamat as $pengamat)
+                            <option value="{{ $pengamat->id }}" @if($pengamat->id == @$data->pengamat_id) selected @endif>{{ $pengamat->jabatan }}({{ $pengamat->name }})</option>
+                            @endforeach
+                        </select>
+                        @error('data-pengamat')
+                            <div class="invalid-feedback" style="display: block">
+                                {{ $message }}
                             </div>
-                            <div class="card-body">
-                                <div id="form-ksppj" class="col-md-12">
-                                    <label class="form-label" for="data_ksppj">KSPPJ</label>
-                                    <select id="data_ksppj" name="data_ksppj" class="form-select">
-                                        <option value="">Select</option>
-                                        @foreach ($data_ksppj as $ksppj)
-                                        <option value="{{ $ksppj->id }}" @if($ksppj->id == @$data->ksppj_id) selected @endif>{{ $ksppj->jabatan }}({{ $ksppj->name }})</option>
-                                        @endforeach
-                                    </select>
-                                    @error('data-ksppj')
-                                        <div class="invalid-feedback" style="display: block">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
+                        @enderror
                     </div>
                     @endif
                 </div>

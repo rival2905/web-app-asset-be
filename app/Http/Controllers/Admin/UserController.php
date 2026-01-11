@@ -158,7 +158,7 @@ class UserController extends Controller
     {
         //
         $action = "store";
-        $positions = User::select('jabatan')->groupBy('jabatan')->pluck('jabatan')->toArray();
+        $positions = User::where('role','pengamat')->select('jabatan')->groupBy('jabatan')->pluck('jabatan')->toArray();
         if(Auth::user()->id != 0){
             $positions = array_diff($positions, array('Administrator'));
         }
@@ -170,27 +170,21 @@ class UserController extends Controller
         $fields = $fields->get();
         
         $locations = MasterLokasiKerja::latest();
-        $data_ksppj = User::where('role','ksppj');
         $data_pengamat = User::where('role','pengamat');
-        $data_mandor = User::where('role','mandor');
         if(Auth::user()->uptd_id){
             $locations = $locations->where('uptd_id',Auth::user()->uptd_id);
-            $data_ksppj = $data_ksppj->where('uptd_id',Auth::user()->uptd_id);
             $data_pengamat = $data_pengamat->where('uptd_id',Auth::user()->uptd_id);
-            $data_mandor = $data_mandor->where('uptd_id',Auth::user()->uptd_id);
 
             $uptds = array(Auth::user()->uptd_id);
         }else{
             $uptds = array(1, 2, 3, 4, 5, 6);
         }
-        $roles = array('pengamat', 'ksppj', 'subkoor', 'kuptd','pekerja','operator/supir', 'mandor','admin','admin-pusat');
+        $jabatans = array('Pengelola Umum Operasional','Operator Layanan Operasional', 'Pengelola Layanan Operasional','Penata Layanan Operasional');
 
         $locations = $locations->get();
-        $data_ksppj = $data_ksppj->get();
         $data_pengamat = $data_pengamat->get();
-        $data_mandor = $data_mandor->get();
 
-        return view('admin.user.form', compact('action','positions','fields','locations','data_ksppj','data_pengamat','data_mandor', 'uptds','roles'));
+        return view('admin.user.form', compact('action','positions','fields','locations','data_pengamat', 'uptds','jabatans'));
     }
 
     /**
@@ -209,9 +203,7 @@ class UserController extends Controller
             'nip'  => '',
             'jabatan'  => '',
             'bidang'  => '',
-            'data_ksppj'  => '',
             'data_pengamat'  => '',
-            'data_mandor'  => '',
         ]);
         $data = [
             'name'      => $request->input('name'),
@@ -222,20 +214,22 @@ class UserController extends Controller
             'bidang'     => $request->input('bidang'),
             'password'  => Hash::make($request->input('password')),
             'uptd_id'   => $request->input('uptd_id'),
-            'ksppj_id'   => $request->input('data_ksppj'),
-            'pengamat_id'   => $request->input('data_pengamat'),
-            'mandor_id'   => $request->input('data_mandor')
+            'pengamat_id'   => $request->input('data_pengamat')
 
         ];
+        $data_pengamat = User::find($request->input('data_pengamat'));
+        if($data_pengamat->uptd_id){
+            $data['uptd_id'] = $data_pengamat->uptd_id;
+        }
 
-        if($request->input('jabatan') == "Supir"){
+        if($request->input('jabatan') == "Pengelola Umum Operasional"){
             $data['role'] = "pekerja";
-        }else if($request->input('jabatan') == "Operator/Supir"){
+        }else if($request->input('jabatan') == "Operator Layanan Operasional"){
             $data['role'] = "pekerja";
-        }else if($request->input('jabatan') == "Mekanik"){
+        }else if($request->input('jabatan') == "Pengelola Layanan Operasional"){
             $data['role'] = "pekerja";
-        }else if($request->input('jabatan') == "Administrator"){
-            $data['role'] = "admin";
+        }else if($request->input('jabatan') == "Penata Layanan Operasional"){
+            $data['role'] = "pekerja";
         }else{
             // $data['role'] = Str::lower($request->input('jabatan'));
             if(Auth::user()->id == 0 || Auth::user()->id == 3422){
@@ -245,14 +239,8 @@ class UserController extends Controller
             }
         } 
 
-        if($request->input('data_ksppj') == "Choose..."){
-            $data['ksppj_id'] = null;
-        }
         if($request->input('data_pengamat') == "Choose..."){
             $data['pengamat_id'] = null;
-        }
-        if($request->input('data_mandor') == "Choose..."){
-            $data['mandor_id'] = null;
         }
         // dd($request->lokasi_kerja_id);
         if($request->file('avatar')) {
@@ -329,33 +317,23 @@ class UserController extends Controller
         $fields = $fields->get();
 
         $locations = MasterLokasiKerja::latest();
-        $data_ksppj = User::where('role','ksppj');
         $data_pengamat = User::where('role','pengamat');
-        $data_mandor = User::where('role','mandor');
         if(Auth::user()->uptd_id){
-            $locations = $locations->where('uptd_id',Auth::user()->uptd_id);
-            $data_ksppj = $data_ksppj->where('uptd_id',Auth::user()->uptd_id);
             $data_pengamat = $data_pengamat->where('uptd_id',Auth::user()->uptd_id);
-            $data_mandor = $data_mandor->where('uptd_id',Auth::user()->uptd_id);
 
             $uptds = array(Auth::user()->uptd_id);
         }else{
             $uptds = array(1, 2, 3, 4, 5, 6);
         }
         if($data->uptd_id){
-            $locations = $locations->where('uptd_id',$data->uptd_id);
-            $data_ksppj = $data_ksppj->where('uptd_id',$data->uptd_id);
+
             $data_pengamat = $data_pengamat->where('uptd_id',$data->uptd_id);
-            $data_mandor = $data_mandor->where('uptd_id',$data->uptd_id);
         }
-        $roles = array('pengamat', 'ksppj', 'subkoor', 'kuptd','pekerja','operator/supir', 'mandor','admin','admin-pusat');
-
         $locations = $locations->get();
-        $data_ksppj = $data_ksppj->get();
         $data_pengamat = $data_pengamat->get();
-        $data_mandor = $data_mandor->get();
+        $jabatans = array('Pengelola Umum Operasional','Operator Layanan Operasional', 'Pengelola Layanan Operasional','Penata Layanan Operasional');
 
-        return view('admin.user.form', compact('action','positions','fields','data','locations','data_ksppj','data_pengamat','data_mandor','uptds','roles'));
+        return view('admin.user.form', compact('action','positions','fields','data','locations','data_pengamat','uptds','jabatans'));
     }
 
     /**
@@ -386,20 +364,22 @@ class UserController extends Controller
             'jabatan'     => $request->input('jabatan'),
             'bidang'     => $request->input('bidang'),
             'uptd_id'   => $request->input('uptd_id'),
-            'ksppj_id'   => $request->input('data_ksppj'),
-            'pengamat_id'   => $request->input('data_pengamat'),
-            'mandor_id'   => $request->input('data_mandor')
+            'pengamat_id'   => $request->input('data_pengamat')
 
         ];
+        $data_pengamat = User::find($request->input('data_pengamat'));
+        if($data_pengamat->uptd_id){
+            $data['uptd_id'] = $data_pengamat->uptd_id;
+        }
         
-        if($request->input('jabatan') == "Supir"){
+        if($request->input('jabatan') == "Pengelola Umum Operasional"){
             $data['role'] = "pekerja";
-        }else if($request->input('jabatan') == "Operator/Supir"){
+        }else if($request->input('jabatan') == "Operator Layanan Operasional"){
             $data['role'] = "pekerja";
-        }else if($request->input('jabatan') == "Mekanik"){
+        }else if($request->input('jabatan') == "Pengelola Layanan Operasional"){
             $data['role'] = "pekerja";
-        }else if($request->input('jabatan') == "Administrator"){
-            $data['role'] = "admin";
+        }else if($request->input('jabatan') == "Penata Layanan Operasional"){
+            $data['role'] = "pekerja";
         }else{
             // $data['role'] = Str::lower($request->input('jabatan'));
             if(Auth::user()->id == 0 || Auth::user()->id == 3422){
@@ -408,15 +388,10 @@ class UserController extends Controller
                 return redirect()->route('admin.user.index')->with(['error' => 'Hubungi admin pusat untuk perubahan data tersebut!!']);
             }
         }
-        if($request->input('data_ksppj') == "Choose..."){
-            $data['ksppj_id'] = null;
-        }
         if($request->input('data_pengamat') == "Choose..."){
             $data['pengamat_id'] = null;
         }
-        if($request->input('data_mandor') == "Choose..."){
-            $data['mandor_id'] = null;
-        }
+
         // dd($data);
         if($request->input('password')) {
             $data['password'] = Hash::make($request->input('password'));
