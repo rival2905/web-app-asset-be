@@ -72,17 +72,31 @@ class RekapController extends Controller
 
     public function checkus(Request $request)
     {
-        $identifier = $request->input('email'); 
+        $identifier = $request->query('email');
+
+        if (!$identifier) {
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Parameter email/NIP tidak boleh kosong'
+            ], 400);
+        }
 
         $user = User::where('email', $identifier)
                     ->orWhere('nip', $identifier)
                     ->first();
 
-        if($user){
+        if ($user) {
             return response()->json([
-                'status' => 'success',
-                'data' => $user
-            ]);
+                'status'  => 'success',
+                'message' => 'User ditemukan',
+                'data'    => [
+                    'nama'  => $user->name, // atau $user->nama
+                    'email' => $user->email,
+                    'nip'   => $user->nip,
+                    'user_id'   => $user->id,
+                    // Tambahkan field lain yang dibutuhkan oleh view upload Anda
+                ]
+            ], 200);
         }else{
             $obj = (object) array('email' => $identifier);
             return response()->json([
