@@ -6,6 +6,7 @@ use App\Http\Controllers\API\DinasLuarController;
 use App\Http\Controllers\API\IzinController;
 use App\Http\Controllers\API\RuasJalanController;
 use App\Http\Controllers\API\UtilsController;
+use App\Http\Controllers\API\RekapController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
