@@ -160,23 +160,6 @@ class AbsensiController extends Controller
             return response()->json([
                 'message' => 'Absen masuk berhasil'
             ]);
-        } else if ($absensi->dinas_luar_id != null && $absensi->jam_masuk == null) {
-            // if (Carbon::now()->greaterThanOrEqualTo(Carbon::parse(date("Y/m/d") . " 09:00:00"))) {
-            //     return response()->json([
-            //         'message' => 'Absen hanya bisa dilakukan sebelum jam 9 pagi'
-            //     ], 403);
-            // }
-            $absensi->update([
-                'jam_masuk' => $request->jam,
-                'lokasi_masuk' => $request->lokasi,
-                'latitude_masuk' => $request->latitude,
-                'longitude_masuk' => $request->longitude,
-                'foto_masuk' => $nama_file,
-            ]);
-
-            return response()->json([
-                'message' => 'Absen masuk berhasil'
-            ]);
         } else if (\Carbon\Carbon::parse($request->jam)->greaterThan(\Carbon\Carbon::parse(Auth::user()->jam_keluar))) {
             $absensi->update([
                 'jam_keluar' => $request->jam,
