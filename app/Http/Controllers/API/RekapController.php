@@ -102,7 +102,7 @@ class RekapController extends Controller
             return response()->json([
                 'status' => 'failed',
                 'data' => $obj
-            ]);
+            ],400);
         }
         
     }
