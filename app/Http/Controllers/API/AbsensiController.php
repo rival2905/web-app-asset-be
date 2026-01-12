@@ -135,7 +135,7 @@ class AbsensiController extends Controller
         $nama_file = time() . "_" . $file->getClientOriginalName();
 
         $absensi = Absensi::where('user_id', $request->user_id)->where('tanggal', $request->tanggal)->latest()->first();
-
+        $user = User::find($request->user_id);
 
         if (!$absensi) {
 
@@ -153,14 +153,14 @@ class AbsensiController extends Controller
                 'latitude_masuk' => $request->latitude,
                 'longitude_masuk' => $request->longitude,
                 'foto_masuk' =>   $nama_file,
-                'keterangan' => \Carbon\Carbon::parse($request->jam)->greaterThan(\Carbon\Carbon::parse(Auth::user()->jam_masuk)) ? 'Terlambat' : 'Tepat Waktu'
+                'keterangan' => \Carbon\Carbon::parse($request->jam)->greaterThan(\Carbon\Carbon::parse($user->jam_masuk)) ? 'Terlambat' : 'Tepat Waktu'
             ]);
             Storage::putFileAs('public/foto_absensi/masuk/', $file, $nama_file);
-            // User::where('id', Auth::user()->id)->update(['avatar' => $nama_file]);
+            // User::where('id', $user->id)->update(['avatar' => $nama_file]);
             return response()->json([
                 'message' => 'Absen masuk berhasil'
             ]);
-        } else if (\Carbon\Carbon::parse($request->jam)->greaterThan(\Carbon\Carbon::parse(Auth::user()->jam_keluar))) {
+        } else if (\Carbon\Carbon::parse($request->jam)->greaterThan(\Carbon\Carbon::parse($user->jam_keluar))) {
             $absensi->update([
                 'jam_keluar' => $request->jam,
                 'lokasi_keluar' => $request->lokasi,
