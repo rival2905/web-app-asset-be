@@ -137,7 +137,7 @@ class AbsensiController extends Controller
         $absensi = Absensi::where('user_id', $request->user_id)->where('tanggal', $request->tanggal)->latest()->first();
 
 
-        if ($request->type == "Masuk" && !$absensi) {
+        if (!$absensi) {
 
             // if (Carbon::now()->greaterThanOrEqualTo(Carbon::parse($request->tanggal . " 09:00:00"))) {
             //     return response()->json([
