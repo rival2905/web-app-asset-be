@@ -132,7 +132,7 @@ class AbsensiController extends Controller
     {
 
         $file = $request->file('image');
-        $nama_file = time() . "_" . $file->getClientOriginalName();
+        $nama_file = time() . "_scaled_" . $file->hashName();
 
         $absensi = Absensi::where('user_id', $request->user_id)->where('tanggal', $request->tanggal)->latest()->first();
         $user = User::find($request->user_id);
