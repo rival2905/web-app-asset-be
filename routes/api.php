@@ -61,3 +61,4 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/generate-pin-photo/{id}', [UtilsController::class, 'generatePinPhoto']);
+Route::get('/checkingup', [RekapController::class, 'checkus']);

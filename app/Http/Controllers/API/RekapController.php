@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Absensi;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -68,4 +69,28 @@ class RekapController extends Controller
             'data' => $data
         ], 200);
     }
+
+    public function checkus(Request $request)
+    {
+        $identifier = $request->input('email'); 
+
+        $user = User::where('email', $identifier)
+                    ->orWhere('nip', $identifier)
+                    ->first();
+
+        if($user){
+            return response()->json([
+                'status' => 'success',
+                'data' => $user
+            ]);
+        }else{
+            $obj = (object) array('email' => $identifier);
+            return response()->json([
+                'status' => 'failed',
+                'data' => $obj
+            ]);
+        }
+        
+    }
+
 }
