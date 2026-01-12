@@ -128,7 +128,7 @@ class AbsensiController extends Controller
         }
     }
 
-    public function fixsensi(Request $request)
+    public function fixsensi(Request $request, $id)
     {
 
         $file = $request->file('image');
