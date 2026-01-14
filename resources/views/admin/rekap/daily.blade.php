@@ -25,9 +25,20 @@
                               <div class="row">
                                   <div class="col" id="unit_choices">
                                       <select id="unit" name="unit_id" class=" form-select unit_choices" required onchange="changeOptionunit()">
-                                          @foreach ($units as $unit)
-                                              <option value="{{ $unit->id }}" @if($unit->id == @$filter['unit_id']) selected @endif> {{ $unit->name }}</option>
-                                          @endforeach
+                                         @php
+                                            $status = '';
+                                            $unit_name = '';
+                                          @endphp
+                                            @foreach ($units as $unit)
+                                                @php
+                                                  
+                                                  if($unit->id == @$filter['unit_id']){
+                                                    $status = 'selected';
+                                                    $unit_name = $unit->name;
+                                                  } 
+                                                @endphp
+                                                <option value="{{ $unit->id }}" {{ $status }}>{{ $unit->name }}</option>
+                                            @endforeach
                                       </select>
                                       @error('unit_id')
                                       <div class="invalid-feedback" style="display: block">
@@ -137,7 +148,7 @@
       <h5 class="card-header">
         Data Kehadiran Pegawai || {{ @$filter['tanggal_akhir'] }}
         <br>
-        UPTD Pengelolaan Jalan dan Jembatan Wilayah Pelayanan {{ @$filter['uptd_id'] }}
+        {{ @$unit_name }}
 
       </h5>
       <div class="table-responsive text-wrap">

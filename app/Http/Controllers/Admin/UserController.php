@@ -160,9 +160,6 @@ class UserController extends Controller
         $action = "store";
         // $positions = User::where('role','pengamat')->select('jabatan')->groupBy('jabatan')->pluck('jabatan')->toArray();
         $positions = MasterUnit::get();
-        if(Auth::user()->id != 0){
-            $positions = array_diff($positions, array('Administrator'));
-        }
         
         $fields = User::select('bidang')->orderBy('bidang')->groupBy('bidang');
         if(Auth::user()->id != 0 && Auth::user()->bidang){
@@ -312,35 +309,32 @@ class UserController extends Controller
         $action = "update";
         $data = User::find($id);
 
-        $positions = User::select('jabatan')->groupBy('jabatan')->pluck('jabatan')->toArray();
-        if(Auth::user()->id != 0){
-            $positions = array_diff($positions, array('Administrator'));
-        }
-        
-        $fields = User::select('bidang')->orderBy('bidang')->groupBy('bidang');
-        if(Auth::user()->id != 0 && Auth::user()->bidang){
-            $fields = $fields->where('bidang',Auth::user()->bidang);
-        }
-        $fields = $fields->get();
+        $positions = MasterUnit::get();
 
         $locations = MasterLokasiKerja::latest();
-        $data_pengamat = User::where('role','pengamat');
-        if(Auth::user()->uptd_id){
-            $data_pengamat = $data_pengamat->where('uptd_id',Auth::user()->uptd_id);
 
-            $uptds = array(Auth::user()->uptd_id);
+        $data_pengamat = User::where('role','pengamat');
+        if(Auth::user()->master_unit_id){
+            $data_pengamat = $data_pengamat->where('master_unit_id',Auth::user()->master_unit_id);
+
+            $uptds = array(Auth::user()->master_unit_id);
         }else{
             $uptds = array(1, 2, 3, 4, 5, 6);
         }
+        if($data->master_unit_id){
+            $data_pengamat = $data_pengamat->where('master_unit_id',$data->master_unit_id);
+        }
+        if(Auth::user()->uptd_id){
+            $locations = $locations->where('uptd_id',Auth::user()->uptd_id);
+        }
         if($data->uptd_id){
-
-            $data_pengamat = $data_pengamat->where('uptd_id',$data->uptd_id);
+            $locations = $locations->where('uptd_id',$data->uptd_id);
         }
         $locations = $locations->get();
         $data_pengamat = $data_pengamat->get();
         $jabatans = array('Pengelola Umum Operasional','Operator Layanan Operasional', 'Pengelola Layanan Operasional','Penata Layanan Operasional');
 
-        return view('admin.user.form', compact('action','positions','fields','data','locations','data_pengamat','uptds','jabatans'));
+        return view('admin.user.form', compact('action','positions','data','locations','data_pengamat','uptds','jabatans'));
     }
 
     /**
@@ -362,6 +356,7 @@ class UserController extends Controller
             'nip'  => '',
             'jabatan'  => '',
             'bidang'  => '',
+            'data_pengamat'  => '',
         ]);
         $data = [
             'name'      => $request->input('name'),
@@ -369,7 +364,6 @@ class UserController extends Controller
             'nik'     => $request->input('nik'),
             'nip'     => $request->input('nip'),
             'jabatan'     => $request->input('jabatan'),
-            'bidang'     => $request->input('bidang'),
             'uptd_id'   => $request->input('uptd_id'),
             'pengamat_id'   => $request->input('data_pengamat')
 
@@ -377,6 +371,9 @@ class UserController extends Controller
         $data_pengamat = User::find($request->input('data_pengamat'));
         if($data_pengamat->uptd_id){
             $data['uptd_id'] = $data_pengamat->uptd_id;
+        }else{
+            $data['uptd_id'] = null;
+
         }
         
         if($request->input('jabatan') == "Pengelola Umum Operasional"){
@@ -397,6 +394,12 @@ class UserController extends Controller
         }
         if($request->input('data_pengamat') == "Choose..."){
             $data['pengamat_id'] = null;
+        }
+        
+        $data_peng = MasterUnit::find($request->input('bidang'));
+        if($data_peng->id){
+            $data['bidang'] = $data_peng->name;
+            $data['master_unit_id'] = $data_peng->id;
         }
 
         // dd($data);
@@ -442,7 +445,7 @@ class UserController extends Controller
           
             $user->lokasi_kerja()->sync($request->lokasi_kerja_id);
             if($data['uptd_id']){
-                return redirect('/admin/user?uptd_id='.$data['uptd_id'])->with(['success' => 'Data Berhasil Diupdate!']);
+                return redirect('/admin/user?unit_id='.$data['master_unit_id'])->with(['success' => 'Data Berhasil Diupdate!']);
                 
             }else{
                 //redirect dengan pesan sukses

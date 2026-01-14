@@ -20,13 +20,13 @@
                     <h5 class="card-title">Rekapitulasi Bulanan</h5>
                     <div class="card-text">
                         <div class="row">
-                            <div class="col-6" id="uptd_choices">
-                                <select id="uptd" name="uptd_id" class=" form-select uptd_choices" required onchange="changeOptionUPTD()">
-                                    @foreach ($uptds as $uptd)
-                                        <option value="{{ $uptd }}" @if($uptd == @$filter['uptd_id']) selected @endif>UPTD Pengelolaan Jalan dan Jembatan Wilayah Pelayanan {{ $uptd }}</option>
+                            <div class="col-6" id="unit_choices">
+                                <select id="unit" name="unit_id" class=" form-select unit_choices" required onchange="changeOptionUPTD()">
+                                    @foreach ($units as $unit)
+                                        <option value="{{ $unit->id }}" @if($unit->id == @$filter['unit_id']) selected @endif>{{ $unit->name }}</option>
                                     @endforeach
                                 </select>
-                                @error('uptd_id')
+                                @error('unit_id')
                                     <div class="invalid-feedback" style="display: block">
                                         {{ $message }}
                                     </div>
@@ -41,51 +41,7 @@
                                     </div>
                                 @enderror
                             </div>
-                            <div class="col mt-3" id="ksppj_choices">
-                                <select id="data_ksppj" name="ksppj_id" class=" form-select ksppj_choices" required onchange="changeOptionKSPPJ()"> 
-                                    @if (!$is_ksppj && !$is_pengamat && !$is_mandor)
-                                    <option value="">Select KSPPJ</option>
-                                    @endif
-                                  @foreach ($ksppjs as $ksppj)
-                                      <option value="{{ $ksppj->id }}" @if($ksppj->id == @$filter['ksppj_id']) selected @endif>{{ $ksppj->name }}({{ $ksppj->jabatan }})</option>
-                                  @endforeach
-                                </select>
-                                @error('ksppj_id')
-                                    <div class="invalid-feedback" style="display: block">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="col mt-3" id="pengamat_choices">
-                                <select id="data_pengamat" name="pengamat_id" class=" form-select pengamat_choices" required onchange="changeOptionPengamat()">
-                                    @if (!$is_pengamat && !$is_mandor)
-                                    <option value="">Select pengamat</option>
-                                    @endif
-                                  @foreach ($pengamats as $pengamat)
-                                      <option value="{{ $pengamat->id }}" @if($pengamat->id == @$filter['pengamat_id']) selected @endif>{{ $pengamat->name }}({{ $pengamat->jabatan }})</option>
-                                  @endforeach
-                                </select>
-                                @error('pengamat_id')
-                                    <div class="invalid-feedback" style="display: block">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="col mt-3">
-                                <select id="data_mandor" name="mandor_id" class=" form-select">
-                                    @if (!$is_mandor)
-                                    <option value="">Select mandor</option>
-                                    @endif
-                                  @foreach ($mandors as $mandor)
-                                      <option value="{{ $mandor->id }}" @if($mandor->id == @$filter['mandor_id']) selected @endif>{{ $mandor->name }}({{ $mandor->jabatan }})</option>
-                                  @endforeach
-                                </select>
-                                @error('mandor_id')
-                                    <div class="invalid-feedback" style="display: block">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
+                            
                         </div>
                     </div>
                     <div class="mt-6">

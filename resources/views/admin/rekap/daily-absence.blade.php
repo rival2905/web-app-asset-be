@@ -19,44 +19,44 @@
               <div class="card-body">
                 <form enctype="multipart/form-data">  
                   <h5 class="card-title">Rekapitulasi Harian</h5>
+                  
                   <div class="card-text">
-                      <div class="row">
-                          <div class="col-md-4 col-sm-12" id="uptd_choices">
-                             
-                              <select id="uptd" name="uptd_id" class=" form-select uptd_choices" required onchange="changeOptionUPTD()">
-
-                                  @foreach ($uptds as $uptd)
-                                      <option value="{{ $uptd }}" @if($uptd == @$filter['uptd_id']) selected @endif>UPTD Pengelolaan Jalan dan Jembatan Wilayah Pelayanan {{ $uptd }}</option>
-                                  @endforeach
-                              </select>
-                              @error('uptd_id')
-                                  <div class="invalid-feedback" style="display: block">
-                                      {{ $message }}
-                                  </div>
-                              @enderror
-                          </div>
-                          <div class="col-md-4 col-sm-12" id="ksppj_choices">
-                            <select id="data_ksppj" name="ksppj_id" class=" form-select ksppj_choices">
-                              <option value="">Select KSPPJ</option>
-                              @foreach ($ksppjs as $ksppj)
-                                  <option value="{{ $ksppj->id }}" @if($ksppj->id == @$filter['ksppj_id']) selected @endif>{{ $ksppj->name }}({{ $ksppj->jabatan }})</option>
+                    <div class="row">
+                      @if(!$is_role)
+                      <div class="col-md col-sm-12" id="unit_choices">
+                         
+                          <select id="unit" name="unit_id" class=" form-select unit_choices" required onchange="changeOptionunit()">
+                            @php
+                              $status = '';
+                              $unit_name = '';
+                            @endphp
+                              @foreach ($units as $unit)
+                                  @php
+                                    
+                                    if($unit->id == @$filter['unit_id']){
+                                      $status = 'selected';
+                                      $unit_name = $unit->name;
+                                    } 
+                                  @endphp
+                                  <option value="{{ $unit->id }}" {{ $status }}>{{ $unit->name }}</option>
                               @endforeach
-                            </select>
-                            @error('ksppj_id')
-                                <div class="invalid-feedback" style="display: block">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                          </div>
-                          <div class="col-md-4 col-sm-12">
-                              <input class="form-control" type="date" value="{{ old('tanggal_akhir',@$filter['tanggal_akhir']) }}"name="tanggal_akhir" placeholder="Masukan Tanggal" />
-                              @error('tanggal_akhir')
-                                  <div class="invalid-feedback" style="display: block">
-                                      {{ $message }}
-                                  </div>
-                              @enderror
-                          </div>
+                          </select>
+                          @error('unit_id')
+                              <div class="invalid-feedback" style="display: block">
+                                  {{ $message }}
+                              </div>
+                          @enderror
                       </div>
+                      @endif
+                      <div class="col-md col-sm-12">
+                          <input class="form-control" type="date" value="{{ old('tanggal_akhir',@$filter['tanggal_akhir']) }}"name="tanggal_akhir" placeholder="Masukan Tanggal" />
+                          @error('tanggal_akhir')
+                              <div class="invalid-feedback" style="display: block">
+                                  {{ $message }}
+                              </div>
+                          @enderror
+                      </div>
+                    </div>
                   </div>
                   <div class="mt-6">
                     <div class="row">
@@ -64,7 +64,7 @@
                         <button class="btn btn-primary btn-sm" type="submit" formmethod="get" formaction="{{ route('admin.rekap.daily_absence') }}">Filter</button>
                       </div>
                       <div class="d-grid col gap-2 mx-auto">
-                        <button class="btn btn-secondary btn-sm" type="submit" formmethod="get" formaction="{{ route('admin.rekap.daily.export','absence&-'.Crypt::encryptString($filter['uptd_id'])) }}">Export</button>
+                        <button class="btn btn-secondary btn-sm" type="submit" formmethod="get" formaction="{{ route('admin.rekap.daily.export','absence&-'.Crypt::encryptString($filter['unit_id'])) }}">Export</button>
                       </div>
                     </div>
 
@@ -77,7 +77,7 @@
       {{-- End Filter --}}
       <div class="col-sm-12 col-md-6 col-xl-6">
           <div class="card bg-success text-white">
-            <a href="{{ url('/admin/recapitulation/daily?uptd_id='.$filter['uptd_id'].'&ksppj_id='.$filter['ksppj_id'].'&tanggal_akhir='.$filter['tanggal_akhir']) }}" class="card-body link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover text-white">
+            <a href="{{ url('/admin/recapitulation/daily?unit_id='.$filter['unit_id'].'&tanggal_akhir='.$filter['tanggal_akhir']) }}" class="card-body link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover text-white">
               <h5 class="card-title text-white">{{ $presences->count() }}</h5>
               <p class="card-text">Total Kehadiran</p>
               <p class="card-text">
@@ -132,7 +132,7 @@
   <div class="card">
     <h5 class="card-header">Data Pegawai yang Tidak Hadir || || {{ @$filter['tanggal_akhir'] }}
       <br>
-      UPTD Pengelolaan Jalan dan Jembatan Wilayah Pelayanan {{ @$filter['uptd_id'] }}
+      {{ @$unit_name }}
     </h5>
     <div class="table-responsive text-wrap">
       <table id="example" class="table">

@@ -46,7 +46,6 @@ class RekapController extends Controller
         $user_check = User::whereIn('role',['pekerja','mandor'])->whereNull('deleted_at');
         $user_absences = User::whereIn('role',['pekerja','mandor'])->orderBy('name');
 
-
         $presences = Absensi::whereNotNull('jam_masuk');
         $absences = Absensi::whereNull('jam_masuk');
 
@@ -97,7 +96,7 @@ class RekapController extends Controller
             $total_izin_sakit = $absences->where('keterangan', 'like', 'Izin - Izin Sakit')->count();
             $total_izin_lainnya = $absences->where('keterangan', 'like', 'Izin - Izin Lainnya')->count();
             $total_tanpa_keterangan = count($user_check) - $total_absen - $total_izin_sakit - $total_izin_lainnya;
-
+            // dd($filter);
             return view('admin.rekap.daily',
                 compact(
                     'presences',
@@ -131,30 +130,18 @@ class RekapController extends Controller
             $uptds = array(1, 2, 3, 4, 5, 6);  
         }
         $units = $units->get();
+      
 
         if($request->unit_id){ 
             $filter['unit_id'] = $request->unit_id;
         }else{
             $filter['unit_id'] = $units[0]->id;
-            $filter['unit_id'] = 8;
-
+            // $filter['unit_id'] = 8;
         }
         if($is_ksppj){
             $ksppjs = $ksppjs->where('id', Auth::user()->id);
         }
         $ksppjs = $ksppjs->where('master_unit_id', $filter['unit_id'])->get();
-        // // dd($ksppjs);
-        // if($request->ksppj_id){
-        //     $filter['ksppj_id'] = $request->ksppj_id;
-        // }else{
-        //     $temp_ksppjs = $ksppjs->toArray();
-        //     shuffle($temp_ksppjs);
-        //     $filter['ksppj_id'] = $temp_ksppjs[0]['id'];
-        // }
-        // if($filter['ksppj_id'] != null && $filter['ksppj_id'] != "Choose..."){
-        //     $user_check = $user_check->where('ksppj_id', $filter['ksppj_id']);
-
-        // }
 
         $user_check = $user_check->where('master_unit_id', $filter['unit_id'])->pluck('id')->toArray();
 
@@ -236,31 +223,29 @@ class RekapController extends Controller
 
         $ksppjs = User::where('role','ksppj');
 
-        if(Auth::user()->uptd_id){
-            $uptds = array(Auth::user()->uptd_id);
+        $units = MasterUnit::orderByRaw('RAND()');
+        if(Auth::user()->master_user_id){
+            $uptds = array(Auth::user()->master_unit_id);
+            $units = $units->where('id', Auth::user()->master_unit_id);
+
         }else{
-            $uptds = array(1, 2, 3, 4, 5, 6);
+            $uptds = array(1, 2, 3, 4, 5, 6);  
         }
-        if($request->uptd_id){
-            $filter['uptd_id'] = $request->uptd_id;
+        $units = $units->get();
+
+        if($request->unit_id){ 
+            $filter['unit_id'] = $request->unit_id;
         }else{
-            shuffle($uptds);
-            $filter['uptd_id'] = $uptds[0];
-            $uptds = array(1, 2, 3, 4, 5, 6);
+            $filter['unit_id'] = $units[0]->id;
+            // $filter['unit_id'] = 8;
         }
+
+        // dd($filter);
+        
         if($is_ksppj){
             $ksppjs = $ksppjs->where('id', Auth::user()->id);
         }
-        $ksppjs = $ksppjs->where('uptd_id', $filter['uptd_id'])->get();
-        // dd($ksppjs);
-        if($request->ksppj_id){
-            $filter['ksppj_id'] = $request->ksppj_id;
-        }else{
-            $temp_ksppjs = $ksppjs->toArray();
-            shuffle($temp_ksppjs);
-            $filter['ksppj_id'] = $temp_ksppjs[0]['id'];
-        }
-
+        $ksppjs = $ksppjs->where('master_unit_id', $filter['unit_id'])->get();
         
 
         if ($is_pengamat || $is_mandor) {
@@ -277,16 +262,9 @@ class RekapController extends Controller
 
             }
             $filter['uptd_id'] = Auth::user()->uptd_id;
-            $filter['ksppj_id'] = Auth::user()->ksppj_id;
         }
 
-
-        if($filter['ksppj_id'] != null && $filter['ksppj_id'] != "Choose..."){
-            $user_check = $user_check->where('ksppj_id', $filter['ksppj_id']);
-            $user_absences = $user_absences->where('ksppj_id', $filter['ksppj_id']);
-
-        }
-        $user_check = $user_check->where('uptd_id', $filter['uptd_id'])->pluck('id')->toArray();
+        $user_check = $user_check->where('master_unit_id', $filter['unit_id'])->pluck('id')->toArray();
 
         // dd(count($user_check));
         if($request->tanggal_akhir){
@@ -297,7 +275,7 @@ class RekapController extends Controller
         $absences = $absences->wheredate('tanggal',$filter['tanggal_akhir'])->whereIn('user_id',$user_check)->get();
 
         $temp_user = $presences->select('user_id')->pluck('user_id')->toArray();
-        $user_absences = $user_absences->where('uptd_id', $filter['uptd_id'])->whereNotIn('id',$temp_user);
+        $user_absences = $user_absences->where('master_unit_id', $filter['unit_id'])->whereNotIn('id',$temp_user);
 
         $user_absences = $user_absences->where(function ($query) use($filter) {
             $query->whereDate('deleted_at','>',$filter['tanggal_akhir'])
@@ -337,6 +315,7 @@ class RekapController extends Controller
                 'total_izin_sakit',
                 'total_izin_lainnya',
                 'total_tanpa_keterangan',
+                'units'
             )
         );
 
@@ -576,37 +555,25 @@ class RekapController extends Controller
         $ksppjs = User::where('role','ksppj');
         $pengamats = User::where('role','pengamat');
         $mandors = User::where('role','mandor');
+        $units = MasterUnit::orderByRaw('RAND()')->get();
 
-        if(Auth::user()->uptd_id){
-            $uptds = array(Auth::user()->uptd_id);
+        if(Auth::user()->master_unit_id){
+            $filter['unit_id'] = Auth::user()->master_unit_id;
+        }else if($request->unit_id){ 
+            $filter['unit_id'] = $request->unit_id;
         }else{
-            $uptds = array(1, 2, 3, 4, 5, 6);
+            $filter['unit_id'] = $units[0]->id;
         }
-        if($request->uptd_id){
-            $filter['uptd_id'] = $request->uptd_id;
-        }else{
-            shuffle($uptds);
-            $filter['uptd_id'] = $uptds[0];
-            $uptds = array(1, 2, 3, 4, 5, 6);
 
-        }
-        $ksppjs = $ksppjs->where('uptd_id', $filter['uptd_id']);
-        $pengamats = $pengamats->where('uptd_id', $filter['uptd_id']);
-        $mandors = $mandors->where('uptd_id', $filter['uptd_id']);
-        $user_check = User::whereIn('role',['pekerja','mandor'])->where('uptd_id', $filter['uptd_id']);
-        // $dor = 23;
-        // dd(
-        //     User::join('absensis','users.id', '=','absensis.user_id')->select('users.name')
-        //     ->where(function ($query)use ($dor) {
-        //         $query->where('users.mandor_id',$dor)->orWhere('users.id',$dor);
-        //     })
-        //     ->whereIn('users.role',['pekerja','mandor'])
-        //     ->whereYear('absensis.tanggal',$filter['year'])->whereMonth('absensis.tanggal',$filter['month'])
-        //     ->orderBy('users.name','Asc')->orderBy('absensis.tanggal','Asc')->get()
-        // );
+    
+        $ksppjs = $ksppjs->where('master_unit_id', $filter['unit_id']);
+        $pengamats = $pengamats->where('master_unit_id', $filter['unit_id']);
+        $mandors = $mandors->where('master_unit_id', $filter['unit_id']);
+        $user_check = User::whereIn('role',['pekerja','mandor'])->where('master_unit_id', $filter['unit_id']);
+
         $data_absen =  User::join('absensis','users.id', '=','absensis.user_id')
         ->select('users.id','users.name','users.jabatan','absensis.tanggal','absensis.jam_masuk','absensis.jam_keluar')
-        ->whereIn('users.role',['pekerja','mandor'])->where('users.uptd_id', $filter['uptd_id']);
+        ->whereIn('users.role',['pekerja','mandor'])->where('users.master_unit_id', $filter['unit_id']);
 
         $is_subkoor = Auth::user()->role == 'subkoor';
         $is_ksppj = Auth::user()->role == 'ksppj';
@@ -641,15 +608,7 @@ class RekapController extends Controller
         if($request->mandor_id){
             $filter['mandor_id'] = $request->mandor_id;
         }
-        // dd($filter);
-        if($filter['ksppj_id'] != null ){
-            if($filter['ksppj_id'] == "Choose..."){
-                return back()->with('error', 'KSPPJ Wajib di pilih')->withInput();
-            }else{
-                $pengamats = $pengamats->where('ksppj_id', $filter['ksppj_id']);
-                $mandors = $mandors->where('ksppj_id', $filter['ksppj_id']);
-            }
-        }
+        
         if($filter['pengamat_id'] != null ){
             if($filter['pengamat_id'] == "Choose..."){
                 $filter['pengamat_id'] = null;
@@ -659,35 +618,27 @@ class RekapController extends Controller
 
             }
         }
-        if($filter['mandor_id'] != null ){
-            if($filter['mandor_id'] == "Choose..."){
-                $filter['mandor_id'] = null;
-            }
-        }
+
 
         $ksppjs = $ksppjs->get();
         $pengamats = $pengamats->get();
         $mandors = $mandors->get();
 
-        if($filter['ksppj_id']){
-            if($filter['pengamat_id'] || $filter['mandor_id']){
-                if($filter['mandor_id']){
-                    $user_check = $user_check->where('mandor_id',$filter['mandor_id'])->orWhere('id',$filter['mandor_id']);
-                    $dor=$filter['mandor_id'];
-                    $data_absen = $data_absen->where(function ($query) use ($dor) {
-                        $query->where('users.mandor_id',$dor)->orWhere('users.id',$dor);
-                    });
+        if($filter['pengamat_id'] || $filter['mandor_id']){
+            if($filter['mandor_id']){
+                $user_check = $user_check->where('mandor_id',$filter['mandor_id'])->orWhere('id',$filter['mandor_id']);
+                $dor=$filter['mandor_id'];
+                $data_absen = $data_absen->where(function ($query) use ($dor) {
+                    $query->where('users.mandor_id',$dor)->orWhere('users.id',$dor);
+                });
 
-                } else {
-                    $user_check = $user_check->where('pengamat_id',$filter['pengamat_id']);
-                    $data_absen = $data_absen->where('users.pengamat_id',$filter['pengamat_id']);
+            } else {
+                $user_check = $user_check->where('pengamat_id',$filter['pengamat_id']);
+                $data_absen = $data_absen->where('users.pengamat_id',$filter['pengamat_id']);
 
-                }
             }
-            $user_check = $user_check->where('ksppj_id',$filter['ksppj_id']);
-            $data_absen = $data_absen->where('users.ksppj_id',$filter['ksppj_id']);
-
         }
+        
         // $user_check = $user_check->whereYear('deleted_at','<',$filter['year'])->whereMonth('deleted_at','<',$filter['month'])->orderBy('role','desc')->get();
         // $query->where(function ($query2) use($filter) { $query2->whereYear('deleted_at','<',$filter['year'])->whereMonth('deleted_at','<',$filter['month']);})
         $user_check = $user_check->where(function ($query) use($filter) {
@@ -702,7 +653,7 @@ class RekapController extends Controller
         // dd($data_absen);
 
         
-        return view('admin.rekap.monthly',compact('uptds','ksppjs','pengamats','mandors','filter','user_check','data_temp','data_absen','ket_periode','temp_periode','is_ksppj','is_pengamat','is_mandor'));
+        return view('admin.rekap.monthly',compact('units','ksppjs','pengamats','mandors','filter','user_check','data_temp','data_absen','ket_periode','temp_periode','is_ksppj','is_pengamat','is_mandor'));
 
     }
     public function export_monthly(Request $request)
