@@ -180,15 +180,15 @@
                             value="{{ old('password_confirmation') }}"
                             placeholder="Masukkan Konfirmasi Password" class="form-control" @if ($action == 'store') required @endif>
                     </div>
-                    <div class="col-md-6" id="jabatan_choices">
-                        <label class="form-label" for="jabatan">Unit</label>
-                        <select id="jabatan" name="jabatan" class="form-select jabatan_choices" required onchange="changeOptionJabatan()" required>
+                    <div class="col-md-6" id="bidang_choices">
+                        <label class="form-label" for="bidang">Unit</label>
+                        <select id="bidang" name="bidang" class="form-select bidang_choices" onchange="changeOptionBidang()" required>
                             <option value="">Select</option>
                             @foreach ($positions as $position)
-                            <option value="{{ $position }}" @if($position == @$data->jabatan) selected @endif>{{ $position }}</option>
+                            <option value="{{ $position->id }}" @if($position->name == @$data->bidang) selected @endif>{{ $position->name }}</option>
                             @endforeach
                         </select>
-                        @error('jabatan')
+                        @error('bidang')
                             <div class="invalid-feedback" style="display: block">
                                 {{ $message }}
                             </div>
@@ -196,7 +196,7 @@
                     </div>
                     <div class="col-md-6" id="jabatan_choices">
                         <label class="form-label" for="jabatan">Jabatan</label>
-                        <select id="jabatan" name="jabatan" class="form-select jabatan_choices" required onchange="changeOptionJabatan()" required>
+                        <select id="jabatan" name="jabatan" class="form-select jabatan_choices" required>
                             <option value="">Select</option>
                             @foreach ($jabatans as $jabatan)
                             <option value="{{ $jabatan }}" @if($jabatan == @$data->jabatan) selected @endif>{{ $jabatan }}</option>
@@ -352,34 +352,20 @@
         maximumSelectionLength: 12
     });
 
-    function changeOptionUPTD() {
+    function changeOptionBidang() {
 
         //untuk select SUP
         // id = document.getElementById("province").value
-        id = $("#uptd_choices").find('.uptd_choices').val()
-        url = "{{ url('getLokasiByUPTD') }}"
+        id = $("#bidang_choices").find('.bidang_choices').val()
+        url = "{{ url('getLokasiByBidang') }}"
         id_select = '#lokasi_kerja'
         text = 'Choose...'
         option = 'nama'
         value = 'id'
         setDataSelect(id, url, id_select, text, value, option)
 
-        url = "{{ url('getKSPPJByUPTD') }}"
-        id_select = '#data_ksppj'
-        text = 'Choose...'
-        option = 'jabatan'
-        value = 'id'
-        setDataSelect(id, url, id_select, text, value, option)
-        
-        url = "{{ url('getPengamatByUPTD') }}"
+        url = "{{ url('getAtasanByUnit') }}"
         id_select = '#data_pengamat'
-        text = 'Choose...'
-        option = 'name'
-        value = 'id'
-        setDataSelect(id, url, id_select, text, value, option)
-
-        url = "{{ url('getMandorByUPTD') }}"
-        id_select = '#data_mandor'
         text = 'Choose...'
         option = 'name'
         value = 'id'

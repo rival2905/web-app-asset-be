@@ -17,6 +17,7 @@ use Illuminate\Contracts\Encryption\DecryptException;
 
 use App\Models\User;
 use App\Models\UserTemp;
+use App\Models\MasterUnit;
 
 use App\Models\MasterLokasiKerja;
 
@@ -29,7 +30,7 @@ class UserController extends Controller
     {
         //
         $uptds = array(1, 2, 3, 4, 5, 6);
-        
+        $units = MasterUnit::orderByRaw('RAND()')->get();
         $users = User::wherenull('deleted_at')->latest()->when(request()->q, function($users) {
             $users = $users->where('name', 'like', '%'. request()->q . '%');
         });
@@ -37,15 +38,12 @@ class UserController extends Controller
         $temp_pekerja['unverified']= User::whereIn('role',['pekerja','mandor'])->whereNull('account_verified_at')->whereNull('deleted_at');
 
         $user_ksppj = User::where('role','ksppjj'); 
-        if(Auth::user()->uptd_id){
-            $uptds = array(Auth::user()->uptd_id);
-            $filter['uptd_id'] = $uptds[0];
-        }else if($request->uptd_id){ 
-            $filter['uptd_id'] = $request->uptd_id;
+        if(Auth::user()->master_unit_id){
+            $filter['unit_id'] = Auth::user()->master_unit_id;
+        }else if($request->unit_id){ 
+            $filter['unit_id'] = $request->unit_id;
         }else{
-            shuffle($uptds);
-            $filter['uptd_id'] = $uptds[0];
-            $uptds = array(1, 2, 3, 4, 5, 6);
+            $filter['unit_id'] = $units[0]->id;
 
         }
         
@@ -77,14 +75,14 @@ class UserController extends Controller
             $temp_pekerja['unverified'] = $temp_pekerja['unverified']->where('mandor_id',Auth::user()->id);
         }
 
-        $temp_pekerja['verified'] = $temp_pekerja['verified']->where('uptd_id',$filter['uptd_id'])->count();
-        $temp_pekerja['unverified'] = $temp_pekerja['unverified']->where('uptd_id',$filter['uptd_id'])->count();
+        $temp_pekerja['verified'] = $temp_pekerja['verified']->where('master_unit_id',$filter['unit_id'])->count();
+        $temp_pekerja['unverified'] = $temp_pekerja['unverified']->where('master_unit_id',$filter['unit_id'])->count();
 
-        $users = $users->where('uptd_id',$filter['uptd_id'])->get();
-        $user_ksppj = $user_ksppj->where('uptd_id',$filter['uptd_id'])->get();
+        $users = $users->where('master_unit_id',$filter['unit_id'])->get();
+        $user_ksppj = $user_ksppj->where('master_unit_id',$filter['unit_id'])->get();
 
         // dd($filter);
-        return view('admin.user.index', compact('users','uptds','filter','user_ksppj','temp_pekerja'));
+        return view('admin.user.index', compact('users','uptds','filter','user_ksppj','temp_pekerja','units'));
 
     }
 
@@ -157,8 +155,11 @@ class UserController extends Controller
     public function create()
     {
         //
+        // dd(Str::slug('Bidang Teknik Jalan', '-'));
+        
         $action = "store";
-        $positions = User::where('role','pengamat')->select('jabatan')->groupBy('jabatan')->pluck('jabatan')->toArray();
+        // $positions = User::where('role','pengamat')->select('jabatan')->groupBy('jabatan')->pluck('jabatan')->toArray();
+        $positions = MasterUnit::get();
         if(Auth::user()->id != 0){
             $positions = array_diff($positions, array('Administrator'));
         }
@@ -211,7 +212,6 @@ class UserController extends Controller
             'nik'     => $request->input('nik'),
             'nip'     => $request->input('nip'),
             'jabatan'     => $request->input('jabatan'),
-            'bidang'     => $request->input('bidang'),
             'password'  => Hash::make($request->input('password')),
             'uptd_id'   => $request->input('uptd_id'),
             'pengamat_id'   => $request->input('data_pengamat')
@@ -238,6 +238,13 @@ class UserController extends Controller
                 return redirect()->route('admin.user.index')->with(['error' => 'Hubungi admin pusat untuk perubahan data tersebut!!']);
             }
         } 
+        $data_peng = MasterUnit::find($request->input('bidang'));
+        if($data_peng->id){
+            $data['bidang'] = $data_peng->name;
+            $data['master_unit_id'] = $data_peng->id;
+
+        }
+     
 
         if($request->input('data_pengamat') == "Choose..."){
             $data['pengamat_id'] = null;

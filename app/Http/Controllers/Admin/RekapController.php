@@ -11,6 +11,7 @@ use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Arr;
+use App\Models\MasterUnit;
 
 use App\Models\Absensi;
 use App\Models\User;
@@ -65,11 +66,8 @@ class RekapController extends Controller
                 $user_check = $user_check->where('pengamat_id', Auth::user()->id)->pluck('id')->toArray();
                 $is_role = $is_pengamat;
                 $user_absences = $user_absences->where('pengamat_id', Auth::user()->id);
-
-
             }
-            $filter['uptd_id'] = Auth::user()->uptd_id;
-            $filter['ksppj_id'] = Auth::user()->ksppj_id;
+            $filter['unit_id'] = Auth::user()->master_unit_id;
 
             if($request->tanggal_akhir){
                 $filter['tanggal_akhir'] = $request->tanggal_akhir;
@@ -117,44 +115,49 @@ class RekapController extends Controller
                     'total_izin_sakit',
                     'total_izin_lainnya',
                     'total_tanpa_keterangan',
-                    'user_absences'
+                    'user_absences',
+                    'units'
                 )
             );
         }
 
         $ksppjs = User::where('role','ksppj');
+        $units = MasterUnit::orderByRaw('RAND()');
 
-        if(Auth::user()->uptd_id){
-            $uptds = array(Auth::user()->uptd_id);
+        if(Auth::user()->master_user_id){
+            $uptds = array(Auth::user()->master_unit_id);
+            $units = $units->where('id', Auth::user()->master_unit_id);
+
         }else{
-            $uptds = array(1, 2, 3, 4, 5, 6);
+            $uptds = array(1, 2, 3, 4, 5, 6);  
         }
-        if($request->uptd_id){
-            $filter['uptd_id'] = $request->uptd_id;
+        $units = $units->get();
+
+        if($request->unit_id){ 
+            $filter['unit_id'] = $request->unit_id;
         }else{
-            shuffle($uptds);
-            $filter['uptd_id'] = $uptds[0];
-            $uptds = array(1, 2, 3, 4, 5, 6);
+            $filter['unit_id'] = $units[0]->id;
+            $filter['unit_id'] = 8;
+
         }
         if($is_ksppj){
             $ksppjs = $ksppjs->where('id', Auth::user()->id);
         }
-        $ksppjs = $ksppjs->where('uptd_id', $filter['uptd_id'])->get();
-        // dd($ksppjs);
-        if($request->ksppj_id){
-            $filter['ksppj_id'] = $request->ksppj_id;
-        }else{
-            $temp_ksppjs = $ksppjs->toArray();
-            shuffle($temp_ksppjs);
-            $filter['ksppj_id'] = $temp_ksppjs[0]['id'];
-        }
+        $ksppjs = $ksppjs->where('master_unit_id', $filter['unit_id'])->get();
+        // // dd($ksppjs);
+        // if($request->ksppj_id){
+        //     $filter['ksppj_id'] = $request->ksppj_id;
+        // }else{
+        //     $temp_ksppjs = $ksppjs->toArray();
+        //     shuffle($temp_ksppjs);
+        //     $filter['ksppj_id'] = $temp_ksppjs[0]['id'];
+        // }
+        // if($filter['ksppj_id'] != null && $filter['ksppj_id'] != "Choose..."){
+        //     $user_check = $user_check->where('ksppj_id', $filter['ksppj_id']);
 
-        if($filter['ksppj_id'] != null && $filter['ksppj_id'] != "Choose..."){
-            $user_check = $user_check->where('ksppj_id', $filter['ksppj_id']);
+        // }
 
-        }
-
-        $user_check = $user_check->where('uptd_id', $filter['uptd_id'])->pluck('id')->toArray();
+        $user_check = $user_check->where('master_unit_id', $filter['unit_id'])->pluck('id')->toArray();
 
         // dd(count($user_check));
         if($request->tanggal_akhir){
@@ -166,7 +169,7 @@ class RekapController extends Controller
 
         $temp_user = $presences->select('user_id')->pluck('user_id')->toArray();
         
-        $user_absences = $user_absences->where('uptd_id', $filter['uptd_id'])->whereIn('id',$user_check)->whereNotIn('id',$temp_user);
+        $user_absences = $user_absences->where('master_unit_id', $filter['unit_id'])->whereIn('id',$user_check)->whereNotIn('id',$temp_user);
 
         $user_absences = $user_absences->where(function ($query) use($filter) {
             $query->whereDate('deleted_at','>',$filter['tanggal_akhir'])
@@ -175,7 +178,7 @@ class RekapController extends Controller
 
         $user_absences = $user_absences->get();
 
-        // dd($user_absences);
+        // dd($user_check);
 
         $total_absen = $presences->count();
         $total_tepat_waktu = $presences->where('keterangan', '!=', 'Terlambat')->count();
@@ -206,7 +209,8 @@ class RekapController extends Controller
                 'total_izin_sakit',
                 'total_izin_lainnya',
                 'total_tanpa_keterangan',
-                'user_absences'
+                'user_absences',
+                'units'
             )
         );
     }

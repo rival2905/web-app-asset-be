@@ -93,6 +93,9 @@ Route::group(['middleware' => 'auth'], function () {
  * data dropdown
  */
 Route::get('/getLokasiByUPTD', [App\Http\Controllers\DropdownDataController::class, 'getLokasiByUPTD']);
+Route::get('/getLokasiByBidang', [App\Http\Controllers\DropdownDataController::class, 'getLokasiByBidang']);
+Route::get('/getAtasanByUnit', [App\Http\Controllers\DropdownDataController::class, 'getAtasanByUnit']);
+
 Route::get('/getPengamatByUPTD', [App\Http\Controllers\DropdownDataController::class, 'getPengamatByUPTD']);
 Route::get('/getKSPPJByUPTD', [App\Http\Controllers\DropdownDataController::class, 'getKSPPJByUPTD']);
 Route::get('/getMandorByUPTD', [App\Http\Controllers\DropdownDataController::class, 'getMandorByUPTD']);

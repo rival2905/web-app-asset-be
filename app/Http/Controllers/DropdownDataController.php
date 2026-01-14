@@ -15,6 +15,22 @@ class DropdownDataController extends Controller
         $lokasi = MasterLokasiKerja::where('uptd_id', $idUPTD)->get();
         return response()->json($lokasi);
     }
+    public function getLokasiByBidang(Request $request)
+    {
+        $idUPTD = $request->id;
+        $lokasi = MasterLokasiKerja::latest();
+        if ($idUPTD<7) {
+            $lokasi = $lokasi->where('uptd_id', $idUPTD); 
+        }
+        $lokasi = $lokasi->get();
+        return response()->json($lokasi);
+    }
+    public function getAtasanByUnit(Request $request)
+    {
+        $idUPTD = $request->id;
+        $pengamat = User::where('master_unit_id', $idUPTD)->where('role','pengamat')->get();
+        return response()->json($pengamat);
+    }
     public function getKSPPJByUPTD(Request $request)
     {
         $idUPTD = $request->id;

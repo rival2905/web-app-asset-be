@@ -45,7 +45,9 @@ class User extends Authenticatable
         'account_verified_at',
         'deleted_at',
         'deleted_by',
-        'restored_by'
+        'restored_by',
+        'master_unit_id',
+
     ];
 
     /**
