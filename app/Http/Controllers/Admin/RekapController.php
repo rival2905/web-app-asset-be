@@ -77,7 +77,7 @@ class RekapController extends Controller
             $absences = $absences->wheredate('tanggal',$filter['tanggal_akhir'])->whereIn('user_id',$user_check)->get();
             
             $temp_user = $presences->select('user_id')->pluck('user_id')->toArray();
-            $user_absences = $user_absences->where('uptd_id', $filter['uptd_id'])->whereIn('id',$user_check)->whereNotIn('id',$temp_user);
+            $user_absences = $user_absences->where('master_unit_id', $filter['unit_id'])->whereIn('id',$user_check)->whereNotIn('id',$temp_user);
 
 
             $user_absences = $user_absences->where(function ($query) use($filter) {
