@@ -20,6 +20,45 @@ class AbsensiController extends Controller
 
         $absensi = Absensi::where('user_id', Auth::user()->id)->where('tanggal', date("Y/m/d"))->latest()->first();
 
+        if ($request->version_app != "1.0.2") {
+            return response()->json([
+                'message' => 'Versi aplikasi tidak sesuai, silahkan update aplikasi'
+            ], 401);
+        }
+
+        $absensi = Absensi::where('user_id', Auth::user()->id)->where('tanggal', date("Y/m/d"))->latest()->first();
+        if ($request->type == "WFA" && !$absensi) {
+            Absensi::create([
+                'user_id' => Auth::user()->id,
+                'tanggal' => date("Y/m/d"),
+                'jam_masuk' => date("H:i:s"),
+                'lokasi_masuk' => $request->lokasi,
+                'latitude_masuk' => $request->latitude,
+                'longitude_masuk' => $request->longitude,
+                'foto_masuk' =>   $nama_file,
+                'keterangan' => "WFA"
+            ]);
+            Storage::putFileAs('public/foto_absensi/masuk/', $file, $nama_file);
+
+            return response()->json([
+                'message' => 'Absen WFA berhasil'
+            ]);
+        }
+
+        if ($request->type == "WFA" && (\Carbon\Carbon::parse(date("H:i:s"))->greaterThan(\Carbon\Carbon::parse(Auth::user()->jam_keluar)))) {
+            $absensi->update([
+                'jam_keluar' => date("H:i:s"),
+                'lokasi_keluar' => $request->lokasi,
+                'latitude_keluar' => $request->latitude,
+                'longitude_keluar' => $request->longitude,
+                'foto_keluar' => $nama_file,
+            ]);
+            Storage::putFileAs('public/foto_absensi/keluar/', $file, $nama_file);
+
+            return response()->json([
+                'message' => 'Absen WFA berhasil'
+            ]);
+        }
 
         if ($request->type == "Masuk" && !$absensi) {
 
@@ -77,7 +116,7 @@ class AbsensiController extends Controller
         }
 
         return response()->json([
-            'message' => 'Absen gagal'
+            'message' => 'Absensi Belum Dibuka'
         ], 404);
     }
 

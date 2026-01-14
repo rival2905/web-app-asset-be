@@ -48,16 +48,15 @@ class AuthController extends Controller
             ], 401);
         }
 
-        $allowLogin = [0, 1, 2, 3, 4, 5];
+        $allowLogin = [1];
         if (!in_array($user->id, $allowLogin)) {
-            if ($request->version != "1.0.1") {
+            if ($request->version != "1.0.2") {
                 return response()->json([
                     'status' => 'error',
                     'message' => 'Versi aplikasi tidak sesuai, silahkan update aplikasi'
                 ], 401);
             }
         }
-
         if (!Hash::check($request->password, $user->password)) {
             return response()->json([
                 'message' => 'Invalid login details'
@@ -157,10 +156,19 @@ class AuthController extends Controller
         $type_absensi = '';
         $user = $request->user();
 
+
         if ($user->absensi_today == null || $user->absensi_today->jam_masuk == null && $user->absensi_today->dinas_luar_id == null) {
-            $type_absensi = "Masuk";
+            if (now()->isThursday() || now()->isFriday()) {
+                $type_absensi = "WFA";
+            } else {
+                $type_absensi = "Masuk";
+            }
         } else if ($user->absensi_today->jam_keluar == null && $user->absensi_today->dinas_luar_id == null) {
-            $type_absensi = "Keluar";
+            if (now()->isThursday() || now()->isFriday()) {
+                $type_absensi = "WFA";
+            } else {
+                $type_absensi = "Keluar";
+            }
         } else {
             if ($user->dinas_luar_today != null) {
                 $type_absensi =  $user->dinas_luar_today->type_dl;
