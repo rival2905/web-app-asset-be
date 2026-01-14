@@ -115,8 +115,7 @@ class RekapController extends Controller
                     'total_izin_sakit',
                     'total_izin_lainnya',
                     'total_tanpa_keterangan',
-                    'user_absences',
-                    'units'
+                    'user_absences'
                 )
             );
         }
