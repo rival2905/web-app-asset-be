@@ -26,13 +26,13 @@
               <div class="card-text mt-3">
                 <form class="needs-validation" enctype="multipart/form-data">  
                   <div class="row">
-                      <div class="col-md-12" id="uptd_choices">
-                          <select id="uptd" name="uptd_id" class=" form-select uptd_choices" required>
-                              @foreach ($uptds as $uptd)
-                                  <option value="{{ $uptd }}" @if($uptd == @$filter['uptd_id']) selected @endif>UPTD Pengelolaan Jalan dan Jembatan Wilayah Pelayanan {{ $uptd }}</option>
+                      <div class="col-md-12" id="unit_choices">
+                          <select id="unit" name="unit_id" class=" form-select unit_choices" required>
+                              @foreach ($units as $unit)
+                                  <option value="{{ $unit->id }}" @if($unit->id == @$filter['unit_id']) selected @endif>{{ $unit->name }}</option>
                               @endforeach
                           </select>
-                          @error('uptd_id')
+                          @error('unit_id')
                               <div class="invalid-feedback" style="display: block">
                                   {{ $message }}
                               </div>

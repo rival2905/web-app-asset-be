@@ -23,31 +23,19 @@
                     @if(!$is_role)
                           <div class="card-text">
                               <div class="row">
-                                  <div class="col" id="uptd_choices">
-                                      <select id="uptd" name="uptd_id" class=" form-select uptd_choices" required onchange="changeOptionUPTD()">
-                                          @foreach ($uptds as $uptd)
-                                              <option value="{{ $uptd }}" @if($uptd == @$filter['uptd_id']) selected @endif>UPTD Pengelolaan Jalan dan Jembatan Wilayah Pelayanan {{ $uptd }}</option>
+                                  <div class="col" id="unit_choices">
+                                      <select id="unit" name="unit_id" class=" form-select unit_choices" required onchange="changeOptionunit()">
+                                          @foreach ($units as $unit)
+                                              <option value="{{ $unit->id }}" @if($unit->id == @$filter['unit_id']) selected @endif> {{ $unit->name }}</option>
                                           @endforeach
                                       </select>
-                                      @error('uptd_id')
+                                      @error('unit_id')
                                       <div class="invalid-feedback" style="display: block">
                                           {{ $message }}
                                       </div>
                                       @enderror
                                   </div>
-                                  <div class="col" id="ksppj_choices">
-                                      <select id="data_ksppj" name="ksppj_id" class=" form-select ksppj_choices">
-                                          {{-- <option value="">Select KSPPJ</option> --}}
-                                          @foreach ($ksppjs as $ksppj)
-                                              <option value="{{ $ksppj->id }}" @if($ksppj->id == @$filter['ksppj_id']) selected @endif>{{ $ksppj->name }}({{ $ksppj->jabatan }})</option>
-                                          @endforeach
-                                      </select>
-                                      @error('ksppj_id')
-                                      <div class="invalid-feedback" style="display: block">
-                                          {{ $message }}
-                                      </div>
-                                      @enderror
-                                  </div>
+                                
                                   <div class="col">
                                       <input class="form-control" type="date" value="{{ old('tanggal_akhir',@$filter['tanggal_akhir']) }}"name="tanggal_akhir" placeholder="Masukan Tanggal" />
                                       @error('tanggal_akhir')
@@ -116,7 +104,7 @@
         <div class="col-sm-12 col-md-6 col-xl-6">
             <div class="card bg-danger text-white">
 
-                  <a href="{{ url('/admin/recapitulation/daily/absence?uptd_id='.$filter['uptd_id'].'&ksppj_id='.$filter['ksppj_id'].'&tanggal_akhir='.$filter['tanggal_akhir']) }}" class="card-body link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover text-white">
+                  <a href="{{ url('/admin/recapitulation/daily/absence?unit_id='.$filter['unit_id'].'&tanggal_akhir='.$filter['tanggal_akhir']) }}" class="card-body link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover text-white">
                     <h5 class="card-title text-white">
                       {{ $total_tidak_absen }}
                     </h5>
