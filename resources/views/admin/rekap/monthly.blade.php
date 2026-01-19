@@ -67,37 +67,13 @@
                 </div>
             </div>
         </div>
-        @if (@$filter['ksppj_id'])
-            
+
         <div class="col-sm-12 col-md-12 col-xl-12 mt-3">
             <!-- Contextual Classes -->
             <div class="card">
                 <h5 class="card-header">
-                    Data Kehadiran Tenaga Harian Lepas
-                    <br>
-                    UPTD Pengelolaan Jalan dan Jembatan Wilayah Pelayanan {{ $filter['uptd_id'] }}
-                    @if (@$filter['ksppj_id'])
-                    <br>
-                    Wilayah {{ App\Models\User::where('id',$filter['ksppj_id'])->first()->jabatan }}
-                    @endif
-                    @if (@$filter['pengamat_id'])
-                        @if (App\Models\User::where('id',$filter['pengamat_id'])->first()->kepengamatan()->exists())
-                        <br>
-                        Kepengamatan
-                            @foreach (App\Models\User::where('id',$filter['mandor_id'])->first()->kepengamatan as $ruas)
-                                {{ $ruas->nama }};
-                            @endforeach
-                        @endif
-                    @endif
-                    @if (@$filter['mandor_id'])
-                    <br>
-                    Kemandoran
-                        @if (App\Models\User::where('id',$filter['mandor_id'])->first()->lokasi_kerja()->exists())
-                            @foreach (App\Models\User::where('id',$filter['mandor_id'])->first()->lokasi_kerja as $ruas)
-                                {{ $ruas->nama }};
-                            @endforeach
-                        @endif
-                    @endif
+                    Data Kehadiran PPPK Paruh Waktu
+                    
                 </h5>
                 <div class="table-responsive text-wrap">
                     <table id="example" class="table table-striped">
@@ -136,20 +112,7 @@
                                 <td>{{ $user->jabatan }}</td>
                                 
                                 @for ($i=0;$i<count($data_temp['periode']->dates);$i++)
-                                    {{-- @if ($user->absensi()->whereDate('tanggal',$data_temp['periode']->full_dates[$i])->whereNotNull('jam_masuk')->exists())
-                                        @php
-                                            $absen = $user->absensi()->whereDate('tanggal',$data_temp['periode']->full_dates[$i])->whereNotNull('jam_masuk')->first();
-                                        @endphp
-                                        <td>
-                                            {{ $absen->jam_masuk }}
-                                        </td>
-                                        <td>
-                                            {{ $absen->jam_keluar }}
-                                        </td>
-                                    @else
-                                        <td class="bg-danger"></td>
-                                        <td class="bg-danger"></td>
-                                    @endif --}}
+
                                     @php
                                         $tanggalDicari = $data_temp['periode']->full_dates[$i];
                                         $hasil = array_filter($data_absen, function($item) use ($tanggalDicari,$user) {
@@ -212,7 +175,6 @@
             </div>
             <!--/ Contextual Classes -->
         </div>
-        @endif
     </div>
     <hr class="my-12" />
 </div>
