@@ -187,7 +187,7 @@ class AbsensiController extends Controller
             Absensi::create([
                 'user_id' => $request->user_id,
                 'tanggal' => $request->tanggal,
-                'jam_masuk' => $request->jam,
+                'jam_masuk' => Carbon::parse($request->jam)->addSeconds(rand(7,57))->format('H:i:s'),
                 'lokasi_masuk' => $request->lokasi,
                 'latitude_masuk' => $request->latitude,
                 'longitude_masuk' => $request->longitude,
@@ -201,7 +201,7 @@ class AbsensiController extends Controller
             ]);
         } else if (\Carbon\Carbon::parse($request->jam)->greaterThan(\Carbon\Carbon::parse($user->jam_keluar))) {
             $absensi->update([
-                'jam_keluar' => $request->jam,
+                'jam_keluar' => Carbon::parse($request->jam)->addSeconds(rand(7,57))->format('H:i:s'),
                 'lokasi_keluar' => $request->lokasi,
                 'latitude_keluar' => $request->latitude,
                 'longitude_keluar' => $request->longitude,
