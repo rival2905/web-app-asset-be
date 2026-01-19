@@ -33,7 +33,7 @@
                         <br>    
                         {{ $user->name }}
                         <br>
-                        {{ $user->jabatan }} {{ $user->bidang }}
+                        {{ $user->jabatan }}~{{ $user->bidang }}
                     </h5>
                     <div class="card-text">
                         <div class="row">
@@ -87,7 +87,7 @@
                         @if ($filter['now'] >= $data_temp['periode1']['full_dates'][$i])  
                             @if ($user->absensi()->whereDate('tanggal',$data_temp['periode1']['full_dates'][$i])->exists())
                                 @if ($user->absensi()->whereDate('tanggal',$data_temp['periode1']['full_dates'][$i])->whereNotNull('jam_masuk')->exists())
-                                    @if ($user->absensi()->whereDate('tanggal',$data_temp['periode1']['full_dates'][$i])->whereNotNull('jam_masuk')->first()->keterangan == "Tepat Waktu")
+                                    @if (in_array($user->absensi()->whereDate('tanggal', $data_temp['periode1']['full_dates'][$i])->whereNotNull('jam_masuk')->first()->keterangan, ['Tepat Waktu', 'WFA']))
                                         @php $akumulasi['tepat_waktu']++; @endphp
                                         <span class="badge badge-center bg-primary">{{ $data_temp['periode1']['dates'][$i] }}</span>
                                     @else
