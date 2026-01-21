@@ -23,18 +23,18 @@ class DashboardController extends Controller
         $user_check = User::whereIn('role',['pekerja','mandor']);
 
       
-        if(Auth::user()->uptd_id){
-            $uptds = array(Auth::user()->uptd_id);
-            $daily['key_data'] = array('UPTD'.Auth::user()->uptd_id);
-            // $user_check = $user_check->where('uptd_id', $filter['uptd_id']);
+        if(Auth::user()->master_unit_id){
+            $uptds = array(Auth::user()->master_unit_id);
+            $daily['key_data'] = array('UPTD'.Auth::user()->master_unit_id);
+            // $user_check = $user_check->where('master_unit_id', $filter['master_unit_id']);
 
         }else{
-            $uptds = array(1, 2, 3, 4, 5, 6);
-            $daily['key_data'] = array('UPTD1','UPTD2','UPTD3','UPTD4','UPTD5','UPTD6');
+            $uptds = array(1, 2, 3, 4, 5, 6,7,8,9,10,11,12);
+            $daily['key_data'] = array('UPTD1','UPTD2','UPTD3','UPTD4','UPTD5','UPTD6','LABKON','SEKRETARIAT','PEMELIHARAAN','JAKON','TATARUANG','BIDTEK');
         }
-        if($request->uptd_id){ 
-            $filter['uptd_id'] = $request->uptd_id;
-            $daily['key_data'] = array('UPTD'.$request->uptd_id);
+        if($request->master_unit_id){ 
+            $filter['master_unit_id'] = $request->master_unit_id;
+            $daily['key_data'] = array('UPTD'.$request->master_unit_id);
         }
         // dd(count($user_check));
         if($request->tanggal_akhir){ 
@@ -43,7 +43,7 @@ class DashboardController extends Controller
         // $absences = $absences->wheredate('tanggal',$filter['tanggal_akhir'])->whereIn('user_id',$user_check)->get();
         for($i=0;$i< count($uptds);$i++){
         
-            $data_user_check[$i] = User::whereIn('role',['pekerja','mandor'])->where('uptd_id', $uptds[$i])->pluck('id')->toArray();
+            $data_user_check[$i] = User::whereIn('role',['pekerja','mandor'])->where('master_unit_id', $uptds[$i])->pluck('id')->toArray();
         }
         // dd($data_user_check);
         for($i=0;$i< count($uptds);$i++){
