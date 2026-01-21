@@ -246,27 +246,37 @@
                           {{ @$data->jam_keluar }}
                         </td>
                         <td>
+                            @if ($data->foto_masuk)
                             <img
-                                src="{{ asset('/storage/foto_absensi/masuk/'.$data->foto_masuk) }}"
+                            src="{{ asset('/storage/foto_absensi/masuk/'.$data->foto_masuk) }}"
+                            alt="user-avatar"
+                            class="rounded"
+                            style="width: 90px;object-fit:cover"
+                            id="uploadedAvatar" />
+                            @else
+                            <img
+                                src="{{ asset('assets/theme1/img/avatars/person-x.png') }}"
                                 alt="user-avatar"
                                 class="rounded"
                                 style="width: 90px;object-fit:cover"
                                 id="uploadedAvatar" />
-                                @if ($data->foto_keluar)
-                                    <img
-                                    src="{{ asset('/storage/foto_absensi/keluar/'.$data->foto_keluar) }}"
-                                    alt="user-avatar"
-                                    class="rounded"
-                                    style="width: 90px;object-fit:cover"
-                                    id="uploadedAvatar" />
-                                @else
+                            @endif
+                            @if ($data->foto_keluar)
                                 <img
-                                    src="{{ asset('assets/theme1/img/avatars/person-x.png') }}"
-                                    alt="user-avatar"
-                                    class="rounded"
-                                    style="width: 90px;object-fit:cover"
-                                    id="uploadedAvatar" />
-                                @endif
+                                src="{{ asset('/storage/foto_absensi/keluar/'.$data->foto_keluar) }}"
+                                alt="user-avatar"
+                                class="rounded"
+                                style="width: 90px;object-fit:cover"
+                                id="uploadedAvatar" />
+                            @else
+                            <img
+                                src="{{ asset('assets/theme1/img/avatars/person-x.png') }}"
+                                alt="user-avatar"
+                                class="rounded"
+                                style="width: 90px;object-fit:cover"
+                                id="uploadedAvatar" />
+                            @endif
+                            
                         </td>
                         @if (Auth::user()->id == 0 || Auth::user()->id == 3422 || Auth::user()->role == 'pengamat')
                         <td>
