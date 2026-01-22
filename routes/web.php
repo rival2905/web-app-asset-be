@@ -53,33 +53,6 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/restore', [App\Http\Controllers\Admin\UserController::class, 'restore'])->name('admin.user.restore');
 
             Route::delete('/restore/{id}', [App\Http\Controllers\Admin\UserController::class, 'restore_two'])->name('admin.user.restore-two');
-
-
-
-        });
-
-        Route::prefix('recapitulation')->group(function () {
-            Route::get('/daily', [App\Http\Controllers\Admin\RekapController::class, 'daily'])->name('admin.rekap.daily');
-            Route::get('/daily/absence', [App\Http\Controllers\Admin\RekapController::class, 'daily_absence'])->name('admin.rekap.daily_absence');
-            Route::get('/daily/export/{desc}', [App\Http\Controllers\Admin\RekapController::class, 'export_daily'])->name('admin.rekap.daily.export');
-            Route::get('/user/{id}', [App\Http\Controllers\Admin\RekapController::class, 'user'])->name('admin.rekap.user');
-            Route::get('/user-anulir/{id}', [App\Http\Controllers\Admin\RekapController::class, 'user_anulir'])->name('admin.data-rekap.user-anulir');
-
-            Route::get('anulir/user/{user_id}/{id}', [App\Http\Controllers\Admin\RekapController::class, 'data_anulir'])->name('admin.rekap.user-anulir');
-            Route::get('restore-anulir/user/{user_id}/{id}', [App\Http\Controllers\Admin\RekapController::class, 'restore_data_anulir'])->name('admin.rekap.user-restore-anulir');
-
-
-            Route::get('/monthly', [App\Http\Controllers\Admin\RekapController::class, 'monthly'])->name('admin.rekap.monthly');
-            Route::get('/monthly/export', [App\Http\Controllers\Admin\RekapController::class, 'export_monthly'])->name('admin.rekap.monthly.export');
-            Route::get('/monthly/export/{category}', [App\Http\Controllers\Admin\RekapController::class, 'periode'])->name('admin.rekap.monthly.category');
-
-            Route::get('/advanced', [App\Http\Controllers\Admin\RekapController::class, 'index'])->name('admin.rekap.advanced1');
-            Route::get('/coming-soon', function () {
-                return view('comingsoon');
-            })->name('admin.rekap.advanced');
-            
-            Route::post('/help_presensi', [App\Http\Controllers\Admin\RekapController::class, 'help_presensi'])->name('admin.help_presensi.store');
-            
         });
 
     });
@@ -89,9 +62,6 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 
-/**
- * data dropdown
- */
 Route::get('/getLokasiByUPTD', [App\Http\Controllers\DropdownDataController::class, 'getLokasiByUPTD']);
 Route::get('/getLokasiByBidang', [App\Http\Controllers\DropdownDataController::class, 'getLokasiByBidang']);
 Route::get('/getAtasanByUnit', [App\Http\Controllers\DropdownDataController::class, 'getAtasanByUnit']);

@@ -38,13 +38,10 @@ class UserController extends Controller
         $temp_pekerja['unverified']= User::whereIn('role',['pekerja','mandor'])->whereNull('account_verified_at')->whereNull('deleted_at');
 
         $user_ksppj = User::where('role','ksppjj'); 
-        if(Auth::user()->master_unit_id){
-            $filter['unit_id'] = Auth::user()->master_unit_id;
+        if(Auth::user()->unit_id){
+            $filter['unit_id'] = Auth::user()->unit_id;
         }else if($request->unit_id){ 
             $filter['unit_id'] = $request->unit_id;
-        }else{
-            $filter['unit_id'] = $units[0]->id;
-
         }
         
 
@@ -75,14 +72,14 @@ class UserController extends Controller
             $temp_pekerja['unverified'] = $temp_pekerja['unverified']->where('mandor_id',Auth::user()->id);
         }
 
-        $temp_pekerja['verified'] = $temp_pekerja['verified']->where('master_unit_id',$filter['unit_id'])->count();
-        $temp_pekerja['unverified'] = $temp_pekerja['unverified']->where('master_unit_id',$filter['unit_id'])->count();
+        $temp_pekerja['verified'] = $temp_pekerja['verified']->count();
+        $temp_pekerja['unverified'] = $temp_pekerja['unverified']->count();
 
-        $users = $users->where('master_unit_id',$filter['unit_id'])->get();
-        $user_ksppj = $user_ksppj->where('master_unit_id',$filter['unit_id'])->get();
+        $users = $users->get();
+        $user_ksppj = $user_ksppj->get();
 
         // dd($filter);
-        return view('admin.user.index', compact('users','uptds','filter','user_ksppj','temp_pekerja','units'));
+        return view('admin.user.index', compact('users','uptds','user_ksppj','temp_pekerja','units'));
 
     }
 
@@ -238,7 +235,7 @@ class UserController extends Controller
         $data_peng = MasterUnit::find($request->input('bidang'));
         if($data_peng->id){
             $data['bidang'] = $data_peng->name;
-            $data['master_unit_id'] = $data_peng->id;
+            $data['unit_id'] = $data_peng->id;
 
         }
      
@@ -314,15 +311,15 @@ class UserController extends Controller
         $locations = MasterLokasiKerja::latest();
 
         $data_pengamat = User::where('role','pengamat');
-        if(Auth::user()->master_unit_id){
-            $data_pengamat = $data_pengamat->where('master_unit_id',Auth::user()->master_unit_id);
+        if(Auth::user()->unit_id){
+            $data_pengamat = $data_pengamat->where('unit_id',Auth::user()->unit_id);
 
-            $uptds = array(Auth::user()->master_unit_id);
+            $uptds = array(Auth::user()->unit_id);
         }else{
             $uptds = array(1, 2, 3, 4, 5, 6);
         }
-        if($data->master_unit_id){
-            $data_pengamat = $data_pengamat->where('master_unit_id',$data->master_unit_id);
+        if($data->unit_id){
+            $data_pengamat = $data_pengamat->where('unit_id',$data->unit_id);
         }
         if(Auth::user()->uptd_id){
             $locations = $locations->where('uptd_id',Auth::user()->uptd_id);
@@ -399,7 +396,7 @@ class UserController extends Controller
         $data_peng = MasterUnit::find($request->input('bidang'));
         if($data_peng->id){
             $data['bidang'] = $data_peng->name;
-            $data['master_unit_id'] = $data_peng->id;
+            $data['unit_id'] = $data_peng->id;
         }
 
         // dd($data);
@@ -445,7 +442,7 @@ class UserController extends Controller
           
             $user->lokasi_kerja()->sync($request->lokasi_kerja_id);
             if($data['uptd_id']){
-                return redirect('/admin/user?unit_id='.$data['master_unit_id'])->with(['success' => 'Data Berhasil Diupdate!']);
+                return redirect('/admin/user?unit_id='.$data['unit_id'])->with(['success' => 'Data Berhasil Diupdate!']);
                 
             }else{
                 //redirect dengan pesan sukses
@@ -590,7 +587,6 @@ class UserController extends Controller
         $data = get_object_vars($data);
         $data['user_id'] = $data['id'];
         $data['deleted_by'] = Auth::user()->id;
-        unset($data['id'],$data['lokasi_kerja'],$data['absensi_today'],$data['dinas_luar_today'],$data['izin_today'],$data['created_at'],$data['updated_at']);
         UserTemp::create($data);
 
         $user = User::findOrFail($id);

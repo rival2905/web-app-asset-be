@@ -28,7 +28,7 @@ class DropdownDataController extends Controller
     public function getAtasanByUnit(Request $request)
     {
         $idUPTD = $request->id;
-        $pengamat = User::where('master_unit_id', $idUPTD)->where('role','pengamat')->get();
+        $pengamat = User::where('unit_id', $idUPTD)->where('role','pengamat')->get();
         return response()->json($pengamat);
     }
     public function getKSPPJByUPTD(Request $request)

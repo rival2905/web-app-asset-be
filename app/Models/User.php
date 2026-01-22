@@ -27,10 +27,7 @@ class User extends Authenticatable
         'fcm_token',
         'role',
         'lokasi_kerja_id',
-        'jam_masuk',
-        'jam_keluar',
         'avatar',
-        'device_id',
         'mandor_id',
         'pengamat_id',
         'ksppj_id',
@@ -46,7 +43,7 @@ class User extends Authenticatable
         'deleted_at',
         'deleted_by',
         'restored_by',
-        'master_unit_id',
+        'unit_id',
 
     ];
 
@@ -73,7 +70,6 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    protected $with = ['lokasi_kerja', 'absensi_today', 'dinas_luar_today', 'izin_today'];
 
     public function lokasi_kerja()
     {
@@ -83,40 +79,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(MasterLokasiKerja::class, 'kd_sppjj', 'id');
     }
-    public function absensi_today()
-    {
-        //get last absensi
-        return $this->hasOne(Absensi::class, 'user_id', 'id')->whereDate('tanggal', now())->latest();
-    }
-
-    public function absensi()
-    {
-        return $this->hasMany(Absensi::class, 'user_id', 'id');
-    }
-
-    public function dinas_luar_today()
-    {
-        return $this->hasOne(DinasLuar::class, 'user_id', 'id')
-            ->where('status', 'Disetujui')
-            ->whereDate('tanggal_mulai', '<=', now())
-            ->whereDate('tanggal_selesai', '>=', now());
-    }
-
-    public function dinas_luar()
-    {
-        return $this->hasMany(DinasLuar::class, 'user_id', 'id');
-    }
-
-    public function izin_today()
-    {
-        return $this->hasOne(Izin::class, 'user_id', 'id')->whereDate('created_at', now())->where('status', 'Disetujui');
-    }
-
-    public function izin()
-    {
-        return $this->hasMany(Izin::class, 'user_id', 'id');
-    }
-
     public function mandor()
     {
         return $this->belongsTo(User::class, 'mandor_id');
@@ -124,9 +86,5 @@ class User extends Authenticatable
     public function pengamat()
     {
         return $this->belongsTo(User::class, 'pengamat_id');
-    }
-    public function data_anulir()
-    {
-        return $this->hasMany(AnulirAbsensi::class, 'user_id', 'id');
     }
 }
