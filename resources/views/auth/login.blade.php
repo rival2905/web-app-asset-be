@@ -13,7 +13,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Login Admin THL</title>
+    <title>Login Admin ASSET</title>
 
     <meta name="description" content="" />
 
@@ -113,7 +113,7 @@
                 </a>
               </div>
               <!-- /Logo -->
-              <h4 class="mb-1">Welcome to THL! 👋</h4>
+              <h4 class="mb-1">Welcome! 👋</h4>
               <p class="mb-6">Please sign-in to your account and start the adventure</p>
 
               <form id="formAuthentication" class="mb-6" action="{{ route('login') }}" method="POST">
@@ -176,17 +176,6 @@
           <!-- /Register -->
         </div>
       </div>
-    </div>
-
-    <!-- / Content -->
-
-    <div class="buy-now">
-      <a
-        href="https://themeselection.com/item/sneat-dashboard-pro-bootstrap/"
-        target="_blank"
-        class="btn btn-danger btn-buy-now"
-        >Upgrade to Pro</a
-      >
     </div>
 
     <!-- Core JS -->

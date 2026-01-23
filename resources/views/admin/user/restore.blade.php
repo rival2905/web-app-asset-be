@@ -28,9 +28,8 @@
                   <div class="row">
                       <div class="col-md-12" id="uptd_choices">
                           <select id="uptd" name="uptd_id" class=" form-select uptd_choices" required>
-                              @foreach ($uptds as $uptd)
-                                  <option value="{{ $uptd }}" @if($uptd == @$filter['uptd_id']) selected @endif>UPTD Pengelolaan Jalan dan Jembatan Wilayah Pelayanan {{ $uptd }}</option>
-                              @endforeach
+                                  <option value="" >UPTD Pengelolaan Jalan dan Jembatan Wilayah Pelayanan</option>
+                        
                           </select>
                           @error('uptd_id')
                               <div class="invalid-feedback" style="display: block">
@@ -61,7 +60,7 @@
   </div>
 
   <div class="card">
-    <h5 class="card-header">Data Suspend UPTD Pengelolaan Jalan dan Jembatan Wilayah Pelayanan {{ @$filter['uptd_id'] }}</h5>
+    <h5 class="card-header">Data Suspend </h5>
     <div class="table-responsive text-wrap">
       <table id="example" class="table">
         <thead>
@@ -69,10 +68,7 @@
             <th>Nama</th>
             <th>Identitas</th>
             <th>Jabatan</th>
-            @if (Auth::user()->id == 0)
-              
-            <th>Atasan</th>
-            @endif
+
             <th>Deleted</th>
 
             <th>Actions</th>
@@ -101,20 +97,7 @@
             <td>
               {{ @$data->jabatan }}
             </td>
-            @if (Auth::user()->id == 0)
-              
-              <td>
-                @if (@$data->mandor_id)
-                Mandor : {{ @$data->mandor->name }}
-                @endif
-                @if ($data->mandor_id && $data->pengamat_id)
-                  <br>
-                @endif
-                @if (@$data->pengamat_id)
-                Pengamat : {{ @$data->pengamat->name }}
-                @endif
-              </td>
-            @endif
+            
             <td>
               {{ @$data->deleted_at }}
             </td>
@@ -148,9 +131,6 @@
             <th>Nama</th>
             <th>Identitas</th>
             <th>Jabatan</th>
-            @if (Auth::user()->id == 0)
-            <th>Atasan</th>
-            @endif
             <th>Verified</th>
 
             <th>Actions</th>
@@ -158,11 +138,6 @@
         </tfoot>
       </table>
     </div>
-
-
-
-  
-
   </div>
   <!--/ Contextual Classes -->
 

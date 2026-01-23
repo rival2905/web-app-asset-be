@@ -29,7 +29,6 @@ class UserController extends Controller
     public function index(Request $request)
     {
         //
-        $uptds = array(1, 2, 3, 4, 5, 6);
         $units = MasterUnit::orderByRaw('RAND()')->get();
         $users = User::wherenull('deleted_at')->latest()->when(request()->q, function($users) {
             $users = $users->where('name', 'like', '%'. request()->q . '%');
@@ -37,49 +36,19 @@ class UserController extends Controller
         $temp_pekerja['verified'] = User::whereIn('role',['pekerja','mandor'])->whereNotNull('account_verified_at')->whereNull('deleted_at');
         $temp_pekerja['unverified']= User::whereIn('role',['pekerja','mandor'])->whereNull('account_verified_at')->whereNull('deleted_at');
 
-        $user_ksppj = User::where('role','ksppjj'); 
         if(Auth::user()->unit_id){
             $filter['unit_id'] = Auth::user()->unit_id;
         }else if($request->unit_id){ 
             $filter['unit_id'] = $request->unit_id;
         }
         
-
-        $is_subkoor = Auth::user()->role == 'subkoor';
-        $is_ksppj = Auth::user()->role == 'ksppj';
-        $is_pengamat = Auth::user()->role == 'pengamat';
-        $is_mandor = Auth::user()->role == 'mandor';
-
-        
-        if($is_ksppj){
-            $users = $users->where('ksppj_id',Auth::user()->id);
-            $temp_pekerja['verified'] = $temp_pekerja['verified']->where('ksppj_id',Auth::user()->id);
-            $temp_pekerja['unverified'] = $temp_pekerja['unverified']->where('ksppj_id',Auth::user()->id);
-        }
-        if($is_subkoor){
-            $users = $users->where('subkoor',Auth::user()->id);
-            $temp_pekerja['verified'] = $temp_pekerja['verified']->where('subkoor',Auth::user()->id);
-            $temp_pekerja['unverified'] = $temp_pekerja['unverified']->where('subkoor',Auth::user()->id);
-        }
-        if($is_pengamat){
-            $users = $users->where('pengamat_id',Auth::user()->id);
-            $temp_pekerja['verified'] = $temp_pekerja['verified']->where('pengamat_id',Auth::user()->id);
-            $temp_pekerja['unverified'] = $temp_pekerja['unverified']->where('pengamat_id',Auth::user()->id);
-        }
-        if($is_mandor){
-            $users = $users->where('mandor_id',Auth::user()->id);  
-            $temp_pekerja['verified'] = $temp_pekerja['verified']->where('mandor_id',Auth::user()->id);
-            $temp_pekerja['unverified'] = $temp_pekerja['unverified']->where('mandor_id',Auth::user()->id);
-        }
-
         $temp_pekerja['verified'] = $temp_pekerja['verified']->count();
         $temp_pekerja['unverified'] = $temp_pekerja['unverified']->count();
 
         $users = $users->get();
-        $user_ksppj = $user_ksppj->get();
 
         // dd($filter);
-        return view('admin.user.index', compact('users','uptds','user_ksppj','temp_pekerja','units'));
+        return view('admin.user.index', compact('users','temp_pekerja','units'));
 
     }
 
@@ -94,24 +63,9 @@ class UserController extends Controller
             $users = $users->where('name', 'like', '%'. request()->q . '%');
         });
 
-        if(Auth::user()->uptd_id){
-            $uptds = array(Auth::user()->uptd_id);
-        }else{
-            $uptds = array(1, 2, 3, 4, 5, 6);
-        }
-        if($request->uptd_id){ 
-            $filter['uptd_id'] = $request->uptd_id;
-        }else{
-            shuffle($uptds);
-            $filter['uptd_id'] = $uptds[0];
-            $uptds = array(1, 2, 3, 4, 5, 6);
+        $users = $users->get();
 
-        }
-
-        $users = $users->where('uptd_id',$filter['uptd_id'])->get();
-
-        // dd($filter);
-        return view('admin.user.restore', compact('users','uptds','filter'));
+        return view('admin.user.restore', compact('users'));
 
     }
 

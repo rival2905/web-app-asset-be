@@ -15,7 +15,7 @@
     <title>
         @section('title')
             &mdash; 
-            THL
+            ASSET
         @show
     </title>
 
