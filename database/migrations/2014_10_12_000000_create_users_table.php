@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('nip')->nullable();
             $table->string('jabatan')->nullable();
             $table->string('bidang')->nullable();
-            $table->enum('role', ['admin', 'pegawai', 'mandor', 'pengamat', 'ksppj', 'subkoor', 'kuptd', 'admin-pusat'])->default('pegawai');
+            $table->enum('role', ['admin-pusat', 'admin', 'kuptd', 'penanggung-jawab', 'ksppj', 'subkoor' , 'pegawai'])->default('pegawai');
             $table->string('sub_kegiatan')->nullable();
             $table->integer('radius')->default('50');
             $table->string('fcm_token')->nullable();

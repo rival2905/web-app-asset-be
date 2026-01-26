@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\LokasiKerja;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,8 +14,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        $this->call([
-            User::class
-        ]);
+        $this->call(User::class);
+        $this->call(UnitsTableSeeder::class);
     }
 }

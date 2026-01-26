@@ -25,35 +25,45 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/rekap/{id}', [App\Http\Controllers\Admin\RekapController::class, 'user'])->name('rekap.myprofile');
 
     Route::prefix('admin')->group(function () {
-        // Route::get('/', function () {
-        //     return view('admin.dashboard.index');
-        // });
-        // Route::get('/dashboard', function () {
-        //     return view('admin.dashboard.index');
-        // })->name('admin.dashboard.index');
         Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index']);
         Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard.index');
 
-    
+        // User
         Route::prefix('user')->group(function () {
             Route::get('/', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.user.index');
             Route::get('/create', [App\Http\Controllers\Admin\UserController::class, 'create'])->name('admin.user.create');
             Route::post('/store', [App\Http\Controllers\Admin\UserController::class, 'store'])->name('admin.user.store');
             Route::get('/edit/{id}', [App\Http\Controllers\Admin\UserController::class, 'edit'])->name('admin.user.edit');
             Route::put('/update/{id}', [App\Http\Controllers\Admin\UserController::class, 'update'])->name('admin.user.update');
-
             Route::put('/verified/{id}', [App\Http\Controllers\Admin\UserController::class, 'verified'])->name('admin.user.verified-account');
             // Route::delete('/destroy/{id}', [App\Http\Controllers\Admin\UserController::class, 'soft_destroy'])->name('admin.user.destroy');
             Route::delete('/destroy/{id}', [App\Http\Controllers\Admin\UserController::class, 'delete_two'])->name('admin.user.destroy');
-
             Route::delete('/reset/{id}', [App\Http\Controllers\Admin\UserController::class, 'reset'])->name('admin.user.reset');
-
             Route::get('/export', [App\Http\Controllers\Admin\UserController::class, 'export'])->name('admin.user.export');
-
             Route::get('/restore', [App\Http\Controllers\Admin\UserController::class, 'restore'])->name('admin.user.restore');
-
             Route::delete('/restore/{id}', [App\Http\Controllers\Admin\UserController::class, 'restore_two'])->name('admin.user.restore-two');
         });
+
+        // Master
+        Route::prefix('master')->group(function () {
+            Route::get('unit/', [App\Http\Controllers\Admin\UnitController::class, 'index'])->name('admin.unit.index');
+        });
+
+        // Asset
+        Route::prefix('asset')->group(function () {
+            Route::prefix('type')->group(function () {
+                Route::get('/', [App\Http\Controllers\Admin\AssetTypeController::class, 'index'])->name('admin.asset-type.index');
+                Route::get('/create', [App\Http\Controllers\Admin\AssetTypeController::class, 'create'])->name('admin.asset-type.create');
+                Route::post('/store', [App\Http\Controllers\Admin\AssetTypeController::class, 'store'])->name('admin.asset-type.store');
+                Route::get('/edit/{id}', [App\Http\Controllers\Admin\AssetTypeController::class, 'edit'])->name('admin.asset-type.edit');
+                Route::put('/update/{id}', [App\Http\Controllers\Admin\AssetTypeController::class, 'update'])->name('admin.asset-type.update');
+                Route::delete('/destroy/{id}', [App\Http\Controllers\Admin\AssetTypeController::class, 'destroy'])->name('admin.asset-type.destroy');
+
+            });
+
+        });
+
+
 
     });
     Route::get('/blank-page', function () {

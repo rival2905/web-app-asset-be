@@ -24,10 +24,10 @@
           <div class="text-truncate" data-i18n="Tables">Dashboard</div>
         </a>
       </li>
-      @if (Auth::user()->role != 'pekerja')
+      
       <!-- Master -->
       <li class="menu-header small text-uppercase"><span class="menu-header-text">Master</span></li>
-      <!-- Forms -->
+      <!-- Fitur Manajemen User -->
       <li class="menu-item @if(setActive('admin/user'). setActive('admin/jabatan')) active open @endif">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons bx bx-user"></i>
@@ -46,27 +46,48 @@
           </li>
         </ul>
       </li>
-    
-      <li class="menu-item @if(setActive('admin/recapitulation')) active open @endif">
+
+      <!-- Fitur Data Master -->
+      <li class="menu-item @if(setActive('admin/master')) active open @endif">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
-          <i class="menu-icon tf-icons bx bx-table"></i>
-          <div class="text-truncate" data-i18n="Form Elements">Rekapitulasi</div>
+          <i class="menu-icon tf-icons bx bx-core"></i>
+          <div class="text-truncate" data-i18n="Form Elements">Data Master</div>
         </a>
         <ul class="menu-sub"> 
-          <li class="menu-item @if(setActive('admin/recapitulation/advanced')) active @endif">
-            <a href="#" class="menu-link">
-              <div class="text-truncate" data-i18n="Basic Inputs">Advanced</div>
+          <li class="menu-item @if(setActive('admin/master/unit')) active @endif">
+            <a href="{{ route('admin.unit.index') }}" class="menu-link">
+              <div class="text-truncate" data-i18n="Basic Inputs">Unit</div>
             </a>
           </li>
           
         </ul>
       </li>
-      @endif
-      <!-- Tables -->
+
+      <!-- Fitur Asset -->
+      <li class="menu-item @if(setActive('admin/asset')) active open @endif">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons bx bx-treasure-chest"></i>
+          <div class="text-truncate" data-i18n="Form Elements">Asset</div>
+        </a>
+        <ul class="menu-sub"> 
+          <li class="menu-item @if(setActive('admin/asset/list')) active @endif">
+            <a href="#" class="menu-link">
+              <div class="text-truncate" data-i18n="Basic Inputs">Daftar Asset</div>
+            </a>
+            <a href="{{ route('admin.asset-type.index') }}" class="menu-link @if(setActive('admin/asset/type')) active @endif">
+              <div class="text-truncate" data-i18n="Basic Inputs">Tipe Asset</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <!-- Master -->
+      <li class="menu-header small text-uppercase"><span class="menu-header-text">Transaction</span></li>
+      <!-- Realisasi -->
       <li class="menu-item @if(setActive('admin/blank-page')) active open @endif">
         <a href="{{ route('admin.blank') }}" class="menu-link">
-          <i class="menu-icon tf-icons bx bx-table"></i>
-          <div class="text-truncate" data-i18n="Tables">Blank</div>
+          <i class="menu-icon tf-icons bx bx-repeat-alt-2"></i>
+          <div class="text-truncate" data-i18n="Tables">Realisasi</div>
         </a>
       </li>
      

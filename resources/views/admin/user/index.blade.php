@@ -93,7 +93,7 @@
             <th>Identitas</th>
             <th>Jabatan</th>
             <th>Verified</th>
-            @if (Auth::user()->role == 'pengamat' || Auth::user()->role == 'admin' || Auth::user()->role == 'admin-pusat' || Auth::user()->id == 0 || Auth::user()->id == 3422)
+            @if (Auth::user()->role == 'admin' || Auth::user()->role == 'admin-pusat')
             <th>Actions</th>
             @endif
           </tr>
@@ -121,19 +121,17 @@
             <td>
               {{ @$data->jabatan }}
             </td>
-           
             <td>
               {{ @$data->account_verified_at }}
             </td>
-            @if (Auth::user()->role == 'pengamat' || Auth::user()->role == 'admin' || Auth::user()->role == 'admin-pusat' || Auth::user()->id == 0 || Auth::user()->id == 3422)
+            @if (Auth::user()->role == 'admin' || Auth::user()->role == 'admin-pusat')
             <td>
               <div class="dropdown">
                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                   <i class="bx bx-dots-vertical-rounded"></i>
                 </button>
                 <div class="dropdown-menu">
-                  @if (Auth::user()->id == 0 || Auth::user()->id == 3422)
-
+                  @if (Auth::user()->role == 'admin' ||Auth::user()->role == 'admin-pusat')
                   <a class="dropdown-item" href="{{ route('admin.user.edit', Crypt::encryptString($data->id)) }}">
                   {{-- <a class="dropdown-item" href="{{ route('admin.user.edit', $data->id) }}"> --}}
 
@@ -141,23 +139,14 @@
                   </a>
                   @endif
                   {{-- @if (Auth::user()->id == 0) --}}
-                  @if (Auth::user()->role == 'admin' || Auth::user()->role == 'admin-pusat')
+                  @if (Auth::user()->role == 'admin-pusat')
 
                     <button onClick="Delete(this.id)" id="{{ $data->id }}" class="dropdown-item">
                       <i class="bx bx-trash me-1"></i> 
                       Delete
                     </button>
                       
-                    @endif
-                    @if (Auth::user()->role == 'pengamat' || Auth::user()->role == 'admin' || Auth::user()->role == 'admin-pusat')
-                    @if ($data->device_id)
-                    <button onClick="Reset(this.id)" id="{{ $data->id }}" class="dropdown-item">
-                      <i class="bx bx-phone-off me-1"></i> 
-                      Reset Device
-                    </button>
-                    @endif
                   @endif
-
                 </div>
               </div>
             </td>

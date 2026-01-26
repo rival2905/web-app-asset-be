@@ -82,9 +82,9 @@
             </div>
             <div class="card-body pt-4">
                 @if ($action == 'store')
-                    <form class="row g-3 needs-validation" action="{{route('admin.user.store')}}" method="post" enctype="multipart/form-data">  
+                    <form class="needs-validation" action="{{route('admin.user.store')}}" method="post" enctype="multipart/form-data">  
                 @else
-                    <form class="row g-3 needs-validation" action="{{ route('admin.user.update', $data->id) }}" method="POST" enctype="multipart/form-data">
+                    <form class="needs-validation" action="{{ route('admin.user.update', $data->id) }}" method="POST" enctype="multipart/form-data">
                     @method('PUT') 
                 @endif
                 @csrf
@@ -180,15 +180,15 @@
                             value="{{ old('password_confirmation') }}"
                             placeholder="Masukkan Konfirmasi Password" class="form-control" @if ($action == 'store') required @endif>
                     </div>
-                    <div class="col-md-6" id="bidang_choices">
-                        <label class="form-label" for="bidang">Unit</label>
-                        <select id="bidang" name="bidang" class="form-select bidang_choices" onchange="changeOptionBidang()" required>
+                    <div class="col-md-6" id="unit_choices">
+                        <label class="form-label" for="unit">Unit</label>
+                        <select id="unit" name="unit" class="form-select unit_choices" onchange="changeOptionUnit()" required>
                             <option value="">Select</option>
-                            @foreach ($positions as $position)
-                            <option value="{{ $position->id }}" @if($position->name == @$data->bidang) selected @endif>{{ $position->name }}</option>
+                            @foreach ($units as $unit)
+                            <option value="{{ $unit->id }}" @if($unit->id == @$data->unit_id) selected @endif>{{ $unit->name }}</option>
                             @endforeach
                         </select>
-                        @error('bidang')
+                        @error('unit')
                             <div class="invalid-feedback" style="display: block">
                                 {{ $message }}
                             </div>
@@ -199,7 +199,7 @@
                         <select id="jabatan" name="jabatan" class="form-select jabatan_choices" required>
                             <option value="">Select</option>
                             @foreach ($jabatans as $jabatan)
-                            <option value="{{ $jabatan }}" @if($jabatan == @$data->jabatan) selected @endif>{{ $jabatan }}</option>
+                            <option value="{{ $jabatan->jabatan }}" @if($jabatan->jabatan == @$data->jabatan) selected @endif>{{ $jabatan->jabatan }}</option>
                             @endforeach
                         </select>
                         @error('jabatan')
@@ -208,41 +208,7 @@
                             </div>
                         @enderror
                     </div>
-                    
-                    @if (Auth::user()->id == 0 || Auth::user()->id == 3422)
-                    
-                    <div class="col-md-12">
-                        <label class="form-label" for="lokasi_kerja">LOKASI KERJA</label>
-                        <select id="lokasi_kerja" name="lokasi_kerja_id[]" multiple  class="js-example-basic-multiple-limit form-select">
-                            <option value="">Select</option>
-                            @foreach ($locations as $location)
-                            <option value="{{ $location->id }}" @if(@$data->lokasi_kerja) {{ in_array($location->id, @$data->lokasi_kerja()->pluck('master_lokasi_kerja_id')->toArray()) ? 'selected' : '' }} @endif>{{ $location->nama }}</option>
-                                
-                            @endforeach
-                            
-                        </select>
-                        @error('lokasi_kerja_id')
-                            <div class="invalid-feedback" style="display: block">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-
-                    <div id="form-pengamat" class="col-md-12">
-                        <label class="form-label" for="data_pengamat">Pilih Atasan</label>
-                        <select id="data_pengamat" name="data_pengamat" class="form-select">
-                            <option value="">Select</option>
-                            @foreach ($data_pengamat as $pengamat)
-                            <option value="{{ $pengamat->id }}" @if($pengamat->id == @$data->pengamat_id) selected @endif>{{ $pengamat->jabatan }}({{ $pengamat->name }})</option>
-                            @endforeach
-                        </select>
-                        @error('data-pengamat')
-                            <div class="invalid-feedback" style="display: block">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                    @endif
+                
                 </div>
                 <div class="mt-6">
                     <button type="submit" class="btn btn-primary me-3">Save changes</button>
@@ -300,7 +266,7 @@
     @stop
     
     <!-- Modal -->
-    @if ($action == 'update')
+    @if ($action == 'update' && Auth::user()->role == 'admin-pusat')
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -343,33 +309,4 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 {{-- <script src="{{ asset('assets/theme1/js/ui-modals.js')}}"></script> --}}
 
-<script>
-    
-
-
-   
-    $(".js-example-basic-multiple-limit").select2({
-        maximumSelectionLength: 12
-    });
-
-    function changeOptionBidang() {
-
-        //untuk select SUP
-        // id = document.getElementById("province").value
-        id = $("#bidang_choices").find('.bidang_choices').val()
-        url = "{{ url('getLokasiByBidang') }}"
-        id_select = '#lokasi_kerja'
-        text = 'Choose...'
-        option = 'nama'
-        value = 'id'
-        setDataSelect(id, url, id_select, text, value, option)
-
-        url = "{{ url('getAtasanByUnit') }}"
-        id_select = '#data_pengamat'
-        text = 'Choose...'
-        option = 'name'
-        value = 'id'
-        setDataSelect(id, url, id_select, text, value, option)
-    }
-</script>
 @endpush

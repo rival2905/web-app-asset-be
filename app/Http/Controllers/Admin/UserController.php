@@ -106,34 +106,14 @@ class UserController extends Controller
     public function create()
     {
         //
-        // dd(Str::slug('Bidang Teknik Jalan', '-'));
-        
         $action = "store";
-        // $positions = User::where('role','pengamat')->select('jabatan')->groupBy('jabatan')->pluck('jabatan')->toArray();
-        $positions = MasterUnit::get();
+
+        $units = MasterUnit::get();
         
-        $fields = User::select('bidang')->orderBy('bidang')->groupBy('bidang');
-        if(Auth::user()->id != 0 && Auth::user()->bidang){
-            $fields = $fields->where('bidang',Auth::user()->bidang);
-        }
-        $fields = $fields->get();
+        $jabatans = User::select('jabatan')->orderBy('jabatan')->groupBy('jabatan');
+        $jabatans = $jabatans->get();
         
-        $locations = MasterLokasiKerja::latest();
-        $data_pengamat = User::where('role','pengamat');
-        if(Auth::user()->uptd_id){
-            $locations = $locations->where('uptd_id',Auth::user()->uptd_id);
-            $data_pengamat = $data_pengamat->where('uptd_id',Auth::user()->uptd_id);
-
-            $uptds = array(Auth::user()->uptd_id);
-        }else{
-            $uptds = array(1, 2, 3, 4, 5, 6);
-        }
-        $jabatans = array('Pengelola Umum Operasional','Operator Layanan Operasional', 'Pengelola Layanan Operasional','Penata Layanan Operasional');
-
-        $locations = $locations->get();
-        $data_pengamat = $data_pengamat->get();
-
-        return view('admin.user.form', compact('action','positions','fields','locations','data_pengamat', 'uptds','jabatans'));
+        return view('admin.user.form', compact('action','units','jabatans'));
     }
 
     /**
@@ -151,8 +131,7 @@ class UserController extends Controller
             'nik'   => '',
             'nip'  => '',
             'jabatan'  => '',
-            'bidang'  => '',
-            'data_pengamat'  => '',
+            'unit'  => '',
         ]);
         $data = [
             'name'      => $request->input('name'),
@@ -161,43 +140,31 @@ class UserController extends Controller
             'nip'     => $request->input('nip'),
             'jabatan'     => $request->input('jabatan'),
             'password'  => Hash::make($request->input('password')),
-            'uptd_id'   => $request->input('uptd_id'),
-            'pengamat_id'   => $request->input('data_pengamat')
-
         ];
-        $data_pengamat = User::find($request->input('data_pengamat'));
-        if($data_pengamat->uptd_id){
-            $data['uptd_id'] = $data_pengamat->uptd_id;
-        }
 
-        if($request->input('jabatan') == "Pengelola Umum Operasional"){
-            $data['role'] = "pekerja";
-        }else if($request->input('jabatan') == "Operator Layanan Operasional"){
-            $data['role'] = "pekerja";
-        }else if($request->input('jabatan') == "Pengelola Layanan Operasional"){
-            $data['role'] = "pekerja";
-        }else if($request->input('jabatan') == "Penata Layanan Operasional"){
-            $data['role'] = "pekerja";
+        if($request->input('jabatan') == "Admin"){
+            $data['role'] = "admin";
+        }else if($request->input('jabatan') == "Kepala UPTD"){
+            $data['role'] = "kuptd";
+        }else if($request->input('jabatan') == "Sub Koor"){
+            $data['role'] = "subkoor";
+        }else if($request->input('jabatan') == "KSPPJ"){
+            $data['role'] = "ksppj";
+        }else if($request->input('jabatan') == "Pegawai"){
+            $data['role'] = "pegawai";
+        }else if($request->input('jabatan') == "Penanggung Jawab"){
+            $data['role'] = "penanggung-jawab";
         }else{
-            // $data['role'] = Str::lower($request->input('jabatan'));
-            if(Auth::user()->id == 0 || Auth::user()->id == 3422){
-                $data['role'] = $request->input('role');
-            }else{
-                return redirect()->route('admin.user.index')->with(['error' => 'Hubungi admin pusat untuk perubahan data tersebut!!']);
-            }
+            return redirect()->route('admin.user.index')->with(['error' => 'Hubungi admin pusat untuk perubahan data tersebut!!']);
         } 
-        $data_peng = MasterUnit::find($request->input('bidang'));
-        if($data_peng->id){
-            $data['bidang'] = $data_peng->name;
-            $data['unit_id'] = $data_peng->id;
 
+        $data_unit = MasterUnit::find($request->input('unit'));
+        if($data_unit->id){
+            $data['bidang'] = $data_unit->name;
+            $data['unit_id'] = $data_unit->id;
+            $data['uptd_id'] = $data_unit->uptd_id;
         }
      
-
-        if($request->input('data_pengamat') == "Choose..."){
-            $data['pengamat_id'] = null;
-        }
-        // dd($request->lokasi_kerja_id);
         if($request->file('avatar')) {
             //upload avatar
             $avatar = $request->file('avatar');
@@ -219,16 +186,10 @@ class UserController extends Controller
             
             $data['identity_photo'] = $name;
         }
-        $data['jam_masuk'] = "08:00:00";
-        $data['jam_keluar'] = "16:00:00";
 
         $user = User::create($data);
 
         if($user){
-            if($request->lokasi_kerja_id){
-                $user->lokasi_kerja()->attach($request->lokasi_kerja_id);
-
-            }
             //redirect dengan pesan sukses
             return redirect()->route('admin.user.index')->with(['success' => 'Data Berhasil Disimpan!']);
         }else{
@@ -258,34 +219,17 @@ class UserController extends Controller
         }
 
         $action = "update";
+
         $data = User::find($id);
+        $units = MasterUnit::get();
+        
+        $jabatans = User::select('jabatan')->orderBy('jabatan')->groupBy('jabatan');
+        // if(Auth::user()->id != 0 && Auth::user()->jabatan){
+        //     $jabatans = $jabatans->where('jabatan',Auth::user()->jabatan);
+        // }
+        $jabatans = $jabatans->get();
 
-        $positions = MasterUnit::get();
-
-        $locations = MasterLokasiKerja::latest();
-
-        $data_pengamat = User::where('role','pengamat');
-        if(Auth::user()->unit_id){
-            $data_pengamat = $data_pengamat->where('unit_id',Auth::user()->unit_id);
-
-            $uptds = array(Auth::user()->unit_id);
-        }else{
-            $uptds = array(1, 2, 3, 4, 5, 6);
-        }
-        if($data->unit_id){
-            $data_pengamat = $data_pengamat->where('unit_id',$data->unit_id);
-        }
-        if(Auth::user()->uptd_id){
-            $locations = $locations->where('uptd_id',Auth::user()->uptd_id);
-        }
-        if($data->uptd_id){
-            $locations = $locations->where('uptd_id',$data->uptd_id);
-        }
-        $locations = $locations->get();
-        $data_pengamat = $data_pengamat->get();
-        $jabatans = array('Pengelola Umum Operasional','Operator Layanan Operasional', 'Pengelola Layanan Operasional','Penata Layanan Operasional');
-
-        return view('admin.user.form', compact('action','positions','data','locations','data_pengamat','uptds','jabatans'));
+        return view('admin.user.form', compact('action','units','data','jabatans'));
     }
 
     /**
@@ -306,8 +250,7 @@ class UserController extends Controller
             'nik'   => '',
             'nip'  => '',
             'jabatan'  => '',
-            'bidang'  => '',
-            'data_pengamat'  => '',
+            'unit'  => '',
         ]);
         $data = [
             'name'      => $request->input('name'),
@@ -315,42 +258,30 @@ class UserController extends Controller
             'nik'     => $request->input('nik'),
             'nip'     => $request->input('nip'),
             'jabatan'     => $request->input('jabatan'),
-            'uptd_id'   => $request->input('uptd_id'),
-            'pengamat_id'   => $request->input('data_pengamat')
 
         ];
-        $data_pengamat = User::find($request->input('data_pengamat'));
-        if($data_pengamat->uptd_id){
-            $data['uptd_id'] = $data_pengamat->uptd_id;
+        
+        if($request->input('jabatan') == "Admin"){
+            $data['role'] = "admin";
+        }else if($request->input('jabatan') == "Kepala UPTD"){
+            $data['role'] = "kuptd";
+        }else if($request->input('jabatan') == "Sub Koor"){
+            $data['role'] = "subkoor";
+        }else if($request->input('jabatan') == "KSPPJ"){
+            $data['role'] = "ksppj";
+        }else if($request->input('jabatan') == "Pegawai"){
+            $data['role'] = "pegawai";
+        }else if($request->input('jabatan') == "Penanggung Jawab"){
+            $data['role'] = "penanggung-jawab";
         }else{
-            $data['uptd_id'] = null;
+            return redirect()->route('admin.user.index')->with(['error' => 'Hubungi admin pusat untuk perubahan data tersebut!!']);
+        } 
 
-        }
-        
-        if($request->input('jabatan') == "Pengelola Umum Operasional"){
-            $data['role'] = "pekerja";
-        }else if($request->input('jabatan') == "Operator Layanan Operasional"){
-            $data['role'] = "pekerja";
-        }else if($request->input('jabatan') == "Pengelola Layanan Operasional"){
-            $data['role'] = "pekerja";
-        }else if($request->input('jabatan') == "Penata Layanan Operasional"){
-            $data['role'] = "pekerja";
-        }else{
-            // $data['role'] = Str::lower($request->input('jabatan'));
-            if(Auth::user()->id == 0 || Auth::user()->id == 3422){
-                $data['role'] = $request->input('role');
-            }else{
-                return redirect()->route('admin.user.index')->with(['error' => 'Hubungi admin pusat untuk perubahan data tersebut!!']);
-            }
-        }
-        if($request->input('data_pengamat') == "Choose..."){
-            $data['pengamat_id'] = null;
-        }
-        
-        $data_peng = MasterUnit::find($request->input('bidang'));
-        if($data_peng->id){
-            $data['bidang'] = $data_peng->name;
-            $data['unit_id'] = $data_peng->id;
+        $data_unit = MasterUnit::find($request->input('unit'));
+        if($data_unit->id){
+            $data['bidang'] = $data_unit->name;
+            $data['unit_id'] = $data_unit->id;
+            $data['uptd_id'] = $data_unit->uptd_id;
         }
 
         // dd($data);
@@ -393,16 +324,7 @@ class UserController extends Controller
         $user->update($data);
 
         if($user){
-          
-            $user->lokasi_kerja()->sync($request->lokasi_kerja_id);
-            if($data['uptd_id']){
-                return redirect('/admin/user?unit_id='.$data['unit_id'])->with(['success' => 'Data Berhasil Diupdate!']);
-                
-            }else{
-                //redirect dengan pesan sukses
-                return redirect()->route('admin.user.index')->with(['success' => 'Data Berhasil Diupdate!']);
-
-            }
+            return redirect()->route('admin.user.index')->with(['success' => 'Data Berhasil Diupdate!']);
             
         }else{
             //redirect dengan pesan error
