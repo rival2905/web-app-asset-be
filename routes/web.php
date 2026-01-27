@@ -51,14 +51,13 @@ Route::group(['middleware' => 'auth'], function () {
 
         // Asset
         Route::prefix('asset')->group(function () {
-            Route::prefix('type')->group(function () {
-                Route::get('/', [App\Http\Controllers\Admin\AssetTypeController::class, 'index'])->name('admin.asset-type.index');
-                Route::get('/create', [App\Http\Controllers\Admin\AssetTypeController::class, 'create'])->name('admin.asset-type.create');
-                Route::post('/store', [App\Http\Controllers\Admin\AssetTypeController::class, 'store'])->name('admin.asset-type.store');
-                Route::get('/edit/{id}', [App\Http\Controllers\Admin\AssetTypeController::class, 'edit'])->name('admin.asset-type.edit');
-                Route::put('/update/{id}', [App\Http\Controllers\Admin\AssetTypeController::class, 'update'])->name('admin.asset-type.update');
-                Route::delete('/destroy/{id}', [App\Http\Controllers\Admin\AssetTypeController::class, 'destroy'])->name('admin.asset-type.destroy');
-
+            Route::prefix('category')->group(function () {
+                Route::get('/', [App\Http\Controllers\Admin\AssetCategoryController::class, 'index'])->name('admin.asset-category.index');
+                Route::get('/create', [App\Http\Controllers\Admin\AssetCategoryController::class, 'create'])->name('admin.asset-category.create');
+                Route::post('/store', [App\Http\Controllers\Admin\AssetCategoryController::class, 'store'])->name('admin.asset-category.store');
+                Route::get('/edit/{slug}', [App\Http\Controllers\Admin\AssetCategoryController::class, 'edit'])->name('admin.asset-category.edit');
+                Route::put('/update/{id}', [App\Http\Controllers\Admin\AssetCategoryController::class, 'update'])->name('admin.asset-category.update');
+                Route::delete('/destroy/{id}', [App\Http\Controllers\Admin\AssetCategoryController::class, 'destroy'])->name('admin.asset-category.destroy');
             });
 
         });

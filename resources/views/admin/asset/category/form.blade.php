@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 @section('title')
-    User 
+    Asset Kategori 
     @if ($action == 'store')
     Create
     @else
@@ -19,19 +19,25 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <h5 class="card-header">Create Asset Type</h5>
+                <h5 class="card-header">
+                    @if ($action == 'store')
+                    Create
+                    @else
+                    Edit
+                    @endif 
+                    Asset Category</h5>
                 <div class="card-body">
                     @if ($action == 'store')
-                        <form class="needs-validation" action="{{route('admin.asset-type.store')}}" method="post" enctype="multipart/form-data">  
+                        <form class="needs-validation" action="{{route('admin.asset-category.store')}}" method="post" enctype="multipart/form-data">  
                     @else
-                        <form class="needs-validation" action="{{ route('admin.asset-type.update', $data->id) }}" method="POST" enctype="multipart/form-data">
+                        <form class="needs-validation" action="{{ route('admin.asset-category.update', $data->id) }}" method="POST" enctype="multipart/form-data">
                         @method('PUT') 
                     @endif
                     @csrf
                     <div class="row g-6">
                         <div class="col-md-12">
                             <label for="name" class="form-label">Name</label>
-                            <input class="form-control" type="text" id="name" name="name" value="{{ old('name', @$data->name) }}" placeholder="Input name of type.." autofocus  required/>
+                            <input class="form-control" type="text" id="name" name="name" value="{{ old('name', @$data->name) }}" placeholder="Input name of category.." autofocus  required/>
                             @error('name')
                                 <div class="invalid-feedback" style="display: block">
                                     {{ $message }}

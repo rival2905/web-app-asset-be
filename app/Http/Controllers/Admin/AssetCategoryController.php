@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-use App\Models\AssetType;
+use App\Models\AssetCategory;
 
-class AssetTypeController extends Controller
+class AssetCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,9 @@ class AssetTypeController extends Controller
     public function index()
     {
         //
-        $types = AssetType::get();
+        $categories = AssetCategory::get();
         
-        return view('admin.asset.type.index', compact('types'));
+        return view('admin.asset.category.index', compact('categories'));
 
     }
 
@@ -30,7 +30,7 @@ class AssetTypeController extends Controller
         //
         $action = "store";
 
-        return view('admin.asset.type.form', compact('action'));
+        return view('admin.asset.category.form', compact('action'));
 
     }
 
@@ -39,23 +39,25 @@ class AssetTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validator
         $this->validate($request, [
-            'name' => 'required|unique:asset_types'
+            'name' => 'required|unique:asset_categories'
         ]);
+
+        //nampung
         $data=[
             'name'=>$request->name,
             'slug'=> Str::slug($request->input('name'), '-'),
         ];
     
-        $save = AssetType::create($data);
+        $save = AssetCategory::create($data);
 
         if($save){
             //redirect dengan pesan sukses
-            return redirect()->route('admin.asset-type.index')->with(['success' => 'Data Berhasil Disimpan!']);
+            return redirect()->route('admin.asset-category.index')->with(['success' => 'Data Berhasil Disimpan!']);
         }else{
             //redirect dengan pesan error
-            return redirect()->route('admin.asset-type.index')->with(['error' => 'Data Gagal Disimpan!']);
+            return redirect()->route('admin.asset-category.index')->with(['error' => 'Data Gagal Disimpan!']);
         }
     }
 
@@ -70,12 +72,12 @@ class AssetTypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit($slug)
     {
         //
         $action = "update";
-        $data = AssetType::find($id);
-        return view('admin.asset.type.form', compact('data', 'action'));
+        $data = AssetCategory::where('slug',$slug)->first();
+        return view('admin.asset.category.form', compact('data', 'action'));
     }
 
     /**
@@ -84,23 +86,24 @@ class AssetTypeController extends Controller
     public function update(Request $request, string $id)
     {
         //
-        $data = AssetType::find($id);
+        $data = AssetCategory::find($id);
 
+        //validator
         $this->validate($request, [
-            'name' => 'required|unique:asset_types,name,'.$data->id
+            'name' => 'required|unique:asset_categories,name,'.$data->id
         ]);
         
-        $data->name = $request->name;
+        $data->name = $request->name;  
         $data->slug = Str::slug($request->input('name'), '-');
- 
+      
         $save = $data->save();
 
         if($save){
             //redirect dengan pesan sukses
-            return redirect()->route('admin.asset-type.index')->with(['success' => 'Data Berhasil Diperbaharui!']);
+            return redirect()->route('admin.asset-category.index')->with(['success' => 'Data Berhasil Diperbaharui!']);
         }else{
             //redirect dengan pesan error
-            return redirect()->route('admin.asset-type.index')->with(['error' => 'Data Gagal Diperbaharui!']);
+            return redirect()->route('admin.asset-category.index')->with(['error' => 'Data Gagal Diperbaharui!']);
         }
 
     }
@@ -111,7 +114,7 @@ class AssetTypeController extends Controller
     public function destroy( $id)
     {
         //
-        $data = AssetType::findOrFail($id);
+        $data = AssetCategory::findOrFail($id);
         $data->delete();
 
         if($data){

@@ -141,7 +141,7 @@ class UserController extends Controller
             'jabatan'     => $request->input('jabatan'),
             'password'  => Hash::make($request->input('password')),
         ];
-
+        
         if($request->input('jabatan') == "Admin"){
             $data['role'] = "admin";
         }else if($request->input('jabatan') == "Kepala UPTD"){
@@ -157,13 +157,14 @@ class UserController extends Controller
         }else{
             return redirect()->route('admin.user.index')->with(['error' => 'Hubungi admin pusat untuk perubahan data tersebut!!']);
         } 
-
+        
         $data_unit = MasterUnit::find($request->input('unit'));
         if($data_unit->id){
             $data['bidang'] = $data_unit->name;
             $data['unit_id'] = $data_unit->id;
             $data['uptd_id'] = $data_unit->uptd_id;
         }
+       
      
         if($request->file('avatar')) {
             //upload avatar
@@ -241,6 +242,8 @@ class UserController extends Controller
         //
         $user = User::findOrFail($id);
         // dd($user);
+
+        //validator
         $this->validate($request, [
             'name'      => 'required',
             'email'     => 'required|email|unique:users,email,'.$user->id,

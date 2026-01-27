@@ -74,8 +74,15 @@
             <a href="#" class="menu-link">
               <div class="text-truncate" data-i18n="Basic Inputs">Daftar Asset</div>
             </a>
-            <a href="{{ route('admin.asset-type.index') }}" class="menu-link @if(setActive('admin/asset/type')) active @endif">
-              <div class="text-truncate" data-i18n="Basic Inputs">Tipe Asset</div>
+          </li>
+          <li class="menu-item @if(setActive('admin/asset/category')) active @endif">
+            <a href="{{ route('admin.asset-category.index') }}" class="menu-link">
+              <div class="text-truncate" data-i18n="Basic Inputs">Kategori Asset</div>
+            </a>
+          </li>
+          <li class="menu-item @if(setActive('admin/asset/material')) active @endif">
+            <a href="#" class="menu-link">
+              <div class="text-truncate" data-i18n="Basic Inputs">Material Asset</div>
             </a>
           </li>
         </ul>

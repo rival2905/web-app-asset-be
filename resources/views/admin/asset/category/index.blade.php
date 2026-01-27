@@ -1,7 +1,7 @@
 
 @extends('admin.layouts.app')
 @section('title')
-    Asset Types  
+    Asset categories  
 @parent
 @stop
 
@@ -22,7 +22,7 @@
         <div class="col-sm-12 col-md-12 col-xl-12">
         <div class="card text-center">
             <div class="card-body">
-                <h5 class="card-title">Data Tipe Asset</h5>
+                <h5 class="card-title">Data Kategori Asset</h5>
 
             </div>
         </div>
@@ -31,47 +31,47 @@
 
     <div class="card mt-1">
         <div class="table-responsive text-wrap">
-        <table id="example" class="table">
-            <thead>
-            <tr>
-                <th>Nama</th>
-                <th>Slug</th>
-                @if (Auth::user()->role == 'admin-pusat')
-                <th>Actions</th>
-                @endif
-            </tr>
-            </thead>
-            <tbody class="table-border-bottom-0">
-            @foreach ($types as $data)
-            <tr class="table-default">
-                <td>
-                {{ @$data->name }}
-                </td>
-                <td>
-                {{ @$data->slug }}
-                </td>
-                @if (Auth::user()->role == 'admin-pusat')
-                <td>
-                    <a href="{{ route('admin.asset-type.edit', $data->id) }}" type="button" class="btn btn-warning btn-sm"><i class='bx bx-edit'></i> Edit</a>
-                    <button onClick="Delete(this.id)" id="{{ $data->id }}" type="button" class="btn btn-danger btn-sm"><i class='bx bx-trash'></i> Delete</button>
+            <table id="example" class="table">
+                <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>Slug</th>
+                    @if (Auth::user()->role == 'admin-pusat')
+                    <th>Actions</th>
+                    @endif
+                </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                @foreach ($categories as $data)
+                <tr class="table-default">
+                    <td>
+                    {{ @$data->name }}
+                    </td>
+                    <td>
+                    {{ @$data->slug }}
+                    </td>
+                    @if (Auth::user()->role == 'admin-pusat')
+                    <td>
+                        <a href="{{ route('admin.asset-category.edit', $data->slug) }}" type="button" class="btn btn-warning btn-sm"><i class='bx bx-edit'></i> Edit</a>
+                        <button onClick="Delete(this.id)" id="{{ $data->id }}" type="button" class="btn btn-danger btn-sm"><i class='bx bx-trash'></i> Delete</button>
 
-                </td>
-                @endif
+                    </td>
+                    @endif
 
-            </tr>
-            @endforeach
-            
-            </tbody>
-            <tfoot>
-            <tr>
-                <th>Nama</th>
-                <th>Slug</th>
-                @if (Auth::user()->role == 'admin-pusat')
-                <th>Actions</th>
-                @endif
-            </tr>
-            </tfoot>
-        </table>
+                </tr>
+                @endforeach
+                
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th>Nama</th>
+                    <th>Slug</th>
+                    @if (Auth::user()->role == 'admin-pusat')
+                    <th>Actions</th>
+                    @endif
+                </tr>
+                </tfoot>
+            </table>
         </div>
     </div>
     <!--/ Contextual Classes -->
@@ -85,7 +85,7 @@
     @if (Auth::user()->role == 'admin-pusat')
     <div class="buy-now">
         <a
-        href="{{ route('admin.asset-type.create') }}"
+        href="{{ route('admin.asset-category.create') }}"
             {{-- target="_blank" --}}
             class="btn btn-danger btn-buy-now"
         >
@@ -133,7 +133,7 @@
 
                     //ajax delete
                     jQuery.ajax({
-                        url: "/admin/asset/type/destroy/"+id,
+                        url: "/admin/asset/category/destroy/"+id,
                         data:   {
                             "id": id,
                             "_token": token
