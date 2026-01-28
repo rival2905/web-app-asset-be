@@ -59,6 +59,14 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::put('/update/{id}', [App\Http\Controllers\Admin\AssetCategoryController::class, 'update'])->name('admin.asset-category.update');
                 Route::delete('/destroy/{id}', [App\Http\Controllers\Admin\AssetCategoryController::class, 'destroy'])->name('admin.asset-category.destroy');
             });
+            Route::prefix('room')->group(function () {
+                Route::get('/', [App\Http\Controllers\Admin\AssetRoomController::class, 'index'])->name('admin.asset-room.index');
+                Route::get('/create', [App\Http\Controllers\Admin\AssetRoomController::class, 'create'])->name('admin.asset-room.create');
+                Route::post('/store', [App\Http\Controllers\Admin\AssetRoomController::class, 'store'])->name('admin.asset-room.store');
+                Route::get('/edit/{slug}', [App\Http\Controllers\Admin\AssetRoomController::class, 'edit'])->name('admin.asset-room.edit');
+                Route::put('/update/{id}', [App\Http\Controllers\Admin\AssetRoomController::class, 'update'])->name('admin.asset-room.update');
+                Route::delete('/destroy/{id}', [App\Http\Controllers\Admin\AssetRoomController::class, 'destroy'])->name('admin.asset-room.destroy');
+            });
 
             
             Route::prefix('building')->group(function () {
