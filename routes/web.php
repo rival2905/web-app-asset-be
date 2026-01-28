@@ -68,9 +68,18 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::delete('/destroy/{id}', [App\Http\Controllers\Admin\RoomController::class, 'destroy'])->name('admin.asset-room.destroy');
             });
 
-        });
+            
+            Route::prefix('building')->group(function () {
+                Route::get('/', [App\Http\Controllers\Admin\BuildingController::class, 'index'])->name('admin.building.index');
+                Route::get('/create', [App\Http\Controllers\Admin\BuildingController::class, 'create'])->name('admin.asset-building.create');
+                Route::post('/store', [App\Http\Controllers\Admin\BuildingController::class, 'store'])->name('admin.asset-building.store');
+                Route::get('/edit/{slug}', [App\Http\Controllers\Admin\BuildingController::class, 'edit'])->name('admin.asset-building.edit');
+                Route::put('/update/{id}', [App\Http\Controllers\Admin\BuildingController::class, 'update'])->name('admin.asset-building.update');
+                Route::delete('/destroy/{id}', [App\Http\Controllers\Admin\BuildingController::class, 'destroy'])->name('admin.asset-building.destroy');
+            });
 
 
+         });
 
     });
     Route::get('/blank-page', function () {

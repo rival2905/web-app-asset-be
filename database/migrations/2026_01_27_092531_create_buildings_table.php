@@ -11,13 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('buildings', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->nullable();
-            $table->string('slug')->nullable();
-            $table->string('unit_id')->nullable();
-            $table->timestamps();
-        });
+       Schema::create('buildings', function (Blueprint $table) {
+    $table->id();
+    $table->string('name')->nullable();
+    $table->string('slug')->nullable();
+
+    $table->foreignId('unit_id')
+          ->nullable()
+          ->constrained('units')
+          ->onDelete('set null');
+
+    $table->timestamps();
+});
+
     }
 
     /**
