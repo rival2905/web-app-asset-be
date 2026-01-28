@@ -80,6 +80,11 @@
               <div class="text-truncate" data-i18n="Basic Inputs">Kategori Asset</div>
             </a>
           </li>
+          <li class="menu-item @if(setActive('admin/asset/building')) active @endif">
+            <a href="{{ route('admin.building.index') }}" class="menu-link">
+              <div class="text-truncate" data-i18n="Basic Inputs">Building</div>
+            </a>
+          </li>
           <li class="menu-item @if(setActive('admin/asset/material')) active @endif">
             <a href="#" class="menu-link">
               <div class="text-truncate" data-i18n="Basic Inputs">Material Asset</div>
