@@ -2,9 +2,7 @@
     <div class="app-brand demo">
       <a href="index.html" class="app-brand-link">
         <span class="app-brand-logo demo">
-
           <img src="{{ asset('assets/theme1/img/favicon/logo.png')}}" alt="phoenix" width="27" />
-
         </span>
         <span class="app-brand-text demo menu-text fw-bold ms-2">ASSET</span>
       </a>
@@ -27,6 +25,7 @@
       
       <!-- Master -->
       <li class="menu-header small text-uppercase"><span class="menu-header-text">Master</span></li>
+
       <!-- Fitur Manajemen User -->
       <li class="menu-item @if(setActive('admin/user'). setActive('admin/jabatan')) active open @endif">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -59,7 +58,6 @@
               <div class="text-truncate" data-i18n="Basic Inputs">Unit</div>
             </a>
           </li>
-          
         </ul>
       </li>
 
@@ -85,18 +83,22 @@
               <div class="text-truncate" data-i18n="Basic Inputs">Material Asset</div>
             </a>
           </li>
+          <li class="menu-item @if(setActive('admin/asset/room')) active @endif">
+            <a href="{{ route('admin.asset-room.index') }}" class="menu-link">
+              <div class="text-truncate" data-i18n="Basic Inputs">Room Asset</div>
+            </a>
         </ul>
       </li>
+      
 
-      <!-- Master -->
+      <!-- Transaction -->
       <li class="menu-header small text-uppercase"><span class="menu-header-text">Transaction</span></li>
-      <!-- Realisasi -->
+
       <li class="menu-item @if(setActive('admin/blank-page')) active open @endif">
         <a href="{{ route('admin.blank') }}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-repeat-alt-2"></i>
           <div class="text-truncate" data-i18n="Tables">Realisasi</div>
         </a>
       </li>
-     
     </ul>
 </aside>
