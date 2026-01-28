@@ -22,7 +22,7 @@
         <div class="col-sm-12 col-md-12 col-xl-12">
         <div class="card text-center">
             <div class="card-body">
-                <h5 class="card-title">Data Room Asset</h5>
+                <h5 class="card-title">Data Room</h5>
 
             </div>
         </div>

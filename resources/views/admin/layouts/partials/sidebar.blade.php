@@ -58,6 +58,10 @@
               <div class="text-truncate" data-i18n="Basic Inputs">Unit</div>
             </a>
           </li>
+           <li class="menu-item @if(setActive('admin/asset/room')) active @endif">
+            <a href="{{ route('admin.asset-room.index') }}" class="menu-link">
+              <div class="text-truncate" data-i18n="Basic Inputs">Room</div>
+            </a>
         </ul>
       </li>
 
@@ -83,10 +87,6 @@
               <div class="text-truncate" data-i18n="Basic Inputs">Material Asset</div>
             </a>
           </li>
-          <li class="menu-item @if(setActive('admin/asset/room')) active @endif">
-            <a href="{{ route('admin.asset-room.index') }}" class="menu-link">
-              <div class="text-truncate" data-i18n="Basic Inputs">Room Asset</div>
-            </a>
         </ul>
       </li>
       

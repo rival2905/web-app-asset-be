@@ -5,16 +5,16 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use App\Models\AssetRoom;
+use App\Models\Room;
 
-class AssetRoomController extends Controller
+class RoomController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $rooms = AssetRoom::get();
+        $rooms = Room::get();
         return view('admin.asset.room.index', compact('rooms'));
     }
 
@@ -33,7 +33,7 @@ class AssetRoomController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:asset_rooms,name'
+            'name' => 'required|unique:rooms,name'
         ]);
 
         $data = [
@@ -41,10 +41,10 @@ class AssetRoomController extends Controller
             'slug' => Str::slug($request->name, '-'),
         ];
 
-        $save = AssetRoom::create($data);
+        $save = Room::create($data);
 
         return redirect()
-            ->route('admin.asset-room.index')
+            ->route('admin.asset.room.index')
             ->with($save ? 'success' : 'error',
                 $save ? 'Data Berhasil Disimpan!' : 'Data Gagal Disimpan!'
             );
@@ -56,7 +56,7 @@ class AssetRoomController extends Controller
     public function edit($slug)
     {
         $action = "update";
-        $data = AssetRoom::where('slug', $slug)->firstOrFail();
+        $data = Room::where('slug', $slug)->firstOrFail();
 
         return view('admin.asset.room.form', compact('data', 'action'));
     }
@@ -66,10 +66,10 @@ class AssetRoomController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $data = AssetRoom::findOrFail($id);
+        $data = Room::findOrFail($id);
 
         $this->validate($request, [
-            'name' => 'required|unique:asset_rooms,name,' . $data->id
+            'name' => 'required|unique:rooms,name,' . $data->id
         ]);
 
         $data->name = $request->name;
@@ -78,7 +78,7 @@ class AssetRoomController extends Controller
         $save = $data->save();
 
         return redirect()
-            ->route('admin.asset-room.index')
+            ->route('admin.asset.room.index')
             ->with($save ? 'success' : 'error',
                 $save ? 'Data Berhasil Diperbaharui!' : 'Data Gagal Diperbaharui!'
             );
@@ -89,7 +89,7 @@ class AssetRoomController extends Controller
      */
     public function destroy($id)
     {
-        $data = AssetRoom::findOrFail($id);
+        $data = Room::findOrFail($id);
         $data->delete();
 
         return response()->json([
