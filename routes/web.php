@@ -48,6 +48,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::prefix('master')->group(function () {
             Route::get('unit/', [App\Http\Controllers\Admin\UnitController::class, 'index'])->name('admin.unit.index');
         });
+        Route::prefix('brand')->group(function () {
+                Route::get('/', [App\Http\Controllers\Admin\BrandController::class, 'index'])->name('admin.asset-brand.index');
+                Route::get('/create', [App\Http\Controllers\Admin\BrandController::class, 'create'])->name('admin.asset-brand.create');
+                Route::post('/store', [App\Http\Controllers\Admin\BrandController::class, 'store'])->name('admin.asset-brand.store');
+                Route::get('/edit/{slug}', [App\Http\Controllers\Admin\BrandController::class, 'edit'])->name('admin.asset-brand.edit');
+                Route::put('/update/{id}', [App\Http\Controllers\Admin\BrandController::class, 'update'])->name('admin.asset-brand.update');
+                Route::delete('/destroy/{id}', [App\Http\Controllers\Admin\BrandController::class, 'destroy'])->name('admin.asset-brand.destroy');
+            });
 
         // Asset
         Route::prefix('asset')->group(function () {
@@ -76,6 +84,15 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::get('/edit/{slug}', [App\Http\Controllers\Admin\BuildingController::class, 'edit'])->name('admin.asset-building.edit');
                 Route::put('/update/{id}', [App\Http\Controllers\Admin\BuildingController::class, 'update'])->name('admin.asset-building.update');
                 Route::delete('/destroy/{id}', [App\Http\Controllers\Admin\BuildingController::class, 'destroy'])->name('admin.asset-building.destroy');
+            });
+
+            Route::prefix('asset-material')->group(function () {
+                Route::get('/', [App\Http\Controllers\Admin\AssetMaterialController::class, 'index'])->name('admin.asset-material.index');
+                Route::get('/create', [App\Http\Controllers\Admin\AssetMaterialController::class, 'create'])->name('admin.asset-material.create');
+                Route::post('/store', [App\Http\Controllers\Admin\AssetMaterialController::class, 'store'])->name('admin.asset-material.store');
+                Route::get('/edit/{slug}', [App\Http\Controllers\Admin\AssetMaterialController::class, 'edit'])->name('admin.asset-material.edit');
+                Route::put('/update/{id}', [App\Http\Controllers\Admin\AssetMaterialController::class, 'update'])->name('admin.asset-material.update');
+                Route::delete('/destroy/{id}', [App\Http\Controllers\Admin\AssetMaterialController::class, 'destroy'])->name('admin.asset-material.destroy');
             });
 
 

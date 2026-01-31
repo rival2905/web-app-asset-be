@@ -6,29 +6,22 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-       Schema::create('buildings', function (Blueprint $table) {
-    $table->id();
-    $table->string('name')->nullable();
-    $table->string('slug')->nullable();
+        Schema::create('buildings', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->nullable();
+            $table->string('slug')->nullable();
 
-    $table->foreignId('unit_id')
-          ->nullable()
-          ->constrained('units')
-          ->onDelete('set null');
+            $table->foreignId('unit_id')
+                  ->nullable()
+                  ->constrained('master_units') // ⬅️ FIX DI SINI
+                  ->nullOnDelete();
 
-    $table->timestamps();
-});
-
+            $table->timestamps();
+        });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('buildings');

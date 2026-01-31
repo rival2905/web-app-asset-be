@@ -58,6 +58,11 @@
               <div class="text-truncate" data-i18n="Basic Inputs">Unit</div>
             </a>
           </li>
+           <li class="menu-item @if(setActive('admin/master/brand')) active @endif">
+            <a href="{{ route('admin.asset-brand.index') }}" class="menu-link">
+              <div class="text-truncate" data-i18n="Basic Inputs">Brand</div>
+            </a>
+          </li>
         </ul>
       </li>
 
@@ -83,9 +88,9 @@
               <div class="text-truncate" data-i18n="Basic Inputs">Building</div>
             </a>
           </li>
-          <li class="menu-item @if(setActive('admin/asset/material')) active @endif">
-            <a href="#" class="menu-link">
-              <div class="text-truncate" data-i18n="Basic Inputs">Material Asset</div>
+          <li class="menu-item @if(setActive('admin/asset/asset-material')) active @endif">
+            <a href="{{ route('admin.asset-material.index') }}" class="menu-link">
+              <div class="text-truncate" data-i18n="Basic Inputs">Asset Material</div>
             </a>
           </li>
           <li class="menu-item @if(setActive('admin/asset/room')) active @endif">

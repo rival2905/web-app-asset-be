@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('slug')->nullable();
-            $table->string('building_id')->nullable();
+            $table->bigInteger('building_id')->unsigned()->nullable();
             $table->timestamps();
         });
     }

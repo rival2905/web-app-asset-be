@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('asset_materials', function (Blueprint $table) {
             $table->id();
-            $table->string('aset_type_id')->nullable();
-            $table->string('brand_id')->nullable();
-            $table->string('seri_id')->nullable();
+            $table->string('name');
+            $table->string('slug')->unique()->nullable();
+            $table->bigInteger('aset_type_id')->unsigned()->nullable();
+            $table->bigInteger('brand_id')->unsigned()->nullable();
+            $table->bigInteger('seri_id')->unsigned()->nullable();
             $table->timestamps();
         });
     }
