@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('detail_assets', function (Blueprint $table) {
+        Schema::create('asset_details', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('asset_id')->unsigned();
             $table->string('name')->nullable();

@@ -41,13 +41,12 @@ class AssetDetailController extends Controller
     {
         //validator
         $this->validate($request, [
-    'name' => 'required|unique:detail_assets,name'
+    'name' => 'required'
         ]);
 
         //nampung
         $data=[
             'name'=>$request->name,
-            'slug'=> Str::slug($request->input('name'), '-'),
         ];
     
         $save = AssetDetail::create($data);
