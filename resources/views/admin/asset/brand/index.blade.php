@@ -85,7 +85,7 @@
     @if (Auth::user()->role == 'admin-pusat')
     <div class="buy-now">
         <a
-        href="{{ route('admin.asset-brand.create') }}"
+        href="{{ route('admin.asset-detail.create') }}"
             {{-- target="_blank" --}}
             class="btn btn-danger btn-buy-now"
         >
@@ -133,7 +133,7 @@
 
                     //ajax delete
                     jQuery.ajax({
-                        url: "/admin/asset/brand/destroy/"+id,
+                        url: "/admin/asset/detail/destroy/"+id,
                         data:   {
                             "id": id,
                             "_token": token

@@ -37,7 +37,7 @@
                     <div class="row g-6">
                         <div class="col-md-12">
                             <label for="name" class="form-label">Name</label>
-                            <input class="form-control" type="text" id="name" name="name" value="{{ old('name', @$data->name) }}" placeholder="Input name of Brand.." autofocus  required/>
+                            <input class="form-control" type="text" id="name" name="name" value="{{ old('name', @$data->name) }}" placeholder="Input name of detail.." autofocus  required/>
                             @error('name')
                                 <div class="invalid-feedback" style="display: block">
                                     {{ $message }}

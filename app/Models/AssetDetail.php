@@ -5,7 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DetailAsset extends Model
+class AssetDetail extends Model
 {
-    use HasFactory;
+    protected $table = 'asset_details';
+
+    protected $fillable = ['name', 'slug'];
 }

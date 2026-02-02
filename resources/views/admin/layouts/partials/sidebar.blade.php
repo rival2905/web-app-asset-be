@@ -57,12 +57,16 @@
             <a href="{{ route('admin.unit.index') }}" class="menu-link">
               <div class="text-truncate" data-i18n="Basic Inputs">Unit</div>
             </a>
-          </li>
+</li>
            <li class="menu-item @if(setActive('admin/master/brand')) active @endif">
             <a href="{{ route('admin.asset-brand.index') }}" class="menu-link">
               <div class="text-truncate" data-i18n="Basic Inputs">Brand</div>
             </a>
           </li>
+           <li class="menu-item @if(setActive('admin/asset/room')) active @endif">
+            <a href="{{ route('admin.asset-room.index') }}" class="menu-link">
+              <div class="text-truncate" data-i18n="Basic Inputs">Room</div>
+            </a>
         </ul>
       </li>
 
@@ -93,10 +97,15 @@
               <div class="text-truncate" data-i18n="Basic Inputs">Asset Material</div>
             </a>
           </li>
-          <li class="menu-item @if(setActive('admin/asset/room')) active @endif">
-            <a href="{{ route('admin.asset-room.index') }}" class="menu-link">
-              <div class="text-truncate" data-i18n="Basic Inputs">Room Asset</div>
+          <li class="menu-item @if(setActive('admin/asset')) active open @endif">
+    <ul class="menu-sub">
+        <li class="menu-item @if(setActive('admin/asset/asset-detail')) active @endif">
+            <a href="{{ route('admin.asset-detail.index') }}" class="menu-link">
+                <div class="text-truncate">Asset Detail</div>
             </a>
+        </li>
+    </ul>
+</li>
         </ul>
       </li>
       
