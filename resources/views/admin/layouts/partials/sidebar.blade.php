@@ -92,6 +92,11 @@
               <div class="text-truncate" data-i18n="Basic Inputs">Material Asset</div>
             </a>
           </li>
+            <li class="menu-item @if(setActive('admin/asset/realization')) active @endif">
+            <a href="{{ route('admin.asset-realization.index') }}" class="menu-link">
+              <div class="text-truncate" data-i18n="Basic Inputs">Realisasi Asset</div>
+            </a>
+          </li>    
         </ul>
       </li>
       
