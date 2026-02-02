@@ -16,10 +16,11 @@ return new class extends Migration
     $table->string('name')->nullable();
     $table->string('slug')->nullable();
 
-    $table->foreignId('unit_id')
-          ->nullable()
-          ->constrained('units')
-          ->onDelete('set null');
+   $table->unsignedBigInteger('unit_id')->nullable();
+   $table->foreign('unit_id')
+      ->references('id')
+      ->on('units')
+      ->nullOnDelete();
 
     $table->timestamps();
 });

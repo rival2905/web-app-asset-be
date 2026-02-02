@@ -1,4 +1,3 @@
-
 @extends('admin.layouts.app')
 @section('title')
     Room 
@@ -35,6 +34,7 @@
                 <thead>
                 <tr>
                     <th>Nama</th>
+                    <th>Building</th>
                     <th>Slug</th>
                     @if (Auth::user()->role == 'admin-pusat')
                     <th>Actions</th>
@@ -46,6 +46,9 @@
                 <tr class="table-default">
                     <td>
                     {{ @$data->name }}
+                    </td>
+                    <td>
+                    {{ @$data->building->name ?? '-' }}
                     </td>
                     <td>
                     {{ @$data->slug }}
@@ -65,6 +68,7 @@
                 <tfoot>
                 <tr>
                     <th>Nama</th>
+                    <th>Building</th>
                     <th>Slug</th>
                     @if (Auth::user()->role == 'admin-pusat')
                     <th>Actions</th>
@@ -84,8 +88,8 @@
 @push('scripts')
     @if (Auth::user()->role == 'admin-pusat')
     <div class="buy-now">
-        <a
-        href="{{ route('admin.asset-room.create') }}"
+        
+        <a href="{{ route('admin.asset-room.create') }}"
             {{-- target="_blank" --}}
             class="btn btn-danger btn-buy-now"
         >
@@ -175,4 +179,3 @@
     }
   </script>
 @endpush
-

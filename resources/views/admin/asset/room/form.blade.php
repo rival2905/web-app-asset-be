@@ -45,6 +45,24 @@
                             @enderror
                             
                         </div>
+
+                        <div class="col-md-12">
+                            <label for="building_id" class="form-label">Building</label>
+                            <select class="form-control select2" id="building_id" name="building_id" required>
+                                <option value="">-- Select Building --</option>
+                                @foreach($buildings as $building)
+                                    <option value="{{ $building->id }}" 
+                                        {{ old('building_id', @$data->building_id) == $building->id ? 'selected' : '' }}>
+                                        {{ $building->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('building_id')
+                                <div class="invalid-feedback" style="display: block">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
                     
                     </div>
                     <div class="mt-6">
@@ -64,6 +82,14 @@
 
 @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.select2').select2({
+            placeholder: "-- Select Building --",
+            allowClear: true
+        });
+    });
+</script>
 {{-- <script src="{{ asset('assets/theme1/js/ui-modals.js')}}"></script> --}}
 
 @endpush

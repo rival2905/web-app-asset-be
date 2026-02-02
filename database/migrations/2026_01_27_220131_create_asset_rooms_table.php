@@ -12,13 +12,15 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('slug')->nullable();
-            $table->string('building_id')->nullable();
+
+            $table->foreignId('building_id')->nullable()->constrained('buildings')->nullOnDelete();
+
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('asset_rooms'); // harus sama dengan nama tabel di up()
+        Schema::dropIfExists('asset_rooms');
     }
 };
