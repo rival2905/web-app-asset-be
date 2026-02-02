@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('asset_realizations', function (Blueprint $table) {
             $table->id();
-             $table->string('aset_id')->nullable();
+            $table->bigInteger('asset_id')->unsigned()->nullable();
             $table->date('date')->nullable();
-            $table->string('room_id')->nullable();
+            $table->bigInteger('room_id')->unsigned()->nullable();
+            $table->bigInteger('detail_asset_id')->unsigned()->nullable();
             $table->timestamps();
         });
     }

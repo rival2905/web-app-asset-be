@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('asset_materials', function (Blueprint $table) {
+        Schema::create('rooms', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('slug')->unique()->nullable();
-            $table->bigInteger('aset_type_id')->unsigned()->nullable();
-            $table->bigInteger('brand_id')->unsigned()->nullable();
-            $table->bigInteger('seri_id')->unsigned()->nullable();
+            $table->string('name')->nullable();
+            $table->string('slug')->nullable();
+            $table->bigInteger('building_id')->unsigned()->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('asset_materials');
+        Schema::dropIfExists('rooms');
     }
 };

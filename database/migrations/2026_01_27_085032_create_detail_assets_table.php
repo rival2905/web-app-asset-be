@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('detail_assets', function (Blueprint $table) {
+        Schema::create('asset_details', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('asset_id')->unsigned();
+            $table->string('name')->nullable();
             $table->string('number_seri')->nullable();
             $table->year('production_year')->nullable();
             $table->string('unit_price')->nullable();
             $table->string('condition')->nullable();
-            $table->string('name')->nullable();
             $table->timestamps();
         });
     }

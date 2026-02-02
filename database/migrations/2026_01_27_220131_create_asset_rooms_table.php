@@ -12,9 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('slug')->nullable();
-
-            $table->foreignId('building_id')->nullable()->constrained('buildings')->nullOnDelete();
-
+            $table->bigInteger('building_id')->unsigned()->nullable();
             $table->timestamps();
         });
     }

@@ -48,6 +48,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::prefix('master')->group(function () {
             Route::get('unit/', [App\Http\Controllers\Admin\UnitController::class, 'index'])->name('admin.unit.index');
         });
+        Route::prefix('brand')->group(function () {
+                Route::get('/', [App\Http\Controllers\Admin\BrandController::class, 'index'])->name('admin.asset-brand.index');
+                Route::get('/create', [App\Http\Controllers\Admin\BrandController::class, 'create'])->name('admin.asset-brand.create');
+                Route::post('/store', [App\Http\Controllers\Admin\BrandController::class, 'store'])->name('admin.asset-brand.store');
+                Route::get('/edit/{slug}', [App\Http\Controllers\Admin\BrandController::class, 'edit'])->name('admin.asset-brand.edit');
+                Route::put('/update/{id}', [App\Http\Controllers\Admin\BrandController::class, 'update'])->name('admin.asset-brand.update');
+                Route::delete('/destroy/{id}', [App\Http\Controllers\Admin\BrandController::class, 'destroy'])->name('admin.asset-brand.destroy');
+            });
 
         // Asset
         Route::prefix('asset')->group(function () {
@@ -78,6 +86,7 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::delete('/destroy/{id}', [App\Http\Controllers\Admin\BuildingController::class, 'destroy'])->name('admin.asset-building.destroy');
             });
 
+<<<<<<< HEAD
            
             Route::prefix('realization')->group(function () {
                 Route::get('/', [App\Http\Controllers\Admin\AssetRealizationsController::class, 'index'])->name('admin.asset-realization.index');
@@ -87,6 +96,26 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::put('/update/{id}', [App\Http\Controllers\Admin\AssetRealizationsController::class, 'update'])->name('admin.asset-realization.update');
                 Route::delete('/destroy/{id}', [App\Http\Controllers\Admin\AssetRealizationsController::class, 'destroy'])->name('admin.asset-realization.destroy');
             });
+=======
+            Route::prefix('asset-material')->group(function () {
+                Route::get('/', [App\Http\Controllers\Admin\AssetMaterialController::class, 'index'])->name('admin.asset-material.index');
+                Route::get('/create', [App\Http\Controllers\Admin\AssetMaterialController::class, 'create'])->name('admin.asset-material.create');
+                Route::post('/store', [App\Http\Controllers\Admin\AssetMaterialController::class, 'store'])->name('admin.asset-material.store');
+                Route::get('/edit/{slug}', [App\Http\Controllers\Admin\AssetMaterialController::class, 'edit'])->name('admin.asset-material.edit');
+                Route::put('/update/{id}', [App\Http\Controllers\Admin\AssetMaterialController::class, 'update'])->name('admin.asset-material.update');
+                Route::delete('/destroy/{id}', [App\Http\Controllers\Admin\AssetMaterialController::class, 'destroy'])->name('admin.asset-material.destroy');
+            });
+            Route::prefix('asset-detail')->group(function () {
+                Route::get('/', [App\Http\Controllers\Admin\AssetDetailController::class, 'index'])->name('admin.asset-detail.index');
+                Route::get('/create', [App\Http\Controllers\Admin\AssetDetailController::class, 'create'])->name('admin.asset-detail.create');
+                Route::post('/store', [App\Http\Controllers\Admin\AssetDetailController::class, 'store'])->name('admin.asset-detail.store');
+                Route::get('/edit/{slug}', [App\Http\Controllers\Admin\AssetDetailController::class, 'edit'])->name('admin.asset-detail.edit');
+                Route::put('/update/{id}', [App\Http\Controllers\Admin\AssetDetailController::class, 'update'])->name('admin.asset-detail.update');
+                Route::delete('/destroy/{id}', [App\Http\Controllers\Admin\AssetDetailController::class, 'destroy'])->name('admin.asset-detail.destroy');
+            });
+
+
+>>>>>>> 92d03adca5be3b0cff380d89682beca8e018300a
          });
 
     });

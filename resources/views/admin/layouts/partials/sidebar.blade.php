@@ -57,6 +57,11 @@
             <a href="{{ route('admin.unit.index') }}" class="menu-link">
               <div class="text-truncate" data-i18n="Basic Inputs">Unit</div>
             </a>
+</li>
+           <li class="menu-item @if(setActive('admin/master/brand')) active @endif">
+            <a href="{{ route('admin.asset-brand.index') }}" class="menu-link">
+              <div class="text-truncate" data-i18n="Basic Inputs">Brand</div>
+            </a>
           </li>
            <li class="menu-item @if(setActive('admin/asset/room')) active @endif">
             <a href="{{ route('admin.asset-room.index') }}" class="menu-link">
@@ -86,10 +91,10 @@
             <a href="{{ route('admin.asset-category.index') }}" class="menu-link">
               <div class="text-truncate" data-i18n="Basic Inputs">Kategori Asset</div>
             </a>
-          </li>    
-          <li class="menu-item @if(setActive('admin/asset/material')) active @endif">
-            <a href="#" class="menu-link">
-              <div class="text-truncate" data-i18n="Basic Inputs">Material Asset</div>
+          </li>
+          <li class="menu-item @if(setActive('admin/asset/building')) active @endif">
+            <a href="{{ route('admin.building.index') }}" class="menu-link">
+              <div class="text-truncate" data-i18n="Basic Inputs">Building</div>
             </a>
           </li>
             <li class="menu-item @if(setActive('admin/asset/realization')) active @endif">
@@ -97,6 +102,18 @@
               <div class="text-truncate" data-i18n="Basic Inputs">Realisasi Asset</div>
             </a>
           </li>    
+          <li class="menu-item @if(setActive('admin/asset/asset-material')) active @endif">
+            <a href="{{ route('admin.asset-material.index') }}" class="menu-link">
+              <div class="text-truncate" data-i18n="Basic Inputs">Asset Material</div>
+            </a>
+          </li>
+        <li class="menu-item @if(setActive('admin/asset/asset-detail')) active @endif">
+            <a href="{{ route('admin.asset-detail.index') }}" class="menu-link">
+                <div class="text-truncate">Asset Detail</div>
+            </a>
+        </li>
+    </ul>
+</li>
         </ul>
       </li>
       
