@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Room;
+use App\Models\Building;
 
 class RoomController extends Controller
 {
@@ -14,7 +15,7 @@ class RoomController extends Controller
      */
     public function index()
     {
-        $rooms = Room::get();
+        $rooms = Room::with('building')->get();
         return view('admin.asset.room.index', compact('rooms'));
     }
 
@@ -24,7 +25,8 @@ class RoomController extends Controller
     public function create()
     {
         $action = "store";
-        return view('admin.asset.room.form', compact('action'));
+        $buildings = Building::all();
+        return view('admin.asset.room.form', compact('action', 'buildings'));
     }
 
     /**
@@ -33,18 +35,20 @@ class RoomController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:rooms,name'
+            'name' => 'required|unique:rooms,name',
+            'building_id' => 'required|exists:buildings,id'
         ]);
 
         $data = [
             'name' => $request->name,
             'slug' => Str::slug($request->name, '-'),
+            'building_id' => $request->building_id,
         ];
 
         $save = Room::create($data);
 
         return redirect()
-            ->route('admin.asset.room.index')
+            ->route('admin.asset-room.index')
             ->with($save ? 'success' : 'error',
                 $save ? 'Data Berhasil Disimpan!' : 'Data Gagal Disimpan!'
             );
@@ -57,8 +61,9 @@ class RoomController extends Controller
     {
         $action = "update";
         $data = Room::where('slug', $slug)->firstOrFail();
+        $buildings = Building::all();
 
-        return view('admin.asset.room.form', compact('data', 'action'));
+        return view('admin.asset.room.form', compact('data', 'action', 'buildings'));
     }
 
     /**
@@ -69,16 +74,18 @@ class RoomController extends Controller
         $data = Room::findOrFail($id);
 
         $this->validate($request, [
-            'name' => 'required|unique:rooms,name,' . $data->id
+            'name' => 'required|unique:rooms,name,' . $data->id,
+            'building_id' => 'required|exists:buildings,id'
         ]);
 
         $data->name = $request->name;
         $data->slug = Str::slug($request->name, '-');
+        $data->building_id = $request->building_id;
 
         $save = $data->save();
 
         return redirect()
-            ->route('admin.asset.room.index')
+            ->route('admin.asset-room.index')
             ->with($save ? 'success' : 'error',
                 $save ? 'Data Berhasil Diperbaharui!' : 'Data Gagal Diperbaharui!'
             );

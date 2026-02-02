@@ -12,13 +12,19 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('slug')->nullable();
+<<<<<<< HEAD
             $table->bigInteger('building_id')->unsigned()->nullable();
+=======
+
+            $table->foreignId('building_id')->nullable()->constrained('buildings')->nullOnDelete();
+
+>>>>>>> 374e677d9ea867a26107a4c86c97a184d9578d9d
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('asset_rooms'); // harus sama dengan nama tabel di up()
+        Schema::dropIfExists('asset_rooms');
     }
 };

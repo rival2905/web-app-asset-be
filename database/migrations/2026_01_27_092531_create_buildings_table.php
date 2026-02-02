@@ -13,10 +13,21 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('slug')->nullable();
 
+<<<<<<< HEAD
             $table->foreignId('unit_id')
                   ->nullable()
                   ->constrained('master_units') // ⬅️ FIX DI SINI
                   ->nullOnDelete();
+=======
+   $table->unsignedBigInteger('unit_id')->nullable();
+   $table->foreign('unit_id')
+      ->references('id')
+      ->on('units')
+      ->nullOnDelete();
+
+    $table->timestamps();
+});
+>>>>>>> 374e677d9ea867a26107a4c86c97a184d9578d9d
 
             $table->timestamps();
         });

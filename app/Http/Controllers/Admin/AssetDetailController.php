@@ -41,7 +41,7 @@ class AssetDetailController extends Controller
     {
         //validator
         $this->validate($request, [
-    'name' => 'required|unique:asset_details,name'
+    'name' => 'required|unique:detail_assets,name'
         ]);
 
         //nampung

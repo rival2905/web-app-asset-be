@@ -67,6 +67,11 @@
             <a href="{{ route('admin.asset-room.index') }}" class="menu-link">
               <div class="text-truncate" data-i18n="Basic Inputs">Room</div>
             </a>
+            <li class="menu-item @if(setActive('admin/asset/building')) active @endif">
+            <a href="{{ route('admin.building.index') }}" class="menu-link">
+              <div class="text-truncate" data-i18n="Basic Inputs">Building</div>
+            </a>
+          </li>
         </ul>
       </li>
 
