@@ -97,13 +97,16 @@
               <div class="text-truncate" data-i18n="Basic Inputs">Building</div>
             </a>
           </li>
+            <li class="menu-item @if(setActive('admin/asset/realization')) active @endif">
+            <a href="{{ route('admin.asset-realization.index') }}" class="menu-link">
+              <div class="text-truncate" data-i18n="Basic Inputs">Realisasi Asset</div>
+            </a>
+          </li>    
           <li class="menu-item @if(setActive('admin/asset/asset-material')) active @endif">
             <a href="{{ route('admin.asset-material.index') }}" class="menu-link">
               <div class="text-truncate" data-i18n="Basic Inputs">Asset Material</div>
             </a>
           </li>
-          <li class="menu-item @if(setActive('admin/asset')) active open @endif">
-    <ul class="menu-sub">
         <li class="menu-item @if(setActive('admin/asset/asset-detail')) active @endif">
             <a href="{{ route('admin.asset-detail.index') }}" class="menu-link">
                 <div class="text-truncate">Asset Detail</div>
