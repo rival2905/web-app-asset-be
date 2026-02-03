@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-
+use App\Models\Asset;
 use App\Models\AssetDetail;
 
 class AssetDetailController extends Controller
@@ -29,8 +28,9 @@ class AssetDetailController extends Controller
     {
         //
         $action = "store";
+        $assets = Asset::get();
 
-        return view('admin.asset.detail.form', compact('action'));
+        return view('admin.asset.detail.form', compact('action','assets'));
 
     }
 
@@ -38,27 +38,30 @@ class AssetDetailController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //validator
-        $this->validate($request, [
-    'name' => 'required'
-        ]);
+{
+    $request->validate([
+        'asset_id' => 'required|exists:assets,id',
+        'name'     => 'required'
+    ]);
 
-        //nampung
-        $data=[
-            'name'=>$request->name,
-        ];
-    
-        $save = AssetDetail::create($data);
+    $data = [
+        'asset_id' => $request->asset_id,
+        'name'     => $request->name,
+    ];
 
-        if($save){
-            //redirect dengan pesan sukses
-            return redirect()->route('admin.asset-detail.index')->with(['success' => 'Data Berhasil Disimpan!']);
-        }else{
-            //redirect dengan pesan error
-            return redirect()->route('admin.asset-detail.index')->with(['error' => 'Data Gagal Disimpan!']);
-        }
+    $save = AssetDetail::create($data);
+
+    if ($save) {
+        return redirect()
+            ->route('admin.asset-detail.index')
+            ->with('success', 'Data Berhasil Disimpan!');
     }
+
+    return redirect()
+        ->route('admin.asset-detail.index')
+        ->with('error', 'Data Gagal Disimpan!');
+}
+
 
     /**
      * Display the specified resource.
@@ -71,13 +74,15 @@ class AssetDetailController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($slug)
-    {
-        //
-        $action = "update";
-        $data = AssetDetail::where('slug',$slug)->first();
-        return view('admin.asset.detail.form', compact('data', 'action'));
-    }
+    public function edit($id)
+{
+    $data = AssetDetail::findOrFail($id);
+    $assets = Asset::get();
+    $action = "update";
+
+    return view('admin.asset.detail.form', compact('data', 'action'));
+}
+
 
     /**
      * Update the specified resource in storage.

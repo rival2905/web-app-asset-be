@@ -94,15 +94,14 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::put('/update/{id}', [App\Http\Controllers\Admin\AssetMaterialController::class, 'update'])->name('admin.asset-material.update');
                 Route::delete('/destroy/{id}', [App\Http\Controllers\Admin\AssetMaterialController::class, 'destroy'])->name('admin.asset-material.destroy');
             });
-            Route::prefix('asset-detail')->group(function () {
-                Route::get('/', [App\Http\Controllers\Admin\AssetDetailController::class, 'index'])->name('admin.asset-detail.index');
-                Route::get('/create', [App\Http\Controllers\Admin\AssetDetailController::class, 'create'])->name('admin.asset-detail.create');
-                Route::post('/store', [App\Http\Controllers\Admin\AssetDetailController::class, 'store'])->name('admin.asset-detail.store');
-                Route::get('/edit/{slug}', [App\Http\Controllers\Admin\AssetDetailController::class, 'edit'])->name('admin.asset-detail.edit');
-                Route::put('/update/{id}', [App\Http\Controllers\Admin\AssetDetailController::class, 'update'])->name('admin.asset-detail.update');
-                Route::delete('/destroy/{id}', [App\Http\Controllers\Admin\AssetDetailController::class, 'destroy'])->name('admin.asset-detail.destroy');
-            });
-
+           Route::prefix('asset-detail')->group(function () {
+                Route::get('/', [AssetDetailController::class, 'index'])->name('admin.asset-detail.index');
+                Route::get('/create', [AssetDetailController::class, 'create'])->name('admin.asset-detail.create');
+                Route::post('/', [AssetDetailController::class, 'store'])->name('admin.asset-detail.store');
+                Route::get('/{id}/edit', [AssetDetailController::class, 'edit'])->name('admin.asset-detail.edit');
+                Route::put('/{id}', [AssetDetailController::class, 'update'])->name('admin.asset-detail.update');
+                Route::delete('/{id}', [AssetDetailController::class, 'destroy'])->name('admin.asset-detail.destroy');
+        });
 
          });
 

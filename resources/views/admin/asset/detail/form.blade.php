@@ -42,8 +42,28 @@
                     @endif
                         @csrf
 
-                        <!-- Hidden asset_id -->
-                        <input type="hidden" name="asset_id" value="{{ old('asset_id', $data->asset_id ?? 1) }}">
+                        <div class="mb-3">
+    <label for="asset_id" class="form-label">Asset</label>
+    <select name="asset_id" id="asset_id" class="form-control select2" required>
+        <option value="">-- Pilih Asset --</option>
+
+        @foreach ($assets as $asset)
+            <option value="{{ $asset->id }}"
+                {{ old('asset_id', $data->asset_id ?? '') == $asset->id ? 'selected' : '' }}>
+                {{ $asset->name }}
+                | Seri: {{ $asset->number_seri }}
+                | Tahun: {{ $asset->production_year }}
+                | Harga: {{ number_format($asset->unit_price) }}
+                | Kondisi: {{ $asset->condition }}
+            </option>
+        @endforeach
+    </select>
+
+    @error('asset_id')
+        <div class="invalid-feedback" style="display:block">{{ $message }}</div>
+    @enderror
+</div>
+
 
                         <!-- Name input -->
                         <div class="mb-3">
@@ -80,5 +100,13 @@
 @stop
 
 @push('scripts')
+<script>
+    $(document).ready(function () {
+        $('.select2').select2({
+            placeholder: '-- Pilih Asset --',
+            width: '100%'
+        });
+    });
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 @endpush
