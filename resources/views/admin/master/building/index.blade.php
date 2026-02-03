@@ -56,7 +56,7 @@
                     </td>
                     @if (Auth::user()->role == 'admin-pusat')
                     <td>
-                        <a href="{{ route('admin.asset-building.edit', $data->slug) }}" type="button" class="btn btn-warning btn-sm"><i class='bx bx-edit'></i> Edit</a>
+                        <a href="{{ route('admin.master-building.edit', $data->slug) }}" type="button" class="btn btn-warning btn-sm"><i class='bx bx-edit'></i> Edit</a>
                         <button onClick="Delete(this.id)" id="{{ $data->id }}" type="button" class="btn btn-danger btn-sm"><i class='bx bx-trash'></i> Delete</button>
 
                     </td>
@@ -90,13 +90,13 @@
     @if (Auth::user()->role == 'admin-pusat')
     <div class="buy-now">
         <a
-        href="{{ route('admin.asset-building.create') }}"
+        href="{{ route('admin.master-building.create') }}"
             {{-- target="_blank" --}}
             class="btn btn-danger btn-buy-now"
         >
         <i class="menu-icon tf-icons bx bx-plus"></i>
 
-        Create Type
+        Create Building
         </a>
     </div>
     @endif
@@ -138,7 +138,7 @@
 
                     //ajax delete
                     jQuery.ajax({
-                        url: "/admin/asset/building/destroy/"+id,
+                        url: "/admin/master/building/destroy/"+id,
                         data:   {
                             "id": id,
                             "_token": token

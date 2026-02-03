@@ -1,6 +1,7 @@
+
 @extends('admin.layouts.app')
 @section('title')
-    Room 
+    Brands  
 @parent
 @stop
 
@@ -21,7 +22,7 @@
         <div class="col-sm-12 col-md-12 col-xl-12">
         <div class="card text-center">
             <div class="card-body">
-                <h5 class="card-title">Data Room</h5>
+                <h5 class="card-title">Data Brand</h5>
 
             </div>
         </div>
@@ -34,7 +35,6 @@
                 <thead>
                 <tr>
                     <th>Nama</th>
-                    <th>Building</th>
                     <th>Slug</th>
                     @if (Auth::user()->role == 'admin-pusat')
                     <th>Actions</th>
@@ -42,20 +42,17 @@
                 </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
-                @foreach ($rooms as $data)
+                @foreach ($brands as $data)
                 <tr class="table-default">
                     <td>
                     {{ @$data->name }}
-                    </td>
-                    <td>
-                    {{ @$data->building->name ?? '-' }}
                     </td>
                     <td>
                     {{ @$data->slug }}
                     </td>
                     @if (Auth::user()->role == 'admin-pusat')
                     <td>
-                        <a href="{{ route('admin.asset-room.edit', $data->slug) }}" type="button" class="btn btn-warning btn-sm"><i class='bx bx-edit'></i> Edit</a>
+                        <a href="{{ route('admin.master-brand.edit', $data->slug) }}" type="button" class="btn btn-warning btn-sm"><i class='bx bx-edit'></i> Edit</a>
                         <button onClick="Delete(this.id)" id="{{ $data->id }}" type="button" class="btn btn-danger btn-sm"><i class='bx bx-trash'></i> Delete</button>
 
                     </td>
@@ -68,7 +65,6 @@
                 <tfoot>
                 <tr>
                     <th>Nama</th>
-                    <th>Building</th>
                     <th>Slug</th>
                     @if (Auth::user()->role == 'admin-pusat')
                     <th>Actions</th>
@@ -88,14 +84,14 @@
 @push('scripts')
     @if (Auth::user()->role == 'admin-pusat')
     <div class="buy-now">
-        
-        <a href="{{ route('admin.asset-room.create') }}"
+        <a
+        href="{{ route('admin.master-brand.create') }}"
             {{-- target="_blank" --}}
             class="btn btn-danger btn-buy-now"
         >
         <i class="menu-icon tf-icons bx bx-plus"></i>
 
-        Create Type
+        Create Brand
         </a>
     </div>
     @endif
@@ -137,7 +133,7 @@
 
                     //ajax delete
                     jQuery.ajax({
-                        url: "/admin/asset/room/destroy/"+id,
+                        url: "/admin/master/brand/destroy/"+id,
                         data:   {
                             "id": id,
                             "_token": token
@@ -179,3 +175,4 @@
     }
   </script>
 @endpush
+

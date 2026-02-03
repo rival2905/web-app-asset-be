@@ -12,13 +12,10 @@ class AssetRealization extends Model
     protected $table = 'asset_realizations';
 
     protected $fillable = [
-        'name',
-        'slug',
-        'building_id',
-    ];
-
-    public function building()
-    {
-        return $this->belongsTo(Building::class);
-    }
+    'asset_id',
+    'date',
+    'room_id',
+    'detail_asset',
+];
 }
+    

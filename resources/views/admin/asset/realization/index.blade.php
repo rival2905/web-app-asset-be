@@ -1,4 +1,3 @@
-
 @extends('admin.layouts.app')
 @section('title')
     Asset realizations 
@@ -6,26 +5,21 @@
 @stop
 
 @push('links')
-
 <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap5.css">
-
-{{-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"> --}}
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/3.2.2/css/buttons.bootstrap5.css">
 @endpush
 
 @section('content')
 <!-- Content -->
-            
 <div class="container-xxl flex-grow-1 container-p-y">
-    <!-- Contextual Classes -->
+
     <div class="row">
         <div class="col-sm-12 col-md-12 col-xl-12">
-        <div class="card text-center">
-            <div class="card-body">
-                <h5 class="card-title">Data Realization Asset</h5>
-
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Data Realization Asset</h5>
+                </div>
             </div>
-        </div>
         </div>
     </div>
 
@@ -34,38 +28,50 @@
             <table id="example" class="table">
                 <thead>
                 <tr>
-                    <th>Nama</th>
-                    <th>Slug</th>
+                    <th>Asset ID</th>
+                    <th>Date</th>
+                    <th>Room ID</th>
+                    <th>Detail Asset</th>
                     @if (Auth::user()->role == 'admin-pusat')
                     <th>Actions</th>
                     @endif
                 </tr>
                 </thead>
+
                 <tbody class="table-border-bottom-0">
                 @foreach ($realizations as $data)
                 <tr class="table-default">
-                    <td>
-                    {{ @$data->name }}
-                    </td>
-                    <td>
-                    {{ @$data->slug }}
-                    </td>
+                    <td>{{ @$data->asset_id }}</td>
+                    <td>{{ @$data->date }}</td>
+                    <td>{{ @$data->room_id }}</td>
+                    <td>{{ @$data->detail_asset }}</td>
+
                     @if (Auth::user()->role == 'admin-pusat')
                     <td>
-                        <a href="{{ route('admin.asset-realization.edit', $data->slug) }}" type="button" class="btn btn-warning btn-sm"><i class='bx bx-edit'></i> Edit</a>
-                        <button onClick="Delete(this.id)" id="{{ $data->id }}" type="button" class="btn btn-danger btn-sm"><i class='bx bx-trash'></i> Delete</button>
+                        <a href="{{ route('admin.asset-realization.edit', $data->id) }}" 
+                           type="button" 
+                           class="btn btn-warning btn-sm">
+                            <i class='bx bx-edit'></i> Edit
+                        </a>
 
+                        <button onClick="Delete(this.id)" 
+                                id="{{ $data->id }}" 
+                                type="button" 
+                                class="btn btn-danger btn-sm">
+                            <i class='bx bx-trash'></i> Delete
+                        </button>
                     </td>
                     @endif
-
                 </tr>
                 @endforeach
-                
                 </tbody>
+
                 <tfoot>
                 <tr>
-                    <th>Nama</th>
-                    <th>Slug</th>
+                    <th>Asset ID</th>
+                    <th>Date</th>
+                    <th>Room ID</th>
+                    <th>Detail Asset</th>
                     @if (Auth::user()->role == 'admin-pusat')
                     <th>Actions</th>
                     @endif
@@ -74,7 +80,6 @@
             </table>
         </div>
     </div>
-    <!--/ Contextual Classes -->
 
     <hr class="my-12" />
 </div>
@@ -82,22 +87,20 @@
 @stop
 
 @push('scripts')
-    @if (Auth::user()->role == 'admin-pusat')
-    <div class="buy-now">
-        <a
+@if (Auth::user()->role == 'admin-pusat')
+<div class="buy-now">
+    <a
         href="{{ route('admin.asset-realization.create') }}"
-            {{-- target="_blank" --}}
-            class="btn btn-danger btn-buy-now"
-        >
+        class="btn btn-danger btn-buy-now"
+    >
         <i class="menu-icon tf-icons bx bx-plus"></i>
-
         Create Type
-        </a>
-    </div>
-    @endif
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script> --}}
-    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
-    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap5.js"></script>
+    </a>
+</div>
+@endif
+
+<script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap5.js"></script>
 
 <script src="https://cdn.datatables.net/buttons/3.2.2/js/dataTables.buttons.js"></script>
 <script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.bootstrap5.js"></script>
@@ -107,72 +110,57 @@
 <script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.print.min.js"></script>
 
-  <script>
-
+<script>
   new DataTable('#example');
-  </script>
-  <script>
+</script>
 
-    //ajax delete
-    function Delete(id)
-    {
-            var id = id;
-            var token = $("meta[name='csrf-token']").attr("content");
+<script>
+function Delete(id)
+{
+    var token = $("meta[name='csrf-token']").attr("content");
 
-            swal({
-                title: "APAKAH KAMU YAKIN ?",
-                text: "INGIN MENGHAPUS DATA INI!",
-                icon: "warning",
-                buttons: [
-                    'TIDAK',
-                    'YA'
-                ],
-                dangerMode: true,
-            }).then(function(isConfirm) {
-                if (isConfirm) {
+    swal({
+        title: "APAKAH KAMU YAKIN ?",
+        text: "INGIN MENGHAPUS DATA INI!",
+        icon: "warning",
+        buttons: ['TIDAK', 'YA'],
+        dangerMode: true,
+    }).then(function(isConfirm) {
+        if (isConfirm) {
 
-                    //ajax delete
-                    jQuery.ajax({
-                        url: "/admin/asset/realization/destroy/"+id,
-                        data:   {
-                            "id": id,
-                            "_token": token
-                        },
-                        type: 'DELETE',
-                        success: function (response) {
-                            if (response.status == "success") {
-                                swal({
-                                    title: 'BERHASIL!',
-                                    text: 'DATA BERHASIL DIHAPUS!',
-                                    icon: 'success',
-                                    timer: 1000,
-                                    showConfirmButton: false,
-                                    showCancelButton: false,
-                                    buttons: false,
-                                }).then(function() {
-                                    location.reload();
-                                });
-                            }else{
-                                swal({
-                                    title: 'GAGAL!',
-                                    text: 'DATA GAGAL DIHAPUS!',
-                                    icon: 'error',
-                                    timer: 1000,
-                                    showConfirmButton: false,
-                                    showCancelButton: false,
-                                    buttons: false,
-                                }).then(function() {
-                                    location.reload();
-                                });
-                            }
-                        }
-                    });
-
-                } else {
-                    return true;
+            jQuery.ajax({
+                url: "/admin/asset/realization/destroy/" + id,
+                data: {
+                    "id": id,
+                    "_token": token
+                },
+                type: 'DELETE',
+                success: function (response) {
+                    if (response.status == "success") {
+                        swal({
+                            title: 'BERHASIL!',
+                            text: 'DATA BERHASIL DIHAPUS!',
+                            icon: 'success',
+                            timer: 1000,
+                            buttons: false,
+                        }).then(function() {
+                            location.reload();
+                        });
+                    } else {
+                        swal({
+                            title: 'GAGAL!',
+                            text: 'DATA GAGAL DIHAPUS!',
+                            icon: 'error',
+                            timer: 1000,
+                            buttons: false,
+                        }).then(function() {
+                            location.reload();
+                        });
+                    }
                 }
-            })
-    }
-  </script>
+            });
+        }
+    })
+}
+</script>
 @endpush
-

@@ -18,7 +18,7 @@ class BuildingController extends Controller
         // TAMBAHAN: eager load relasi unit
         $buildings = Building::with('unit')->get();
 
-        return view('admin.asset.building.index', compact('buildings'));
+        return view('admin.master.building.index', compact('buildings'));
     }
 
     /**
@@ -31,7 +31,7 @@ class BuildingController extends Controller
         // TAMBAHAN: ambil data unit
         $units = Unit::all();
 
-        return view('admin.asset.building.form', compact('action', 'units'));
+        return view('admin.master.building.form', compact('action', 'units'));
     }
 
     /**
@@ -80,7 +80,7 @@ class BuildingController extends Controller
         // TAMBAHAN: ambil data unit
         $units = Unit::all();
 
-        return view('admin.asset.building.form', compact('data', 'action', 'units'));
+        return view('admin.master.building.form', compact('data', 'action', 'units'));
     }
 
     /**

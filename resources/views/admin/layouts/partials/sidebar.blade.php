@@ -59,19 +59,19 @@
             </a>
 </li>
            <li class="menu-item @if(setActive('admin/master/brand')) active @endif">
-            <a href="{{ route('admin.asset-brand.index') }}" class="menu-link">
+            <a href="{{ route('admin.master-brand.index') }}" class="menu-link">
               <div class="text-truncate" data-i18n="Basic Inputs">Brand</div>
             </a>
           </li>
-           <li class="menu-item @if(setActive('admin/asset/room')) active @endif">
-            <a href="{{ route('admin.asset-room.index') }}" class="menu-link">
-              <div class="text-truncate" data-i18n="Basic Inputs">Room</div>
-            </a>
-            <li class="menu-item @if(setActive('admin/asset/building')) active @endif">
-            <a href="{{ route('admin.building.index') }}" class="menu-link">
+          <li class="menu-item @if(setActive('admin/master/building')) active @endif">
+            <a href="{{ route('admin.master-building.index') }}" class="menu-link">
               <div class="text-truncate" data-i18n="Basic Inputs">Building</div>
             </a>
           </li>
+           <li class="menu-item @if(setActive('admin/master/room')) active @endif">
+            <a href="{{ route('admin.master-room.index') }}" class="menu-link">
+              <div class="text-truncate" data-i18n="Basic Inputs">Room</div>
+            </a>
         </ul>
       </li>
 
@@ -92,12 +92,7 @@
               <div class="text-truncate" data-i18n="Basic Inputs">Kategori Asset</div>
             </a>
           </li>
-          <li class="menu-item @if(setActive('admin/asset/building')) active @endif">
-            <a href="{{ route('admin.building.index') }}" class="menu-link">
-              <div class="text-truncate" data-i18n="Basic Inputs">Building</div>
-            </a>
-          </li>
-            <li class="menu-item @if(setActive('admin/asset/realization')) active @endif">
+          <li class="menu-item @if(setActive('admin/asset/realization')) active @endif">
             <a href="{{ route('admin.asset-realization.index') }}" class="menu-link">
               <div class="text-truncate" data-i18n="Basic Inputs">Realisasi Asset</div>
             </a>

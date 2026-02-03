@@ -29,9 +29,9 @@
 
                 <div class="card-body">
                     @if ($action == 'store')
-                        <form class="needs-validation" action="{{ route('admin.asset-building.store') }}" method="post" enctype="multipart/form-data">
+                        <form class="needs-validation" action="{{ route('admin.master-building.store') }}" method="post" enctype="multipart/form-data">
                     @else
-                        <form class="needs-validation" action="{{ route('admin.asset-building.update', $data->id) }}" method="POST" enctype="multipart/form-data">
+                        <form class="needs-validation" action="{{ route('admin.master-building.update', $data->id) }}" method="POST" enctype="multipart/form-data">
                         @method('PUT')
                     @endif
                     @csrf

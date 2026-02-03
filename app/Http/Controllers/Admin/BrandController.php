@@ -18,7 +18,7 @@ class BrandController extends Controller
         //
         $brands = Brand::get();
         
-        return view('admin.asset.brand.index', compact('brands'));
+        return view('admin.master.brand.index', compact('brands'));
 
     }
 
@@ -30,7 +30,7 @@ class BrandController extends Controller
         //
         $action = "store";
 
-        return view('admin.asset.brand.form', compact('action'));
+        return view('admin.master.brand.form', compact('action'));
 
     }
 
@@ -54,10 +54,10 @@ class BrandController extends Controller
 
         if($save){
             //redirect dengan pesan sukses
-            return redirect()->route('admin.asset-brand.index')->with(['success' => 'Data Berhasil Disimpan!']);
+            return redirect()->route('admin.master-brand.index')->with(['success' => 'Data Berhasil Disimpan!']);
         }else{
             //redirect dengan pesan error
-            return redirect()->route('admin.asset-brand.index')->with(['error' => 'Data Gagal Disimpan!']);
+            return redirect()->route('admin.master-brand.index')->with(['error' => 'Data Gagal Disimpan!']);
         }
     }
 
@@ -77,7 +77,7 @@ class BrandController extends Controller
         //
         $action = "update";
         $data = Brand::where('slug',$slug)->first();
-        return view('admin.asset.brand.form', compact('data', 'action'));
+        return view('admin.master.brand.form', compact('data', 'action'));
     }
 
     /**
@@ -100,10 +100,10 @@ class BrandController extends Controller
 
         if($save){
             //redirect dengan pesan sukses
-            return redirect()->route('admin.asset-brand.index')->with(['success' => 'Data Berhasil Diperbaharui!']);
+            return redirect()->route('admin.master-brand.index')->with(['success' => 'Data Berhasil Diperbaharui!']);
         }else{
             //redirect dengan pesan error
-            return redirect()->route('admin.asset-brand.index')->with(['error' => 'Data Gagal Diperbaharui!']);
+            return redirect()->route('admin.master-brand.index')->with(['error' => 'Data Gagal Diperbaharui!']);
         }
 
     }

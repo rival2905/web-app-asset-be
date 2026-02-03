@@ -16,7 +16,7 @@ class RoomController extends Controller
     public function index()
     {
         $rooms = Room::with('building')->get();
-        return view('admin.asset.room.index', compact('rooms'));
+        return view('admin.master.room.index', compact('rooms'));
     }
 
     /**
@@ -26,7 +26,7 @@ class RoomController extends Controller
     {
         $action = "store";
         $buildings = Building::all();
-        return view('admin.asset.room.form', compact('action', 'buildings'));
+        return view('admin.master.room.form', compact('action', 'buildings'));
     }
 
     /**
@@ -48,7 +48,7 @@ class RoomController extends Controller
         $save = Room::create($data);
 
         return redirect()
-            ->route('admin.asset-room.index')
+            ->route('admin.master-room.index')
             ->with($save ? 'success' : 'error',
                 $save ? 'Data Berhasil Disimpan!' : 'Data Gagal Disimpan!'
             );
@@ -63,7 +63,7 @@ class RoomController extends Controller
         $data = Room::where('slug', $slug)->firstOrFail();
         $buildings = Building::all();
 
-        return view('admin.asset.room.form', compact('data', 'action', 'buildings'));
+        return view('admin.master.room.form', compact('data', 'action', 'buildings'));
     }
 
     /**
@@ -85,7 +85,7 @@ class RoomController extends Controller
         $save = $data->save();
 
         return redirect()
-            ->route('admin.asset-room.index')
+            ->route('admin.master-room.index')
             ->with($save ? 'success' : 'error',
                 $save ? 'Data Berhasil Diperbaharui!' : 'Data Gagal Diperbaharui!'
             );
