@@ -57,7 +57,6 @@
                                    class="btn btn-warning btn-sm">
                                     <i class="bx bx-edit"></i> Edit
                                 </a>
-
                                 <button onclick="Delete(this.id)"
                                         id="{{ $data->id }}"
                                         class="btn btn-danger btn-sm">
@@ -115,7 +114,7 @@
             dangerMode: true,
         }).then(function(isConfirm) {
             if (isConfirm) {
-                fetch("/admin/asset/detail/destroy/" + id, {
+                fetch("/admin/asset/asset-detail/destroy/" + id, {
                     method: "DELETE",
                     headers: {
                         "X-CSRF-TOKEN": token

@@ -80,7 +80,7 @@ class AssetDetailController extends Controller
     $assets = Asset::get();
     $action = "update";
 
-    return view('admin.asset.detail.form', compact('data', 'action'));
+    return view('admin.asset.detail.form', compact('data', 'action','assets'));
 }
 
 
