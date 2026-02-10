@@ -15,12 +15,11 @@
         <div class="col-md-12">
             <div class="card">
                 <h5 class="card-header">Create Asset Realization</h5>
-
                 <div class="card-body">
-                    
-                    {{-- Tampilkan Error Validasi --}}
                     @if ($errors->any())
-                        <div class="alert alert-danger">
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            <h4 class="alert-heading">Gagal menyimpan!</h4>
                             <ul>
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
@@ -29,73 +28,49 @@
                         </div>
                     @endif
 
-                    {{-- Form Store --}}
-                    <form class="needs-validation" 
-                          action="{{ route('admin.asset-realization.store') }}" 
-                          method="POST">
+                    <form action="{{ route('admin.asset-realization.store') }}" method="POST">
                         @csrf
-
-                        <div class="row g-6">
-                            {{-- Asset --}}
+                        <div class="row g-3">
                             <div class="col-md-6">
-                                <label for="asset_id" class="form-label">Asset</label>
-                                <select name="asset_id" id="asset_id" class="form-control select2" required>
+                                <label class="form-label">Asset <span class="text-danger">*</span></label>
+                                <select name="asset_id" id="asset_id" class="form-control select2-main" required>
                                     <option value="">-- Pilih Asset --</option>
                                     @foreach($assets as $asset)
-                                        <option value="{{ $asset->id }}">
+                                        <option value="{{ $asset->id }}" {{ old('asset_id') == $asset->id ? 'selected' : '' }}>
                                             {{ $asset->asset_code ?? $asset->id }} - {{ $asset->asset_name ?? $asset->name }}
                                         </option>
                                     @endforeach
                                 </select>
                             </div>
-
-                            {{-- Date --}}
                             <div class="col-md-6">
-                                <label for="date" class="form-label">Date</label>
-                                <input class="form-control flatpickr-basic" 
-                                       type="date" 
-                                       id="date" 
-                                       name="date" 
-                                       value="{{ old('date') }}" 
-                                       required />
+                                <label class="form-label">Date <span class="text-danger">*</span></label>
+                                <input type="date" name="date" class="form-control" value="{{ old('date') }}" required />
                             </div>
-
-                            {{-- Room --}}
                             <div class="col-md-6">
-                                <label for="room_id" class="form-label">Room</label>
-                                <select name="room_id" id="room_id" class="form-control select2" required>
+                                <label class="form-label">Room <span class="text-danger">*</span></label>
+                                <select name="room_id" id="room_id" class="form-control select2-main" required>
                                     <option value="">-- Pilih Room --</option>
                                     @foreach($rooms as $room)
-                                        <option value="{{ $room->id }}">
+                                        <option value="{{ $room->id }}" {{ old('room_id') == $room->id ? 'selected' : '' }}>
                                             {{ $room->room_name ?? $room->name }}
                                         </option>
                                     @endforeach
                                 </select>
                             </div>
-
-                            {{-- 🔥 DETAIL ASSET (Dengan Tombol Quick Add) --}}
                             <div class="col-md-6">
-                                <label for="detail_asset_id" class="form-label">Detail Asset</label>
-                                
+                                <label class="form-label">Detail Asset <span class="text-danger">*</span></label>
                                 <div class="input-group">
-                                    <select name="detail_asset_id" id="detail_asset_id" class="form-control select2" required>
+                                    <select name="detail_asset_id" id="detail_asset_id" class="form-control select2-main" required>
                                         <option value="">-- Pilih Asset Dulu --</option>
                                     </select>
-                                    
                                     <button type="button" class="btn btn-outline-primary" onclick="openAddDetailModal()">
-                                        <i class="bx bx-plus"></i>
+                                        <i class="bx bx-plus"></i> Tambah
                                     </button>
                                 </div>
-                                
-                                @error('detail_asset_id')
-                                    <div class="text-danger mt-1">{{ $message }}</div>
-                                @enderror
                             </div>
-
                         </div>
-
-                        <div class="mt-6">
-                            <button type="submit" class="btn btn-primary me-3">Save</button>
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn-primary">Save Realization</button>
                             <a href="{{ route('admin.asset-realization.index') }}" class="btn btn-outline-secondary">Cancel</a>
                         </div>
                     </form>
@@ -105,49 +80,34 @@
     </div>
 </div>
 
-{{-- 🔥 MODAL QUICK ADD DETAIL ASSET --}}
-<div class="modal fade" id="modalAddDetail" tabindex="-1" aria-hidden="true">
+{{-- MODAL --}}
+<div class="modal fade" id="modalAddDetail" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Tambah Detail Asset Baru</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <form id="formQuickAddDetail">
                 <div class="modal-body">
                     @csrf
-                    
-                    {{-- ID Asset (Hidden) --}}
                     <input type="hidden" name="asset_id" id="modal_asset_id">
-
                     <div class="mb-3">
                         <label class="form-label">Number Seri</label>
-                        <input type="text" name="number_seri" class="form-control" required placeholder="Contoh: SN-12345">
+                        <input type="text" name="number_seri" class="form-control" required>
                     </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Production Year</label>
-                        <input type="number" name="production_year" class="form-control" placeholder="2024">
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Unit Price</label>
-                        <input type="number" name="unit_price" class="form-control" placeholder="5000000">
-                    </div>
-
                     <div class="mb-3">
                         <label class="form-label">Condition</label>
                         <select name="condition" class="form-control" required>
                             <option value="Baru">Baru</option>
                             <option value="Baik">Baik</option>
-                            <option value="Cukup">Cukup</option>
                             <option value="Rusak">Rusak</option>
                         </select>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Simpan Detail</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
         </div>
@@ -157,95 +117,55 @@
 
 @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
- $(document).ready(function () {
-    $('.select2').select2({ width: '100%' });
+    $(document).ready(function () {
+        $('.select2-main').select2({ width: '100%' });
+        let initialDetailId = "{{ old('detail_asset_id') }}";
 
-    // 🔥 LOGIKA: Ambil Detail Asset saat Asset dipilih
-    $('#asset_id').on('change', function() {
-        let assetId = $(this).val();
-        let detailSelect = $('#detail_asset_id');
-
-        detailSelect.empty().append('<option value="">-- Pilih Detail --</option>');
-
-        if (!assetId) return;
-
-        $.ajax({
-            url: `/admin/realization/details-by-asset/${assetId}`,
-            type: 'GET',
-            success: function(data) {
-                if (data.length > 0) {
-                    $.each(data, function(key, value) {
-                        let label = `${value.number_seri || 'No Serial'} (${value.condition})`;
-                        detailSelect.append('<option value="'+ value.id +'">'+ label +'</option>');
-                    });
-                } else {
-                    detailSelect.append('<option value="">Tidak ada detail tersedia</option>');
+        $('#asset_id').on('change', function() {
+            let assetId = $(this).val();
+            let detailSelect = $('#detail_asset_id');
+            detailSelect.empty().append('<option value="">-- Pilih Detail --</option>');
+            if (!assetId) return;
+            $.ajax({
+                url: `/admin/realization/details-by-asset/${assetId}`,
+                type: 'GET',
+                success: function(data) {
+                    if (data.length > 0) {
+                        $.each(data, function(key, value) {
+                            detailSelect.append(`<option value="${value.id}">${value.number_seri} (${value.condition})</option>`);
+                        });
+                        if (initialDetailId) {
+                            detailSelect.val(initialDetailId).trigger('change');
+                            initialDetailId = null;
+                        }
+                    }
                 }
-            },
-            error: function() {
-                alert('Gagal mengambil data detail asset');
-            }
+            });
+        });
+        if ($('#asset_id').val()) $('#asset_id').trigger('change');
+
+        window.openAddDetailModal = function() {
+            if (!$('#asset_id').val()) return Swal.fire('Info', 'Pilih Asset dulu', 'warning');
+            $('#modal_asset_id').val($('#asset_id').val());
+            new bootstrap.Modal(document.getElementById('modalAddDetail')).show();
+        };
+
+        $('#formQuickAddDetail').on('submit', function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: "/admin/asset-detail/store",
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function(res) {
+                    $('#modalAddDetail').modal('hide');
+                    let serial = $('#formQuickAddDetail input[name="number_seri"]').val();
+                    $('#detail_asset_id').append(new Option(`${serial} (Baru)`, res.id, true, true)).trigger('change');
+                    $('#formQuickAddDetail')[0].reset();
+                }
+            });
         });
     });
-
-    // 🔥 FUNGSI BUKA MODAL QUICK ADD
-    window.openAddDetailModal = function() {
-        let assetId = $('#asset_id').val();
-
-        if (!assetId) {
-            swal('Peringatan', 'Harap pilih Asset terlebih dahulu!', 'warning');
-            return;
-        }
-
-        $('#modal_asset_id').val(assetId);
-        var myModal = new bootstrap.Modal(document.getElementById('modalAddDetail'));
-        myModal.show();
-    }
-
-    // 🔥 FUNGSI SIMPAN DETAIL BARU (AJAX)
-    $('#formQuickAddDetail').on('submit', function(e) {
-        e.preventDefault();
-
-        let formData = $(this).serialize();
-        let detailSelect = $('#detail_asset_id');
-
-        $.ajax({
-            // Pastikan route ini mengarah ke Controller AssetDetail store
-            url: "/admin/asset-detail/store", 
-            type: 'POST',
-            data: formData,
-            success: function(response) {
-                // Tutup Modal
-                $('#modalAddDetail').modal('hide');
-                
-                // Tampilkan Sukses
-                swal('Berhasil', 'Detail Asset berhasil ditambahkan!', 'success');
-
-                // Masukkan ke dropdown otomatis
-                let newOption = new Option(
-                    $('#formQuickAddDetail input[name="number_seri"]').val() + ' (Baru)', 
-                    response.id, 
-                    true, 
-                    true
-                );
-                detailSelect.append(newOption).trigger('change');
-
-                // Reset Form
-                $('#formQuickAddDetail')[0].reset();
-            },
-            error: function(xhr) {
-                let errors = xhr.responseJSON.errors;
-                let errorMsg = "Gagal menyimpan data.";
-                
-                if(errors) {
-                    let firstError = Object.keys(errors)[0];
-                    errorMsg = errors[firstError][0];
-                }
-                swal('Gagal', errorMsg, 'error');
-            }
-        });
-    });
-});
 </script>
 @endpush

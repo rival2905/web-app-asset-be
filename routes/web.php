@@ -100,11 +100,12 @@ Route::group(['middleware' => 'auth'], function () {
             });
             Route::prefix('asset-material')->group(function () {
                 Route::get('/', [App\Http\Controllers\Admin\AssetMaterialController::class, 'index'])->name('admin.asset-material.index');
-                Route::get('/create',[App\Http\Controllers\Admin\AssetMaterialController::class,'create'])->name('admin.asset-material.create');
-                Route::post('/store',[App\Http\Controllers\Admin\AssetMaterialController::class,'store'])->name('admin.asset-material.store');
-                Route::get('/edit/{id}',[App\Http\Controllers\Admin\AssetMaterialController::class,'edit'])->name('admin.asset-material.edit');
-                Route::put('/update/{id}',[App\Http\Controllers\Admin\AssetMaterialController::class,'update'])->name('admin.asset-material.update');
-                Route::delete('/destroy/{id}',[App\Http\Controllers\Admin\AssetMaterialController::class,'destroy'])->name('admin.asset-material.destroy');
+                Route::get('/create', [App\Http\Controllers\Admin\AssetMaterialController::class, 'create'])->name('admin.asset-material.create');
+                Route::post('/store', [App\Http\Controllers\Admin\AssetMaterialController::class, 'store'])->name('admin.asset-material.store');
+                Route::get('/edit/{slug}', [App\Http\Controllers\Admin\AssetMaterialController::class, 'edit'])->name('admin.asset-material.edit');
+                Route::put('/update/{id}', [App\Http\Controllers\Admin\AssetMaterialController::class, 'update'])->name('admin.asset-material.update');
+                Route::delete('/destroy/{id}', [App\Http\Controllers\Admin\AssetMaterialController::class, 'destroy'])->name('admin.asset-material.destroy');
+            });
             }); 
             
             Route::prefix('asset-detail')->group(function () {
@@ -120,13 +121,13 @@ Route::group(['middleware' => 'auth'], function () {
             });
         });
         Route::prefix('realization')->group(function () {
+            Route::prefix('realization')->group(function () {
             Route::get('/', [App\Http\Controllers\Admin\AssetRealizationController::class, 'index'])->name('admin.asset-realization.index');
             Route::get('/create', [App\Http\Controllers\Admin\AssetRealizationController::class, 'create'])->name('admin.asset-realization.create');
             Route::post('/store', [App\Http\Controllers\Admin\AssetRealizationController::class, 'store'])->name('admin.asset-realization.store');
             Route::get('/edit/{id}', [App\Http\Controllers\Admin\AssetRealizationController::class, 'edit'])->name('admin.asset-realization.edit');
             Route::put('/update/{id}', [App\Http\Controllers\Admin\AssetRealizationController::class, 'update'])->name('admin.asset-realization.update');
             Route::delete('/destroy/{id}', [App\Http\Controllers\Admin\AssetRealizationController::class, 'destroy'])->name('admin.asset-realization.destroy');
-            Route::get('/rooms-by-asset/{asset_id}', [App\Http\Controllers\Admin\AssetRealizationController::class, 'getRoomsByAsset'])->name('admin.asset-realization.rooms-by-asset');
             Route::get('/details-by-asset/{asset_id}', [App\Http\Controllers\Admin\AssetRealizationController::class, 'getDetailsByAsset'])->name('admin.asset-realization.details-by-asset');
         });
     });

@@ -32,7 +32,15 @@ class AssetDetailController extends Controller
             'condition'       => 'required|string|max:50',
         ]);
 
-        AssetDetail::create($request->all());
+        $detail = AssetDetail::create($request->all());
+
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'id'      => $detail->id,
+                'message' => 'Data Berhasil Disimpan!'
+            ]);
+        }
 
         return redirect()->route('admin.asset-detail.index')
             ->with('success', 'Data Berhasil Disimpan!');
@@ -74,11 +82,36 @@ class AssetDetailController extends Controller
         ]);
     }
 
-    // 🔥 TAMBAHAN UNTUK DROPDOWN DINAMIS
+    // 🔥 AJAX: Untuk dropdown dinamis (ambil detail berdasarkan asset)
     public function getByAsset($asset_id)
     {
         return response()->json(
             AssetDetail::where('asset_id', $asset_id)->get()
         );
+    }
+
+    // 🔥 AJAX: Untuk modal quick add (simpan detail baru dari modal)
+    public function storeAjax(Request $request)
+    {
+        $request->validate([
+            'asset_id'    => 'required|exists:assets,id',
+            'number_seri' => 'nullable|string|max:255',
+            'condition'   => 'required|string|max:50',
+        ]);
+
+        $detail = AssetDetail::create([
+            'asset_id'        => $request->asset_id,
+            'number_seri'     => $request->number_seri,
+            'production_year' => $request->production_year ?? null,
+            'unit_price'      => $request->unit_price ?? null,
+            'condition'       => $request->condition,
+        ]);
+
+        return response()->json([
+            'id'          => $detail->id,
+            'number_seri' => $detail->number_seri,
+            'condition'   => $detail->condition,
+            'message'     => 'Detail asset berhasil ditambahkan'
+        ]);
     }
 }

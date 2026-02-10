@@ -2,13 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class AssetDetail extends Model
 {
-    use HasFactory;
-
     protected $table = 'asset_details';
 
     protected $fillable = [
@@ -16,15 +13,16 @@ class AssetDetail extends Model
         'number_seri',
         'production_year',
         'unit_price',
-        'condition',
+        'condition'
     ];
 
-    /**
-     * Relasi ke Asset
-     * 1 Asset punya banyak AssetDetail
-     */
     public function asset()
     {
-        return $this->belongsTo(Asset::class, 'asset_id');
+        return $this->belongsTo(Asset::class);
+    }
+
+    public function realizations()
+    {
+        return $this->hasMany(AssetRealization::class, 'detail_asset_id');
     }
 }

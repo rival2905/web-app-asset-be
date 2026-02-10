@@ -2,25 +2,24 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class AssetRealization extends Model
 {
-    use HasFactory;
+    protected $guarded = [];
 
-    protected $table = 'asset_realizations';
-
-    protected $fillable = [
-        'asset_id',
-        'date',
-        'room',          // ← Ganti jadi room (text)
-        'detail_asset'
-    ];
-
-    // Relasi ke Asset
     public function asset()
     {
         return $this->belongsTo(Asset::class);
+    }
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
+
+    public function detailAsset()
+    {
+        return $this->belongsTo(AssetDetail::class, 'detail_asset_id');
     }
 }

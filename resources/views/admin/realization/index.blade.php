@@ -35,24 +35,19 @@
                                 @foreach ($realizations as $index => $data)
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
-                                    {{-- Tampilkan Nama Asset --}}
                                     <td>{{ $data->asset->name ?? '-' }}</td>
                                     <td>{{ \Carbon\Carbon::parse($data->date)->format('d-m-Y') }}</td>
-                                    {{-- Tampilkan Nama Room --}}
                                     <td>{{ $data->room->name ?? '-' }}</td>
-                                    {{-- Tampilkan Serial Number dari Relasi --}}
-                                    <td>{{ $data->assetDetail->number_seri ?? '-' }} ({{ $data->assetDetail->condition ?? '-' }})</td>
-
+                                    <td>
+                                        {{ $data->assetDetail->number_seri ?? '-' }} 
+                                        <span class="badge bg-label-secondary">{{ $data->assetDetail->condition ?? '-' }}</span>
+                                    </td>
                                     @if (Auth::user()->role == 'admin-pusat')
                                     <td>
-                                        <a href="{{ route('admin.asset-realization.edit', $data->id) }}" 
-                                           class="btn btn-warning btn-sm">
+                                        <a href="{{ route('admin.asset-realization.edit', $data->id) }}" class="btn btn-warning btn-sm">
                                             <i class='bx bx-edit'></i> Edit
                                         </a>
-
-                                        <button onClick="Delete({{ $data->id }})" 
-                                                type="button" 
-                                                class="btn btn-danger btn-sm">
+                                        <button onClick="Delete({{ $data->id }})" type="button" class="btn btn-danger btn-sm">
                                             <i class='bx bx-trash'></i> Delete
                                         </button>
                                     </td>
@@ -77,8 +72,6 @@
     </a>
 </div>
 @endif
-
-<!-- Scripts DataTables -->
 <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
 <script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap5.js"></script>
 <script src="https://cdn.datatables.net/buttons/3.2.2/js/dataTables.buttons.js"></script>
@@ -88,42 +81,39 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.print.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-  new DataTable('#example');
+    new DataTable('#example');
 </script>
 
 <script>
 function Delete(id)
 {
     var token = $("meta[name='csrf-token']").attr("content");
-
-    swal({
+    Swal.fire({
         title: "APAKAH KAMU YAKIN ?",
         text: "INGIN MENGHAPUS DATA INI!",
         icon: "warning",
-        buttons: ['TIDAK', 'YA'],
-        dangerMode: true,
-    }).then(function(isConfirm) {
-        if (isConfirm) {
-            // 🔥 PERBAIKAN URL SESUAI ROUTE
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'YA, HAPUS!',
+        cancelButtonText: 'TIDAK'
+    }).then((result) => {
+        if (result.isConfirmed) {
             jQuery.ajax({
                 url: "/admin/realization/destroy/" + id,
-                data: {
-                    "_token": token
-                },
+                data: { "_token": token },
                 type: 'DELETE',
                 success: function (response) {
                     if (response.status == "success") {
-                        swal('BERHASIL!', 'DATA BERHASIL DIHAPUS!', 'success');
-                        setTimeout(() => location.reload(), 1000);
+                        Swal.fire('BERHASIL!', 'DATA BERHASIL DIHAPUS!', 'success').then(() => location.reload());
                     } else {
-                        swal('GAGAL!', 'DATA GAGAL DIHAPUS!', 'error');
+                        Swal.fire('GAGAL!', 'DATA GAGAL DIHAPUS!', 'error');
                     }
                 },
-                error: function() {
-                     swal('GAGAL!', 'TERJADI KESALAHAN SISTEM!', 'error');
-                }
+                error: function() { Swal.fire('GAGAL!', 'TERJADI KESALAHAN SISTEM!', 'error'); }
             });
         }
     })
