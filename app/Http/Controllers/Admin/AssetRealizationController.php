@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 use App\Models\AssetRealization;
+use App\Models\Asset;
+use App\Models\Room;
 
 class AssetRealizationController extends Controller
 {
@@ -25,7 +26,14 @@ class AssetRealizationController extends Controller
     public function create()
     {
         $action = "store";
-        return view('admin.asset.realization.form', compact('action'));
+        $assets = Asset::all();
+        $rooms = Room::all();
+
+        return view('admin.asset.realization.form', compact(
+            'action',
+            'assets',
+            'rooms'
+        ));
     }
 
     /**
@@ -51,31 +59,30 @@ class AssetRealizationController extends Controller
 
         $save = AssetRealization::create($data);
 
-        if ($save) {
-            return redirect()->route('admin.asset-realization.index')
-                ->with(['success' => 'Data Berhasil Disimpan!']);
-        } else {
-            return redirect()->route('admin.asset-realization.index')
-                ->with(['error' => 'Data Gagal Disimpan!']);
-        }
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        return redirect()->route('admin.asset-realization.index')
+            ->with($save ? 'success' : 'error',
+                $save ? 'Data Berhasil Disimpan!' : 'Data Gagal Disimpan!');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($slug)
+    public function edit($id)
     {
         $action = "update";
-        $data = AssetRealization::where('slug', $slug)->first();
-        return view('admin.asset.realization.form', compact('data', 'action'));
+
+        // GANTI slug jadi find by ID
+        $data = AssetRealization::findOrFail($id);
+
+        $assets = Asset::all();
+        $rooms = Room::all();
+
+        return view('admin.asset.realization.form', compact(
+            'data',
+            'action',
+            'assets',
+            'rooms'
+        ));
     }
 
     /**
@@ -83,7 +90,7 @@ class AssetRealizationController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $data = AssetRealization::find($id);
+        $data = AssetRealization::findOrFail($id);
 
         // validator
         $this->validate($request, [
@@ -100,13 +107,9 @@ class AssetRealizationController extends Controller
 
         $save = $data->save();
 
-        if ($save) {
-            return redirect()->route('admin.asset-realization.index')
-                ->with(['success' => 'Data Berhasil Diperbaharui!']);
-        } else {
-            return redirect()->route('admin.asset-realization.index')
-                ->with(['error' => 'Data Gagal Diperbaharui!']);
-        }
+        return redirect()->route('admin.asset-realization.index')
+            ->with($save ? 'success' : 'error',
+                $save ? 'Data Berhasil Diperbaharui!' : 'Data Gagal Diperbaharui!');
     }
 
     /**
@@ -117,14 +120,8 @@ class AssetRealizationController extends Controller
         $data = AssetRealization::findOrFail($id);
         $data->delete();
 
-        if ($data) {
-            return response()->json([
-                'status' => 'success'
-            ]);
-        } else {
-            return response()->json([
-                'status' => 'error'
-            ]);
-        }
+        return response()->json([
+            'status' => $data ? 'success' : 'error'
+        ]);
     }
 }

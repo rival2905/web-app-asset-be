@@ -8,15 +8,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use App\Models\Absensi;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'email',
@@ -44,14 +41,8 @@ class User extends Authenticatable
         'deleted_by',
         'restored_by',
         'unit_id',
-
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
@@ -60,31 +51,39 @@ class User extends Authenticatable
         'email_verified_at',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
 
-
     public function lokasi_kerja()
     {
-        return $this->belongsToMany(MasterLokasiKerja::class, 'lokasi_kerjas', 'user_id', 'master_lokasi_kerja_id');
+        return $this->belongsToMany(
+            MasterLokasiKerja::class,
+            'lokasi_kerjas',
+            'user_id',
+            'master_lokasi_kerja_id'
+        );
     }
+
     public function kepengamatan()
     {
         return $this->hasMany(MasterLokasiKerja::class, 'kd_sppjj', 'id');
     }
+
     public function mandor()
     {
         return $this->belongsTo(User::class, 'mandor_id');
     }
+
     public function pengamat()
     {
         return $this->belongsTo(User::class, 'pengamat_id');
+    }
+
+    // ✅ TAMBAHAN SAJA (tidak menghapus apa pun)
+    public function absensis()
+    {
+        return $this->hasMany(Absensi::class, 'user_id');
     }
 }

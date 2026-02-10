@@ -13,18 +13,12 @@ use App\Models\Seri;
 
 class AssetMaterialController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $asset_materials = AssetMaterial::get();
+        $asset_materials = AssetMaterial::all();
         return view('admin.asset.material.index', compact('asset_materials'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $action = "store";
@@ -33,18 +27,12 @@ class AssetMaterialController extends Controller
         $brands = Brand::all();
         $series = Seri::all();
 
-        return view(
-            'admin.asset.material.form',
-            compact('action', 'assetCategories', 'brands', 'series')
-        );
+        return view('admin.asset.material.form', compact('action', 'assetCategories', 'brands', 'series'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $request->validate([
             'name' => 'required|unique:asset_materials'
         ]);
 
@@ -58,42 +46,28 @@ class AssetMaterialController extends Controller
 
         $save = AssetMaterial::create($data);
 
-        if ($save) {
-            return redirect()->route('admin.asset-material.index')
-                ->with(['success' => 'Data Berhasil Disimpan!']);
-        }
-
-        return redirect()->route('admin.asset-material.index')
-            ->with(['error' => 'Data Gagal Disimpan!']);
+        return redirect()->route('admin.asset-materials.index')
+            ->with([$save ? 'success' : 'error' => $save ? 'Data Berhasil Disimpan!' : 'Data Gagal Disimpan!']);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($slug)
+    public function edit($id)
     {
         $action = "update";
-        $data = AssetMaterial::where('slug', $slug)->firstOrFail();
+        $data = AssetMaterial::findOrFail($id);
 
         $assetCategories = AssetCategory::all();
         $brands = Brand::all();
         $series = Seri::all();
 
-        return view(
-            'admin.asset.material.form',
-            compact('data', 'action', 'assetCategories', 'brands', 'series')
-        );
+        return view('admin.asset.material.form', compact('data', 'action', 'assetCategories', 'brands', 'series'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
         $data = AssetMaterial::findOrFail($id);
 
-        $this->validate($request, [
-            'name' => 'required|unique:asset_materials,name,' . $data->id
+        $request->validate([
+            'name' => 'required|unique:asset_materials,name,' . $data->id,
         ]);
 
         $data->name = $request->name;
@@ -104,18 +78,10 @@ class AssetMaterialController extends Controller
 
         $save = $data->save();
 
-        if ($save) {
-            return redirect()->route('admin.asset-material.index')
-                ->with(['success' => 'Data Berhasil Diperbaharui!']);
-        }
-
-        return redirect()->route('admin.asset-material.index')
-            ->with(['error' => 'Data Gagal Diperbaharui!']);
+        return redirect()->route('admin.asset-materials.index')
+            ->with([$save ? 'success' : 'error' => $save ? 'Data Berhasil Diperbaharui!' : 'Data Gagal Diperbaharui!']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
         $data = AssetMaterial::findOrFail($id);

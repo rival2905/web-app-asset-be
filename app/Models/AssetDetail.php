@@ -10,10 +10,13 @@ class AssetDetail extends Model
 
     protected $fillable = [
         'asset_id',
-        'name',
-        'slug'
+        'number_seri',
+        'production_year',
+        'unit_price',
+        'condition'
     ];
 
+    // Relasi ke Asset
     public function asset()
     {
         return $this->belongsTo(Asset::class);

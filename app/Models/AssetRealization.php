@@ -12,10 +12,9 @@ class AssetRealization extends Model
     protected $table = 'asset_realizations';
 
     protected $fillable = [
-    'asset_id',
-    'date',
-    'room_id',
-    'detail_asset',
-];
+        'asset_id',
+        'date',
+        'room_id',
+        'detail_asset'
+    ];
 }
-    

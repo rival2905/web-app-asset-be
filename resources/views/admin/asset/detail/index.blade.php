@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-    Asset details
+    Asset Details
     @parent
 @stop
 
@@ -12,7 +12,7 @@
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
 
-    <div class="row">
+    <div class="row mb-3">
         <div class="col-12">
             <div class="card text-center">
                 <div class="card-body">
@@ -24,7 +24,7 @@
 
     <div class="card mt-2">
         <div class="table-responsive text-wrap">
-            <table id="example" class="table">
+            <table id="example" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                     <th>Asset</th>
@@ -44,23 +44,20 @@
                 @foreach ($details as $data)
                     <tr>
                         <td>{{ $data->asset->name ?? '-' }}</td>
-                        <td>{{ $data->asset->number_seri ?? '-' }}</td>
-                        <td>{{ $data->asset->production_year ?? '-' }}</td>
-                        <td>{{ number_format($data->asset->unit_price ?? 0) }}</td>
-                        <td>{{ $data->asset->condition ?? '-' }}</td>
+                        <td>{{ $data->number_seri ?? '-' }}</td>
+                        <td>{{ $data->production_year ?? '-' }}</td>
+                        <td>{{ number_format($data->unit_price ?? 0, 2) }}</td>
+                        <td>{{ $data->condition ?? '-' }}</td>
                         <td>{{ $data->name }}</td>
                         <td>{{ $data->slug ?? '-' }}</td>
 
                         @if (Auth::user()->role == 'admin-pusat')
                             <td>
-                                <a href="{{ route('admin.asset-detail.edit', $data->id) }}"
-                                   class="btn btn-warning btn-sm">
+                                <a href="{{ route('admin.asset-detail.edit', $data->id) }}" class="btn btn-warning btn-sm">
                                     <i class="bx bx-edit"></i> Edit
                                 </a>
 
-                                <button onclick="Delete(this.id)"
-                                        id="{{ $data->id }}"
-                                        class="btn btn-danger btn-sm">
+                                <button onclick="Delete(this.id)" id="{{ $data->id }}" class="btn btn-danger btn-sm">
                                     <i class="bx bx-trash"></i> Delete
                                 </button>
                             </td>

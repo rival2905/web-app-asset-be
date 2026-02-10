@@ -76,32 +76,27 @@
       </li>
 
       <!-- Fitur Asset -->
-      <li class="menu-item @if(setActive('admin/asset')) active open @endif">
-        <a href="javascript:void(0);" class="menu-link menu-toggle">
-          <i class="menu-icon tf-icons bx bx-treasure-chest"></i>
-          <div class="text-truncate" data-i18n="Form Elements">Asset</div>
-        </a>
+       <li class="menu-item @if(setActive('admin/asset')) active open @endif">
+          <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons bx bx-box"></i>
+            <div class="text-truncate">Asset</div>
+           </a>
         <ul class="menu-sub"> 
           <li class="menu-item @if(setActive('admin/asset/list')) active @endif">
-            <a href="#" class="menu-link">
-              <div class="text-truncate" data-i18n="Basic Inputs">Daftar Asset</div>
+            <a href="{{ route('admin.asset-asset.index') }}" class="menu-link">
+              <div class="text-truncate" data-i18n="Basic Inputs">Asset</div>
             </a>
           </li>
-          <li class="menu-item @if(setActive('admin/asset/category')) active @endif">
+          <li class="menu-item @if(setActive('admin/asset/asset-category')) active @endif">
             <a href="{{ route('admin.asset-category.index') }}" class="menu-link">
               <div class="text-truncate" data-i18n="Basic Inputs">Kategori Asset</div>
             </a>
-          </li>
-          <li class="menu-item @if(setActive('admin/asset/realization')) active @endif">
-            <a href="{{ route('admin.asset-realization.index') }}" class="menu-link">
-              <div class="text-truncate" data-i18n="Basic Inputs">Realisasi Asset</div>
-            </a>
-          </li>    
+          </li> 
           <li class="menu-item @if(setActive('admin/asset/asset-material')) active @endif">
-            <a href="{{ route('admin.asset-material.index') }}" class="menu-link">
+          <a href="{{ route('admin.asset-materials.index') }}" class="menu-link">
               <div class="text-truncate" data-i18n="Basic Inputs">Asset Material</div>
-            </a>
-          </li>
+          </a>
+      </li>
         <li class="menu-item @if(setActive('admin/asset/asset-detail')) active @endif">
             <a href="{{ route('admin.asset-detail.index') }}" class="menu-link">
                 <div class="text-truncate">Asset Detail</div>
@@ -109,17 +104,16 @@
         </li>
     </ul>
 </li>
-        </ul>
-      </li>
-      
+        
 
-      <!-- Transaction -->
-      <li class="menu-header small text-uppercase"><span class="menu-header-text">Transaction</span></li>
-
-      <li class="menu-item @if(setActive('admin/blank-page')) active open @endif">
-        <a href="{{ route('admin.blank') }}" class="menu-link">
-          <i class="menu-icon tf-icons bx bx-repeat-alt-2"></i>
-          <div class="text-truncate" data-i18n="Tables">Realisasi</div>
+     <!-- Transaction -->
+  <li class="menu-header small text-uppercase">
+    <span class="menu-header-text">Transaction</span>
+  </li>
+      <li class="menu-item @if(setActive('admin/asset/realization')) active @endif">
+  <a href="{{ route('admin.asset-realization.index') }}" class="menu-link">
+    <i class="menu-icon tf-icons bx bx-repeat-alt-2"></i>
+    <div class="text-truncate">Realisasi Asset</div>
         </a>
       </li>
     </ul>

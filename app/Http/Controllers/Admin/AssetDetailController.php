@@ -9,126 +9,80 @@ use App\Models\AssetDetail;
 
 class AssetDetailController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
-        $details = AssetDetail::get();
-        
+        $details = AssetDetail::with('asset')->get();
         return view('admin.asset.detail.index', compact('details'));
-
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
-        $action = "store";
-        $assets = Asset::get();
-
-        return view('admin.asset.detail.form', compact('action','assets'));
-
+        $action = 'store';
+        $assets = Asset::all();
+        return view('admin.asset.detail.form', compact('action', 'assets'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
-{
-    $request->validate([
-        'asset_id' => 'required|exists:assets,id',
-        'name'     => 'required'
-    ]);
-
-    $data = [
-        'asset_id' => $request->asset_id,
-        'name'     => $request->name,
-    ];
-
-    $save = AssetDetail::create($data);
-
-    if ($save) {
-        return redirect()
-            ->route('admin.asset-detail.index')
-            ->with('success', 'Data Berhasil Disimpan!');
-    }
-
-    return redirect()
-        ->route('admin.asset-detail.index')
-        ->with('error', 'Data Gagal Disimpan!');
-}
-
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-{
-    $data = AssetDetail::findOrFail($id);
-    $assets = Asset::get();
-    $action = "update";
-
-    return view('admin.asset.detail.form', compact('data', 'action'));
-}
-
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-        $data = AssetDetail::find($id);
-
-        //validator
-        $this->validate($request, [
-            'name' => 'required|unique:asset_details,name,'.$data->id
+        $request->validate([
+            'asset_id'        => 'required|exists:assets,id',
+            'number_seri'     => 'nullable|string|max:255',
+            'production_year' => 'nullable|integer|min:1900|max:' . date('Y'),
+            'unit_price'      => 'nullable|numeric',
+            'condition'       => 'required|string|max:50',
         ]);
-        
-        $data->name = $request->name;  
-        $data->slug = Str::slug($request->input('name'), '-');
-      
-        $save = $data->save();
 
-        if($save){
-            //redirect dengan pesan sukses
-            return redirect()->route('admin.asset-detail.index')->with(['success' => 'Data Berhasil Diperbaharui!']);
-        }else{
-            //redirect dengan pesan error
-            return redirect()->route('admin.asset-detail.index')->with(['error' => 'Data Gagal Diperbaharui!']);
-        }
+        AssetDetail::create([
+            'asset_id'        => $request->asset_id,
+            'number_seri'     => $request->number_seri,
+            'production_year' => $request->production_year,
+            'unit_price'      => $request->unit_price,
+            'condition'       => $request->condition,
+        ]);
 
+        return redirect()->route('admin.asset-detail.index')
+                         ->with('success', 'Data Berhasil Disimpan!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy( $id)
+    public function edit($id)
     {
-        //
+        $data   = AssetDetail::with('asset')->findOrFail($id);
+        $assets = Asset::all();
+        $action = 'update';
+
+        return view('admin.asset.detail.form', compact('data', 'action', 'assets'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = AssetDetail::findOrFail($id);
+
+        $request->validate([
+            'number_seri'     => 'nullable|string|max:255',
+            'production_year' => 'nullable|integer|min:1900|max:' . date('Y'),
+            'unit_price'      => 'nullable|numeric',
+            'condition'       => 'required|string|max:50',
+        ]);
+
+        $data->update([
+            'number_seri'     => $request->number_seri,
+            'production_year' => $request->production_year,
+            'unit_price'      => $request->unit_price,
+            'condition'       => $request->condition,
+        ]);
+
+        return redirect()->route('admin.asset-detail.index')
+                         ->with('success', 'Data Berhasil Diperbaharui!');
+    }
+
+    public function destroy($id)
+    {
         $data = AssetDetail::findOrFail($id);
         $data->delete();
 
-        if($data){
-            return response()->json([
-                'status' => 'success'
-            ]);
-        }else{
-            return response()->json([
-                'status' => 'error'
-            ]);
-        }
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data berhasil dihapus!'
+        ]);
     }
 }
