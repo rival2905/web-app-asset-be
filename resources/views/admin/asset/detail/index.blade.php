@@ -112,7 +112,7 @@
             dangerMode: true,
         }).then(function(isConfirm) {
             if (isConfirm) {
-                fetch("/admin/asset/detail/destroy/" + id, {
+                fetch("/admin/asset/asset-detail/destroy/" + id, {
                     method: "DELETE",
                     headers: {
                         "X-CSRF-TOKEN": token
