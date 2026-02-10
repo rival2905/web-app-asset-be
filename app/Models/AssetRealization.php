@@ -14,7 +14,13 @@ class AssetRealization extends Model
     protected $fillable = [
         'asset_id',
         'date',
-        'room_id',
+        'room',          // ← Ganti jadi room (text)
         'detail_asset'
     ];
+
+    // Relasi ke Asset
+    public function asset()
+    {
+        return $this->belongsTo(Asset::class);
+    }
 }

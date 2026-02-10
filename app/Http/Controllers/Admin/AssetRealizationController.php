@@ -4,124 +4,104 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
-use App\Models\AssetRealization;
 use App\Models\Asset;
 use App\Models\Room;
+use App\Models\AssetDetail;
+use App\Models\AssetRealization;
 
 class AssetRealizationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $realizations = AssetRealization::get();
-        return view('admin.asset.realization.index', compact('realizations'));
+        $realizations = AssetRealization::with(['asset', 'room', 'assetDetail'])->get();
+        return view('admin.realization.index', compact('realizations'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        $action = "store";
         $assets = Asset::all();
-        $rooms = Room::all();
-
-        return view('admin.asset.realization.form', compact(
-            'action',
-            'assets',
-            'rooms'
-        ));
+        $rooms = Room::all(); // 🔥 TAMBAHKAN INI (Wajib ada untuk form)
+        
+        return view('admin.realization.create', compact('assets', 'rooms'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        // validator
-        $this->validate($request, [
-            'asset_id' => 'required',
+        $request->validate([
+            'asset_id' => 'required|exists:assets,id',
             'date' => 'required|date',
-            'room_id' => 'required',
-            'detail_asset' => 'required'
+            'room_id' => 'nullable|exists:rooms,id',
+            'detail_asset_id' => 'nullable|exists:asset_details,id',
         ]);
 
-        // nampung data
-        $data = [
-            'asset_id' => $request->asset_id,
-            'date' => $request->date,
-            'room_id' => $request->room_id,
-            'detail_asset' => $request->detail_asset,
-        ];
+        AssetRealization::create($request->all());
 
-        $save = AssetRealization::create($data);
-
+        // 🔥 PERBAIKI: Sesuaikan nama route dengan web.php
         return redirect()->route('admin.asset-realization.index')
-            ->with($save ? 'success' : 'error',
-                $save ? 'Data Berhasil Disimpan!' : 'Data Gagal Disimpan!');
+            ->with('success', 'Realisasi Asset berhasil disimpan!');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    // 🔥 AJAX: Get Rooms by Asset
+    public function getRoomsByAsset($asset_id)
+    {
+        try {
+            $rooms = Room::all(['id', 'name']);
+            return response()->json($rooms);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    // 🔥 AJAX: Get Asset Details by Asset
+    public function getDetailsByAsset($asset_id)
+    {
+        try {
+            $details = AssetDetail::where('asset_id', $asset_id)
+                ->select('id', 'number_seri', 'production_year', 'condition')
+                ->get();
+            return response()->json($details);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    // 🔥 TAMBAHAN: Method Edit
     public function edit($id)
     {
-        $action = "update";
-
-        // GANTI slug jadi find by ID
         $data = AssetRealization::findOrFail($id);
-
         $assets = Asset::all();
-        $rooms = Room::all();
-
-        return view('admin.asset.realization.form', compact(
-            'data',
-            'action',
-            'assets',
-            'rooms'
-        ));
+        $rooms = Room::all(); // Kirim juga rooms
+        
+        return view('admin.realization.edit', compact('data', 'assets', 'rooms'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    // 🔥 TAMBAHAN: Method Update
+    public function update(Request $request, $id)
     {
-        $data = AssetRealization::findOrFail($id);
-
-        // validator
-        $this->validate($request, [
-            'asset_id' => 'required',
+        $request->validate([
+            'asset_id' => 'required|exists:assets,id',
             'date' => 'required|date',
-            'room_id' => 'required',
-            'detail_asset' => 'required'
+            'room_id' => 'nullable|exists:rooms,id',
+            'detail_asset_id' => 'nullable|exists:asset_details,id',
         ]);
 
-        $data->asset_id = $request->asset_id;
-        $data->date = $request->date;
-        $data->room_id = $request->room_id;
-        $data->detail_asset = $request->detail_asset;
+        $data = AssetRealization::findOrFail($id);
+        $data->update($request->all());
 
-        $save = $data->save();
-
+        // 🔥 PERBAIKI: Sesuaikan nama route
         return redirect()->route('admin.asset-realization.index')
-            ->with($save ? 'success' : 'error',
-                $save ? 'Data Berhasil Diperbaharui!' : 'Data Gagal Diperbaharui!');
+            ->with('success', 'Data berhasil diperbarui!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // 🔥 TAMBAHAN: Method Destroy
     public function destroy($id)
     {
-        $data = AssetRealization::findOrFail($id);
-        $data->delete();
+        AssetRealization::findOrFail($id)->delete();
 
+        // Return JSON untuk AJAX di view
         return response()->json([
-            'status' => $data ? 'success' : 'error'
+            'status' => 'success',
+            'message' => 'Data berhasil dihapus!'
         ]);
     }
 }

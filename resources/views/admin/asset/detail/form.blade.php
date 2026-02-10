@@ -34,7 +34,7 @@
                 @csrf
                 @if($action == 'update') @method('PUT') @endif
 
-                {{-- Asset dropdown --}}
+                {{-- Asset dropdown (DIPERBAIKI) --}}
                 <div class="mb-3">
                     <label for="asset_id" class="form-label">Asset</label>
                     <select name="asset_id" id="asset_id" class="form-control select2" required>
@@ -42,7 +42,9 @@
                         @foreach ($assets as $asset)
                         <option value="{{ $asset->id }}" 
                             {{ old('asset_id', $data->asset_id ?? '') == $asset->id ? 'selected' : '' }}>
-                            {{ $asset->name }} | Serial: {{ $asset->number_seri ?? '-' }} | Production Year: {{ $asset->production_year ?? '-' }} | Price: {{ number_format($asset->unit_price ?? 0) }} | Condition: {{ $asset->condition ?? '-' }}
+                            {{ $asset->name }} 
+                            @if($asset->item_code) | Code: {{ $asset->item_code }} @endif
+                            @if($asset->brand) | Brand: {{ $asset->brand->name }} @endif
                         </option>
                         @endforeach
                     </select>
@@ -56,7 +58,8 @@
                     <div class="col-md-3">
                         <label for="number_seri" class="form-label">Serial Number</label>
                         <input type="text" name="number_seri" id="number_seri" class="form-control" 
-                               value="{{ old('number_seri', $data->number_seri ?? '') }}">
+                               value="{{ old('number_seri', $data->number_seri ?? '') }}"
+                               placeholder="e.g., ABC123XYZ">
                     </div>
 
                     <div class="col-md-3">
@@ -72,7 +75,8 @@
                     <div class="col-md-3">
                         <label for="unit_price" class="form-label">Unit Price</label>
                         <input type="number" step="0.01" name="unit_price" id="unit_price" class="form-control" 
-                               value="{{ old('unit_price', $data->unit_price ?? '') }}">
+                               value="{{ old('unit_price', $data->unit_price ?? '') }}"
+                               placeholder="e.g., 5000000">
                         @error('unit_price')
                             <div class="invalid-feedback" style="display:block">{{ $message }}</div>
                         @enderror
@@ -110,7 +114,45 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 <script>
 $(document).ready(function() {
-    $('.select2').select2({ placeholder: '-- Select Asset --', width: '100%' });
+    // Aktifkan Select2
+    $('.select2').select2({ 
+        placeholder: '-- Select Asset --', 
+        width: '100%' 
+    });
+
+    // 🔥 AJAX: Auto-load detail saat asset dipilih (OPSIONAL)
+    $('#asset_id').on('change', function() {
+        let assetId = $(this).val();
+        
+        if (!assetId) {
+            console.log('No asset selected');
+            return;
+        }
+
+        console.log('Asset ID dipilih:', assetId);
+
+        // Fetch detail asset dari API
+        fetch(`/asset-detail/by-asset/${assetId}`)
+            .then(res => res.json())
+            .then(data => {
+                console.log('Detail Asset:', data);
+                
+                // Opsional: Tampilkan info jika asset sudah punya detail
+                if (data.length > 0) {
+                    let info = `Asset ini sudah memiliki ${data.length} detail:\n`;
+                    data.forEach(item => {
+                        info += `- Serial: ${item.number_seri || '-'}, Kondisi: ${item.condition}\n`;
+                    });
+                    console.log(info);
+                    
+                    // Bisa ditampilkan di alert atau notifikasi
+                    // alert(info);
+                }
+            })
+            .catch(err => {
+                console.error('Error fetching asset details:', err);
+            });
+    });
 });
 </script>
 @endpush

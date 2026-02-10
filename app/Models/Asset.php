@@ -28,4 +28,10 @@ class Asset extends Model
     {
         return $this->belongsTo(Brand::class);
     }
+
+    // 🔥 TAMBAHAN INI SAJA
+    public function details()
+    {
+        return $this->hasMany(AssetDetail::class);
+    }
 }

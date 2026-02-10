@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('asset_id')->unsigned()->nullable();
             $table->date('date')->nullable();
-            $table->bigInteger('room_id')->unsigned()->nullable();
+            $table->bigInteger('room')->unsigned()->nullable();
             $table->bigInteger('detail_asset_id')->unsigned()->nullable();
             $table->timestamps();
         });

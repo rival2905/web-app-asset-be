@@ -32,21 +32,15 @@ class AssetDetailController extends Controller
             'condition'       => 'required|string|max:50',
         ]);
 
-        AssetDetail::create([
-            'asset_id'        => $request->asset_id,
-            'number_seri'     => $request->number_seri,
-            'production_year' => $request->production_year,
-            'unit_price'      => $request->unit_price,
-            'condition'       => $request->condition,
-        ]);
+        AssetDetail::create($request->all());
 
         return redirect()->route('admin.asset-detail.index')
-                         ->with('success', 'Data Berhasil Disimpan!');
+            ->with('success', 'Data Berhasil Disimpan!');
     }
 
     public function edit($id)
     {
-        $data   = AssetDetail::with('asset')->findOrFail($id);
+        $data   = AssetDetail::findOrFail($id);
         $assets = Asset::all();
         $action = 'update';
 
@@ -64,25 +58,27 @@ class AssetDetailController extends Controller
             'condition'       => 'required|string|max:50',
         ]);
 
-        $data->update([
-            'number_seri'     => $request->number_seri,
-            'production_year' => $request->production_year,
-            'unit_price'      => $request->unit_price,
-            'condition'       => $request->condition,
-        ]);
+        $data->update($request->all());
 
         return redirect()->route('admin.asset-detail.index')
-                         ->with('success', 'Data Berhasil Diperbaharui!');
+            ->with('success', 'Data Berhasil Diperbaharui!');
     }
 
     public function destroy($id)
     {
-        $data = AssetDetail::findOrFail($id);
-        $data->delete();
+        AssetDetail::findOrFail($id)->delete();
 
         return response()->json([
             'status' => 'success',
             'message' => 'Data berhasil dihapus!'
         ]);
+    }
+
+    // 🔥 TAMBAHAN UNTUK DROPDOWN DINAMIS
+    public function getByAsset($asset_id)
+    {
+        return response()->json(
+            AssetDetail::where('asset_id', $asset_id)->get()
+        );
     }
 }

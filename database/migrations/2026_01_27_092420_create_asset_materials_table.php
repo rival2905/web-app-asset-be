@@ -15,9 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique()->nullable();
-            $table->bigInteger('aset_type_id')->unsigned()->nullable();
-            $table->bigInteger('brand_id')->unsigned()->nullable();
-            $table->bigInteger('seri_id')->unsigned()->nullable();
             $table->timestamps();
         });
     }

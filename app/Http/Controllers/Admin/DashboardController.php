@@ -21,12 +21,12 @@ class DashboardController extends Controller
             [
                 'title' => 'Total User',
                 'count' => $totalUser,
-                'route' => route('admin.users.index'),
+                'route' => '',
             ],
             [
                 'title' => 'Total Asset',
                 'count' => $totalAsset,
-                'route' => route('admin.assets.index'),
+                'route' => '',
             ],
                 
         ];
